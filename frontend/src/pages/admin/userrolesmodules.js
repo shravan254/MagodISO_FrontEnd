@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Col, Row, Table, Form, Button } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
-import validator from "validator";
+// import validator from "validator";
 // import Breadcrumbscomponent from "../components/BreadCumbsComponent";
 import { toast } from "react-toastify";
 
