@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import Logo from "../Auth/Magod Laser Logo - Default [2500].png";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+// import { useAlert } from "react-alert";
 
 const { getRequest, postRequest } = require("../api/apiinstance");
 const { endpoints } = require("../api/constants");
