@@ -12,18 +12,18 @@ function InspServiceScheduleList() {
 
   const [data, setData] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        "http://localhost:4001/schedulelist/getallcustomers"
-      );
-      const customerdata = await response.json();
-      console.log("data", data);
-      setData(customerdata);
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetch(
+  //       "http://localhost:4001/schedulelist/getallcustomers"
+  //     );
+  //     const customerdata = await response.json();
+  //     console.log("data", data);
+  //     setData(customerdata);
+  //   }
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   // useEffect(() => {
   //   async function getTestData() {

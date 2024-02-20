@@ -23,7 +23,6 @@ import Custinvandpayments from "./pages/Sales/Customer/Commercial/Invoices_and_p
 // import Quotation from "./pages/Quotation/Quotations/Quotation";
 
 import Quotation from "./pages/Sales/Quotation/Quotations/Quotation";
-
 import Home from "./pages/Home";
 import HomeOne from "./pages/HomeOne";
 // import Adddetails from "./pages/Quotation/Quotations/AddDetails/Adddetails";
@@ -96,7 +95,7 @@ function App() {
 
             <Route path="PartList" element={<PartList />} />
             <Route path="RateEstimator" element={<ISO_Forms />} />
-            <Route path="TaskSheet" element={<TaskSheet/>} />
+            <Route path="TaskSheet" element={<TaskSheet />} />
           </Route>
 
           <Route path="/admin" element={<Parentroute />}>
