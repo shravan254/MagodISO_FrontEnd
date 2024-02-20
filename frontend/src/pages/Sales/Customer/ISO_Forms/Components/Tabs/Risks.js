@@ -28,7 +28,7 @@ const Risks = () => {
     <div className="">
       <div className="row col-md-12 mb-3">
         <div className="col-md-8">
-          <div className="mt-3">
+          <div className="mt-3 mb-5">
             <div
               style={{
                 height: "180px",
