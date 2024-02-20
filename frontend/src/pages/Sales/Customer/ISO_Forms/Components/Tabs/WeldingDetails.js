@@ -1,12 +1,39 @@
-import React, { useState } from "react";
-import { Table, Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 
-function CustomerRequirements({ formData }) {
+import { Row, Col, Form, FormLabel, Table, Toast } from "react-bootstrap";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+function WeldingDetails({
+  formData,
+  handleInputChange,
+  nextPage,
+  handleCheckboxChange,
+}) {
+  const [field, setField] = useState({
+    part_name: "",
+    material: "",
+    thickness: "",
+    uom: "",
+    quantity: "",
+  });
+
+  const [getValues, setGetValues] = useState([]);
+  const [selectRow, setSelectRow] = useState("");
+  const [selectPartId, setSelectPartId] = useState(null);
+
+  const [fillerYes, setFillerYes] = useState(false);
+  const [fillerNo, setFillerNo] = useState(false);
+
   const [showInput, setShowInput] = useState(false);
   const [openInput, setOpenInput] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const [showHardCopy, setShowHardCopy] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const formChange = (e) => {
+    setField({ ...field, [e.target.name]: e.target.value });
+  };
 
   const handleClick = (e) => {
     if (e.target.value === "others") {
@@ -40,60 +67,177 @@ function CustomerRequirements({ formData }) {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Do something with the selected file
-    if (selectedFile) {
-      console.log("Selected file:", selectedFile);
-      // Perform file upload or other operations
-    }
+  const selectedRowFun = (item, index) => {
+    let list = { ...item, index: index };
+    setSelectRow(list);
+    setSelectPartId(list.Part_id);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="row">
-          {/* <div className="col-md-12">
-        <Table striped>
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style={{ verticalAlign: "middle" }}>Depth of Penetration</td>
+      <div className="row col-md-12 mb-3">
+        <div className="col-md-8">
+          <div className="mt-3">
+            <div
+              style={{
+                height: "180px",
+                overflowY: "scroll",
+                overflowX: "scroll",
+              }}
+            >
+              <Table className="table-data border" striped>
+                <thead
+                  className="tableHeaderBGColor"
+                  // style={{ textAlign: "center" }}
+                >
+                  <tr>
+                    <th>SL No</th>
+                    <th>Material</th>
+                    <th>Thickness</th>
+                  </tr>
+                </thead>
 
-              <td>
-                <Form.Control type="text" name="" />
-              </td>
-            </tr>
-            <tr>
-              <td style={{ verticalAlign: "middle" }}>Strength</td>
-              <td>
-                <Form.Control type="text" name="" />
-              </td>
-            </tr>
-            <tr>
-              <td style={{ verticalAlign: "middle" }}>Hermatic Joint</td>
-              <td>
-                <Form.Control type="text" name="" />
-              </td>
-            </tr>
-            <tr>
-              <td style={{ verticalAlign: "middle" }}>Allowable Defects</td>
-              <td>
-                <Form.Control type="text" name="" />
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-      </div> */}
+                <tbody className="tablebody">
+                  {getValues.map((item, key) => {
+                    return (
+                      <tr
+                        onClick={() => selectedRowFun(item, key)}
+                        className={
+                          key === selectRow?.index ? "selcted-row-clr" : ""
+                        }
+                      >
+                        {/* <td>Sl No</td> */}
+                        <td>{item.Material}</td>
+                        <td>{item.Thickness}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
+          </div>
         </div>
 
-        <h4 className="form-title  mt-4">
+        <div className="col-md-4 mb-2 mt-3">
+          <form>
+            <div className="">
+              <label className="form-label">Material</label>
+              <input
+                type="text"
+                name="material"
+                value={field.material}
+                onChange={formChange}
+                // required
+              />
+            </div>
+
+            <div className="">
+              <label className="form-label">Thickness</label>
+              <input
+                type="number"
+                name="thickness"
+                value={field.thickness}
+                onChange={formChange}
+                // required
+              />
+            </div>
+
+            <div className="d-flex">
+              <div className="">
+                <button className="button-style" variant="primary">
+                  Add Material
+                </button>
+              </div>
+
+              <div className="">
+                <button className="button-style" variant="primary">
+                  Delete Material
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div className="row col-md-12">
+        <div className="col-md-4">
+          <div className="">
+            <label className="form-label">Join type</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="">
+            <label className="form-label">Allowable Combination</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="">
+            <label className="form-label">
+              Statutory & Regulatory Requirements
+            </label>
+            <input type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div className="row col-md-12 mb-2">
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label">Prototype Qty</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label">Batch Qty</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label">Year Qty</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label">Fixture Requirement</label>
+            <input type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div className="row col-md-12">
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label">Depth Of Penetration</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label">Strength</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label">Hermatic Jiont</label>
+            <input type="text" />
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label">Allowable Deffects</label>
+            <input type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="form-title  mt-4 ms-2">
           <b>Input Geometry</b>
         </h4>
         <div className="row">
@@ -140,60 +284,19 @@ function CustomerRequirements({ formData }) {
             </div>
 
             <div className="">
-              {showHardCopy && (
-                <div className="">
-                  <label className="form-label">Is It Hardcopy</label>
-                  <div style={{ display: "flex", gap: "70px" }}>
-                    <div className="mt-1 p-1">
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          id="flexRadioDefaultA3"
-                          name="flexRadioDefaultA1"
-                          onClick={handleYes}
-                        />
-                        <label
-                          className="form-check-label checkBoxStyle"
-                          htmlFor="flexCheckDefault"
-                        >
-                          Yes
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className="mt-1 p-1">
-                      <div className="form-check ">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          id="flexRadioDefaultA4"
-                          name="flexRadioDefaultA1"
-                          onClick={handleUpload}
-                        />
-                        <label
-                          className="form-check-label checkBoxStyle"
-                          htmlFor="flexCheckDefault"
-                        >
-                          No
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="">
               {showUpload && (
                 <div className="">
                   <label className="form-label">Upload Copy</label>
-                  <input className="form-control" type="file" onChange={handleFileChange} />
+                  <input
+                    className="form-control"
+                    type="file"
+                    onChange={handleFileChange}
+                  />
                 </div>
               )}
             </div>
           </div>
-          
+
           <div className="col-md-4">
             <label className="form-label">Inspection</label>
             <div className="" style={{ display: "flex", gap: "70px" }}>
@@ -249,43 +352,6 @@ function CustomerRequirements({ formData }) {
                   </label>
                 </div>
               </div>
-
-              <div className="mt-1 p-1">
-                <div className="form-check" style={{ marginLeft: "19px" }}>
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="flexCheckDefault"
-                    name="project manager"
-                  />
-                  <label
-                    className="form-check-label checkBoxStyle"
-                    htmlFor="flexCheckDefault"
-                  >
-                    Visual Inspection
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="" style={{ display: "flex", gap: "70px" }}>
-              <div className="mt-1 p-1">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="flexCheckDefault"
-                    name="project manager"
-                    onClick={handleBox}
-                  />
-                  <label
-                    className="form-check-label checkBoxStyle"
-                    htmlFor="flexCheckDefault"
-                  >
-                    Others
-                  </label>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -315,16 +381,13 @@ function CustomerRequirements({ formData }) {
           </div>
         </div>
 
-        <h4 className="form-title  mt-4">
-          <b>Shipping/Delivery</b>
-        </h4>
-
-        <div className="row">
+        <div className="row mb-5">
           <div className="col-md-4">
-            <label className="form-label">Transporter</label>
+            <label className="form-label">Shipping/Delivery</label>
             <select className="ip-select mt-1" onClick={(e) => handleClick(e)}>
               <option value="MagodDelivary">Magod Delivary</option>
               <option value="customerPickUp">Customer Pick Up</option>
+              <option value="Transporter">Transporter</option>
               <option value="others">Others</option>
             </select>
           </div>
@@ -347,23 +410,9 @@ function CustomerRequirements({ formData }) {
         <div className="row mb-2">
           <div className="col-md-4"></div>
         </div>
-
-        <div className="d-flex mb-5">
-          <div className="ms-2">
-            <button type="submit" className="button-style" variant="primary">
-              Save
-            </button>
-          </div>
-
-          <div className="ms-2">
-            <button className="button-style" variant="primary">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </form>
+      </div>
     </>
   );
 }
 
-export default CustomerRequirements;
+export default WeldingDetails;

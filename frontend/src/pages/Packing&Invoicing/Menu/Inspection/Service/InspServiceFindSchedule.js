@@ -17,18 +17,18 @@ function InspServiceFindSchedule() {
   //   getTestData();
   // }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        "http://localhost:4001/schedulelist/getallcustomers"
-      );
-      const data = await response.json();
-      console.log("data", data);
-      setData(data);
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetch(
+  //       "http://localhost:4001/schedulelist/getallcustomers"
+  //     );
+  //     const data = await response.json();
+  //     console.log("data", data);
+  //     setData(data);
+  //   }
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <div>

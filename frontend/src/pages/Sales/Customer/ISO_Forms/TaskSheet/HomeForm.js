@@ -426,10 +426,10 @@ export default function HomeForm() {
             <div className="mt-1 p-1">
               <div className="form-check">
                 <input
-                  className="form-check-input"
-                  type="checkbox"
-                  name="yes"
-                  id="flexCheckDefault"
+                   className="form-check-input"
+                   type="radio"
+                   id="flexRadioDefaultA1"
+                   name="flexRadioDefaultA"
                 />
                 <label
                   className="form-check-label checkBoxStyle"
@@ -444,9 +444,9 @@ export default function HomeForm() {
               <div className="form-check ">
                 <input
                   className="form-check-input"
-                  type="checkbox"
-                  id="flexCheckDefault"
-                  name="no"
+                  type="radio"
+                  id="flexRadioDefaultA2"
+                  name="flexRadioDefaultA"
                 />
                 <label
                   className="form-check-label checkBoxStyle"
