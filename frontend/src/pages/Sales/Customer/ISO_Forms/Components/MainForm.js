@@ -54,6 +54,15 @@ function MainForm() {
 
   console.log("formData", formData);
 
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    return dateObject.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
   return (
     <div>
       <div>
@@ -64,7 +73,7 @@ function MainForm() {
           <div className="col-md-3">
             <div className="">
               <label className="form-label">Enquiry Date</label>
-              <input type="text" disabled value={formData.enquiryDate} />
+              <input type="text" disabled value={formatDate(formData.enquiryDate)} />
             </div>
           </div>
 
@@ -175,26 +184,27 @@ function MainForm() {
             ></textarea>
           </div>
 
-          <div className="col-md-1 mt-4">
-            <button
-              type="submit"
-              className="button-style"
-              variant="primary"
-              style={{ width: "120px" }}
-            >
-              Save
-            </button>
-          </div>
-
-          <div className="col-md-1 mt-4">
-            <button
-              type="submit"
-              className="button-style"
-              variant="primary"
-              style={{ width: "120px" }}
-            >
-              Close
-            </button>
+          <div className="row col-md-3" style={{ gap: "110px" }}>
+            <div className="col-md-1 mt-4">
+              <button
+                type="submit"
+                className="button-style"
+                variant="primary"
+                style={{ width: "120px" }}
+              >
+                Save
+              </button>
+            </div>
+            <div className="col-md-1 mt-4">
+              <button
+                type="submit"
+                className="button-style"
+                variant="primary"
+                style={{ width: "120px" }}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
