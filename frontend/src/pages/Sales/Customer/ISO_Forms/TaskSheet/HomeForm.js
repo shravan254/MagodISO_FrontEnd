@@ -24,74 +24,111 @@ export default function HomeForm() {
       <div>
         <h4 className="title ">Task Sheet For-Laser Welding</h4>
       </div>
-
       <div className="row col-md-12">
         <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">Schedule No/Task No</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Schedule No/Task No</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">Assembly Part Name/No</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Assembly Name/No</label>
+            </div>
+            <div className="col-m-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">Sub-Assy Part Name/No</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Sub-Assy Name/No</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">Qty Received</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Qty Received</label>
+            </div>
+            <div className="col-md-6 mt">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">Any Defects</label>
-            <input type="text" required />
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">Date</label>
-            <input type="date" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Machine/Model No</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Program No</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Fixture Requirement</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-2">
-            <label className="form-label">
-              Lens distance[Focal Length] in mm
-            </label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Any Defects</label>
+            </div>
+            <div className="col-md-6 mt">
+              <input type="text" required />
+            </div>
           </div>
         </div>
 
         <div className="col-md-4">
-          <div className="mt-4" style={{ marginLeft: "180px" }}>
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Date</label>
+            </div>
+            <div className="col-md-6 mt">
+              <input type="date" required />
+            </div>
+          </div>
+
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Machine/Model No</label>
+            </div>
+            <div className="col-md-6 mt">
+              <input type="text" required />
+            </div>
+          </div>
+
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Program No</label>
+            </div>
+            <div className="col-md-6 mt">
+              <input type="text" required />
+            </div>
+          </div>
+
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Fixture Requirement</label>
+            </div>
+            <div className="col-md-6 mt">
+              <input type="text" required />
+            </div>
+          </div>
+
+          <div className="d-flex mt-2">
+            <div className="col-md-5">
+              <label className="form-label">
+                Lens distance[Focal Length] in mm
+              </label>
+            </div>
+            <div className="col-md-6 mt">
+              <input type="text" required />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-4">
+          <div className="mt-1" style={{ marginLeft: "220px" }}>
             <button className="button-style" variant="primary">
               Close
             </button>
           </div>
 
-          <label className="form-label" style={{ marginTop: "60px" }}>
-            Weld Settings Verified By
-          </label>
+          <label className="form-label">Weld Settings Verified By</label>
           <div style={{ display: "flex", gap: "40px" }}>
             <div className="mt-1 p-1">
               <div className="form-check">
@@ -292,88 +329,144 @@ export default function HomeForm() {
 
           <div className="row col-md-12">
             <div className="col-md-6">
-              <div className="mt-1">
-                <label className="form-label">Type of Laser Equipment</label>
-                <input type="text" required />
+              <div className="d-flex  mt-1">
+                <div className="col-md-6">
+                  <label className="form-label">Type of Laser Equipment</label>
+                </div>
+                <div className="col-md-6 mt-1">
+                  <input type="text" required />
+                </div>
               </div>
 
-              <div className="mt-1">
-                <label className="form-label">Reweld Permitted</label>
-                <input type="text" required />
+              <div className="d-flex mt-1">
+                <div className="col-md-6">
+                  <label className="form-label">Reweld Permitted</label>
+                </div>
+                <div className="col-md-6 mt-1">
+                  <input type="text" required />
+                </div>
               </div>
             </div>
 
             <div className="col-md-6">
-              <div className="mt-1">
-                <label className="form-label">Fixture No</label>
-                <input type="text" required />
+              <div className="d-flex mt-1">
+                <div className="col-md-5">
+                  <label className="form-label">Fixture No</label>
+                </div>
+                <div className="col-md-6 mt-1">
+                  <input type="text" required />
+                </div>
               </div>
 
-              <div className="mt-1">
-                <label className="form-label">Machine Peak Power</label>
-                <input type="text" required />
+              <div className="d-flex mt-1">
+                <div className="col-md-5">
+                  <label className="form-label">Machine Peak Power</label>
+                </div>
+                <div className="col-md-6 mt-1">
+                  <input type="text" required />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="col-md-4 mt-2">
-          <div className="mt-1">
-            <label className="form-label">Material Thickness</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Material Thickness</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">With Filler</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">With Filler</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">Filler Material</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Filler Material</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">Batch No/Charge No</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Batch No/Charge No</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
         </div>
       </div>
 
       <div className="row col-md-12">
         <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">Control Plan No</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-6">
+              <label className="form-label">Control Plan No</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">PFD No</label>
-            <input type="text" required />
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">PQR No</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Standard Parameter Ref</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-6">
+              <label className="form-label">PFD No</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
         </div>
 
         <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">WPS No</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">PQR No</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
 
-          <div className="mt-1">
-            <label className="form-label">WI No</label>
-            <input type="text" required />
+          <div className="d-flex mt-1">
+            <div className="col-md-5">
+              <label className="form-label">Standard Parameter Ref</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-4">
+          <div className="d-flex mt-1">
+            <div className="col-md-3">
+              <label className="form-label">WPS No</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
+          </div>
+
+          <div className="d-flex mt-1">
+            <div className="col-md-3">
+              <label className="form-label">WI No</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" required />
+            </div>
           </div>
         </div>
       </div>
@@ -426,10 +519,10 @@ export default function HomeForm() {
             <div className="mt-1 p-1">
               <div className="form-check">
                 <input
-                   className="form-check-input"
-                   type="radio"
-                   id="flexRadioDefaultA1"
-                   name="flexRadioDefaultA"
+                  className="form-check-input"
+                  type="radio"
+                  id="flexRadioDefaultA1"
+                  name="flexRadioDefaultA"
                 />
                 <label
                   className="form-check-label checkBoxStyle"

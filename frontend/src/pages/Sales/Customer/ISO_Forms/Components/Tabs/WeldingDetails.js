@@ -80,7 +80,7 @@ function WeldingDetails({
           <div className="mt-3">
             <div
               style={{
-                height: "180px",
+                height: "140px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}
@@ -120,26 +120,34 @@ function WeldingDetails({
 
         <div className="col-md-4 mb-2 mt-3">
           <form>
-            <div className="">
-              <label className="form-label">Material</label>
-              <input
-                type="text"
-                name="material"
-                value={field.material}
-                onChange={formChange}
-                // required
-              />
+            <div className="d-flex">
+              <div className="col-md-3">
+                <label className="form-label">Material</label>
+              </div>
+              <div className="col-md-7 mt-1">
+                <input
+                  type="text"
+                  name="material"
+                  value={field.material}
+                  onChange={formChange}
+                  // required
+                />
+              </div>
             </div>
 
-            <div className="">
-              <label className="form-label">Thickness</label>
-              <input
-                type="number"
-                name="thickness"
-                value={field.thickness}
-                onChange={formChange}
-                // required
-              />
+            <div className="d-flex">
+              <div className="col-md-3">
+                <label className="form-label">Thickness</label>
+              </div>
+              <div className="col-md-7 mt-1">
+                <input
+                  type="number"
+                  name="thickness"
+                  value={field.thickness}
+                  onChange={formChange}
+                  // required
+                />
+              </div>
             </div>
 
             <div className="d-flex">
@@ -160,255 +168,209 @@ function WeldingDetails({
       </div>
 
       <div className="row col-md-12">
-        <div className="col-md-4">
-          <div className="">
-            <label className="form-label">Join type</label>
-            <input type="text" />
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="">
+        <div className="row col-md-6">
+          <div className="col-md-2">
             <label className="form-label">Allowable Combination</label>
+          </div>
+          <div className="col-md-9 mt-2">
             <input type="text" />
           </div>
         </div>
-        <div className="col-md-4">
-          <div className="">
+        <div className="row col-md-6">
+          <div className="col-md-4">
             <label className="form-label">
               Statutory & Regulatory Requirements
             </label>
+          </div>
+          <div className="col-md-8 mt-2">
             <input type="text" />
           </div>
         </div>
       </div>
 
       <div className="row col-md-12 mb-2">
-        <div className="col-md-3">
-          <div className="">
-            <label className="form-label">Prototype Qty</label>
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Join type</label>
+          </div>
+          <div className="col-md-6 mt-1">
             <input type="text" />
           </div>
         </div>
-        <div className="col-md-3">
-          <div className="">
+        <div className="d-flex col-md-3">
+          <div className="col-md-5">
             <label className="form-label">Batch Qty</label>
+          </div>
+          <div className="col-md-6 mt-1">
             <input type="text" />
           </div>
         </div>
-        <div className="col-md-3">
-          <div className="">
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
             <label className="form-label">Year Qty</label>
+          </div>
+          <div className="col-md-6 mt-1">
             <input type="text" />
           </div>
         </div>
-        <div className="col-md-3">
-          <div className="">
+        <div className="d-flex col-md-3">
+          <div className="col-md-6">
             <label className="form-label">Fixture Requirement</label>
+          </div>
+          <div className="col-md-6 mt-1">
             <input type="text" />
           </div>
         </div>
       </div>
 
       <div className="row col-md-12">
-        <div className="col-md-3">
-          <div className="">
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
             <label className="form-label">Depth Of Penetration</label>
+          </div>
+          <div className="col-md-6 mt-1">
             <input type="text" />
           </div>
         </div>
-        <div className="col-md-3">
-          <div className="">
+        <div className="d-flex col-md-3">
+          <div className="col-md-5">
             <label className="form-label">Strength</label>
+          </div>
+          <div className="col-md-6 mt-1">
             <input type="text" />
           </div>
         </div>
-        <div className="col-md-3">
-          <div className="">
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
             <label className="form-label">Hermatic Jiont</label>
+          </div>
+          <div className="col-md-6 mt-1">
             <input type="text" />
           </div>
         </div>
-        <div className="col-md-3">
-          <div className="">
+        <div className="d-flex col-md-3">
+          <div className="col-md-6">
             <label className="form-label">Allowable Deffects</label>
+          </div>
+          <div className="col-md-6 mt-1">
             <input type="text" />
           </div>
         </div>
       </div>
-
+      <hr />
       <div>
-        <h4 className="form-title  mt-4 ms-2">
+        <h4 className="form-title ms-2" style={{ fontSize: "15px" }}>
           <b>Input Geometry</b>
         </h4>
-        <div className="row">
-          <div className="col-md-4">
-            <div className="">
+        <div className="row mb-2">
+          <div className="d-flex col-md-4">
+            <div className="col-md-4">
               <label className="form-label">Drawing Available</label>
-              <div style={{ display: "flex", gap: "70px" }}>
-                <div className="mt-1 p-1">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      id="flexRadioDefaultA1"
-                      name="flexRadioDefaultA"
-                      onClick={handleHardcopy}
-                    />
-                    <label
-                      className="form-check-label checkBoxStyle"
-                      htmlFor="flexCheckDefault"
-                    >
-                      Yes
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mt-1 p-1">
-                  <div className="form-check ">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      id="flexRadioDefaultA2"
-                      name="flexRadioDefaultA"
-                      onClick={handleNo}
-                    />
-                    <label
-                      className="form-check-label checkBoxStyle"
-                      htmlFor="flexCheckDefault"
-                    >
-                      No
-                    </label>
-                  </div>
-                </div>
-              </div>
             </div>
-
-            <div className="">
-              {showUpload && (
-                <div className="">
-                  <label className="form-label">Upload Copy</label>
-                  <input
-                    className="form-control"
-                    type="file"
-                    onChange={handleFileChange}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <label className="form-label">Inspection</label>
-            <div className="" style={{ display: "flex", gap: "70px" }}>
-              <div className="mt-1 p-1">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name="shift incharge"
-                    id="flexCheckDefault"
-                  />
-                  <label
-                    className="form-check-label checkBoxStyle"
-                    htmlFor="flexCheckDefault"
-                  >
-                    Dimension Checks
-                  </label>
-                </div>
-              </div>
-
-              <div className="mt-1 p-1">
-                <div className="form-check ">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="flexCheckDefault"
-                    name="weld engineer"
-                  />
-                  <label
-                    className="form-check-label checkBoxStyle"
-                    htmlFor="flexCheckDefault"
-                  >
-                    CMM
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="" style={{ display: "flex", gap: "70px" }}>
-              <div className="mt-1 p-1">
-                <div className="form-check ">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="flexCheckDefault"
-                    name="incharge"
-                  />
-                  <label
-                    className="form-check-label checkBoxStyle"
-                    htmlFor="flexCheckDefault"
-                  >
-                    Special Gauges
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="">
-              <label className="form-label">Tool Path</label>
-              <select className="ip-select mt-1">
-                <option value="MagodDelivary">Manual</option>
-                <option value="customerPickUp">Automatic</option>
+            <div className="col-md-7 mt-1">
+              <select
+                className="ip-select mt-1"
+                name="jobType"
+                onChange={handleInputChange}
+              >
+                <option value="" selected disabled hidden>
+                  Select Drawing
+                </option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
               </select>
             </div>
+          </div>
 
-            <div className="">
-              <label className="form-label">Material Souce</label>
-              <select className="ip-select mt-1">
-                <option value="MagodDelivary">Magod</option>
+          <div className="d-flex col-md-4">
+            <div className="col-md-3">
+              <label className="form-label">Inspection</label>
+            </div>
+            <div className="col-md-8 mt-1">
+              <select
+                className="ip-select mt-1"
+                name="jobType"
+                onChange={handleInputChange}
+              >
+                <option value="" selected disabled hidden>
+                  Select Inspection
+                </option>
+                <option value="DimensionChecks">Dimension Checks</option>
+                <option value="CMM">CMM</option>
+                <option value="SpecialGauges">Special Gauges</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="d-flex col-md-4">
+            <div className="col-md-4">
+              <label className="form-label">Tool Path</label>
+            </div>
+            <div className="col-md-8 mt-1">
+              <select
+                className="ip-select mt-1"
+                name="jobType"
+                onChange={handleInputChange}
+              >
+                <option value="" selected disabled hidden>
+                  Select Path
+                </option>
+                <option value="Manual">Manual</option>
                 <option value="customerPickUp">Customer</option>
               </select>
             </div>
-
-            {openInput && (
-              <div className="">
-                <label className="form-label">Others</label>
-                <input type="text" />
-              </div>
-            )}
           </div>
         </div>
 
         <div className="row mb-5">
-          <div className="col-md-4">
-            <label className="form-label">Shipping/Delivery</label>
-            <select className="ip-select mt-1" onClick={(e) => handleClick(e)}>
-              <option value="MagodDelivary">Magod Delivary</option>
-              <option value="customerPickUp">Customer Pick Up</option>
-              <option value="Transporter">Transporter</option>
-              <option value="others">Others</option>
-            </select>
+          <div className="d-flex col-md-4">
+            <div className="col-md-4">
+              <label className="form-label">Shipping/Delivery</label>
+            </div>
+            <div className="col-md-7 mt-1">
+              <select
+                className="ip-select mt-1"
+                name="jobType"
+                onChange={handleInputChange}
+              >
+                <option value="" selected disabled hidden>
+                  Select Delivery
+                </option>
+                <option value="MagodDelivary">Magod Delivary</option>
+                <option value="customerPickUp">Customer Pick Up</option>
+                <option value="Transporter">Transporter</option>
+                {/* <option value="others">Others</option> */}
+              </select>
+            </div>
           </div>
 
-          <div className="col-md-4">
-            {showInput && (
-              <div className="">
-                <label className="form-label">Others</label>
-                <input type="text" />
-              </div>
-            )}
+          <div className="d-flex col-md-4">
+            <div className="col-md-3">
+              <label className="form-label">Material Source</label>
+            </div>
+            <div className="col-md-8 mt-1">
+              <select
+                className="ip-select mt-1"
+                name="jobType"
+                onChange={handleInputChange}
+              >
+                <option value="" selected disabled hidden>
+                  Select Source
+                </option>
+                <option value="MagodDelivary">Magod</option>
+                <option value="customerPickUp">Customer</option>
+              </select>
+            </div>
           </div>
 
-          <div className="col-md-4">
-            <label className="form-label">Expected Delivery</label>
-            <input type="date" />
+          <div className="d-flex col-md-4">
+            <div className="col-md-4">
+              <label className="form-label">Expected Delivery</label>
+            </div>
+            <div className="col-md-8 mt-1">
+              <input type="date" />
+            </div>
           </div>
-        </div>
-
-        <div className="row mb-2">
-          <div className="col-md-4"></div>
         </div>
       </div>
     </>

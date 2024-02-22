@@ -26,9 +26,9 @@ const Risks = () => {
 
   return (
     <div className="">
-      <div className="row col-md-12 mb-3">
+      <div className="row col-md-12">
         <div className="col-md-8">
-          <div className="mt-3 mb-5">
+          <div className="mt-3">
             <div
               style={{
                 height: "180px",
@@ -67,7 +67,7 @@ const Risks = () => {
           </div>
         </div>
 
-        <div className="col-md-4 mb-2 mt-2">
+        <div className="col-md-4 mt-2">
           <form>
             <div className="">
               <label className="form-label">Risks</label>
@@ -95,7 +95,7 @@ const Risks = () => {
         </div>
       </div>
 
-      {/* <div className="col-md-12 mt-2 mb-5">
+      <div className="col-md-12 mt-2 mb-5">
         <div className="">
           <label className="form-label">Any Other Information</label>
           <textarea
@@ -115,7 +115,7 @@ const Risks = () => {
             style={{ height: "100px", resize: "none" }}
           ></textarea>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

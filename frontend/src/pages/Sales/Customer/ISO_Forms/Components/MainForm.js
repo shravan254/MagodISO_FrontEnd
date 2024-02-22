@@ -6,6 +6,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import WeldingDetails from "./Tabs/WeldingDetails";
 import Testing from "./Tabs/Testing";
 import Risks from "./Tabs/Risks";
+import QuoteDetails from "./Tabs/QuoteDetails";
 
 function MainForm() {
   const [formData, setFormData] = useState({
@@ -66,57 +67,77 @@ function MainForm() {
   return (
     <div>
       <div>
-        <h4 className="title ">Rate Estimator - Laser Welding</h4>
+        <h4 className="title" style={{ height: "25px" }}>
+          Rate Estimator - Laser Welding
+        </h4>
       </div>
       <div className="col-md-12">
-        <div className="row">
-          <div className="col-md-3">
-            <div className="">
+        <div className="row mb-1">
+          <div className="d-flex col-md-3">
+            <div className="col-md-5">
               <label className="form-label">Enquiry Date</label>
-              <input type="text" disabled value={formatDate(formData.enquiryDate)} />
+            </div>
+            <div className="col-md-6 mt-1">
+              <input
+                type="text"
+                disabled
+                value={formatDate(formData.enquiryDate)}
+              />
             </div>
           </div>
 
-          <div className="col-md-3">
-            <div className="">
+          <div className="d-flex col-md-3">
+            <div className="col-md-5">
               <label className="form-label">Drawing No</label>
+            </div>
+            <div className="col-md-6 mt-1">
               <input type="text" />
             </div>
           </div>
 
-          <div className="col-md-3">
-            <div className="">
+          <div className="d-flex col-md-3">
+            <div className="col-md-5">
               <label className="form-label">Contact Person</label>
+            </div>
+            <div className="col-md-6 mt-1">
               <input type="text" value={formData.contactPerson} disabled />
             </div>
           </div>
 
-          <div className="col-md-3">
-            <div className="">
+          <div className="d-flex col-md-3">
+            <div className="col-md-5">
               <label className="form-label">Contact No</label>
+            </div>
+            <div className="col-md-6 mt-1">
               <input type="text" value={formData.contactNo} disabled />
             </div>
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-md-3">
-            <div className="">
-              <label className="form-label">Email ID</label>
-              <input type="text" value={formData.emailId} disabled />
+        <div className="row mb-2">
+          <div className="d-flex col-md-3">
+            <div className="col-md-5">
+              <label className="form-label">Customer</label>
             </div>
-          </div>
-
-          <div className="col-md-3">
-            <div className="">
-              <label className="form-label">Customer Name</label>
+            <div className="col-md-6 mt-1">
               <input type="text" value={formData.custName} disabled />
             </div>
           </div>
 
-          <div className="col-md-3">
-            <div className="">
+          <div className="d-flex col-md-3">
+            <div className="col-md-5">
+              <label className="form-label">Email ID</label>
+            </div>
+            <div className="col-md-6 mt-1">
+              <input type="text" value={formData.emailId} disabled />
+            </div>
+          </div>
+
+          <div className="d-flex col-md-3">
+            <div className="col-md-5">
               <label className="form-label">Type of Job</label>
+            </div>
+            <div className="col-md-6 mt-1">
               <select
                 className="ip-select mt-1"
                 name="jobType"
@@ -130,9 +151,11 @@ function MainForm() {
               </select>
             </div>
           </div>
-          <div className="col-md-3">
-            <div className="">
+          <div className="d-flex col-md-3">
+            <div className="col-md-5">
               <label className="form-label">Component</label>
+            </div>
+            <div className="col-md-6 mt-1">
               <select
                 className="ip-select mt-1"
                 name="component"
@@ -150,60 +173,37 @@ function MainForm() {
         </div>
 
         <div className="row">
-          <div className="col-md-3">
-            <label className="form-label">Customer Address</label>
-            <textarea
-              className="form-control"
-              rows="2"
-              id=""
-              name="CustomerAddress"
-              value={formData.custAddress}
-              // style={{ height: "70px", resize: "none" }}
-            ></textarea>
-          </div>
-
-          <div className="col-md-3">
-            <label className="form-label">Any Other Information</label>
-            <textarea
-              className="form-control"
-              rows="2"
-              id=""
-              name="otherInfo"
-              // style={{ height: "70px", resize: "none" }}
-            ></textarea>
-          </div>
-
-          <div className="col-md-3">
-            <label className="form-label">Conclusion of Review</label>
-            <textarea
-              className="form-control"
-              rows="2"
-              id=""
-              name="conclusion"
-              // style={{ height: "70px", resize: "none" }}
-            ></textarea>
-          </div>
-
-          <div className="row col-md-3" style={{ gap: "110px" }}>
-            <div className="col-md-1 mt-4">
-              <button
-                type="submit"
-                className="button-style"
-                variant="primary"
-                style={{ width: "120px" }}
-              >
-                Save
-              </button>
+          <div className="col-md-8">
+            <div className="d-flex" style={{ gap: "10px" }}>
+              <div>
+                <label className="form-label">Address</label>
+              </div>
+              <div>
+                <input type="text" value={formData.custAddress} disabled />
+              </div>
             </div>
-            <div className="col-md-1 mt-4">
-              <button
-                type="submit"
-                className="button-style"
-                variant="primary"
-                style={{ width: "120px" }}
-              >
-                Close
-              </button>
+          </div>
+
+          <div className="col-md-4">
+            <div className="d-flex" style={{ gap: "150px" }}>
+              <div className="col-md-1">
+                <button
+                  type="submit"
+                  className="button-style"
+                  variant="primary"
+                >
+                  Save
+                </button>
+              </div>
+              <div className="col-md-1">
+                <button
+                  type="submit"
+                  className="button-style"
+                  variant="primary"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -226,6 +226,10 @@ function MainForm() {
 
             <Tab eventKey="Risk" title="Risk">
               <Risks />
+            </Tab>
+
+            <Tab eventKey="QuoteDetails" title="Quote Details">
+              <QuoteDetails />
             </Tab>
           </Tabs>
         </div>

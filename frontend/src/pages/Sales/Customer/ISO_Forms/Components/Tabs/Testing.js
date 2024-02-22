@@ -20,7 +20,7 @@ function Testing({ handleInputChange, handleSubmit }) {
     { value: "Destructive Test", label: "Destructive Test" },
     { value: "Thermal Test", label: "Thermal Test" },
     { value: "Electric Test", label: "Electric Test" },
-    { value: "Other", label: "Other Test" },
+    // { value: "Other", label: "Other Test" },
   ];
 
   const nameOptions = [
