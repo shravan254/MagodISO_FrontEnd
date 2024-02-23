@@ -31,7 +31,7 @@ const Risks = () => {
           <div className="mt-3">
             <div
               style={{
-                height: "180px",
+                height: "160px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}
@@ -39,9 +39,13 @@ const Risks = () => {
               <Table className="table-data border" striped>
                 <thead
                   className="tableHeaderBGColor"
-                  // style={{ textAlign: "center" }}
+                  style={{
+                    // textAlign: "center",
+                    position: "sticky",
+                    top: "-1px",
+                  }}
                 >
-                  <tr>
+                  <tr className="table-header">
                     <th>SL No</th>
                     <th>Risks</th>
                   </tr>
@@ -68,51 +72,48 @@ const Risks = () => {
         </div>
 
         <div className="col-md-4 mt-2">
-          <form>
+          <div className="">
+            <label className="form-label">Risks</label>
+            <input
+              type="text"
+              name="risks"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="d-flex mt-2">
             <div className="">
-              <label className="form-label">Risks</label>
-              <input
-                type="text"
-                name="risks"
-                // required
-              />
+              <button className="button-style1" variant="primary">
+                Add
+              </button>
             </div>
 
-            <div className="d-flex mt-2">
-              <div className="">
-                <button className="button-style" variant="primary">
-                  Add
-                </button>
-              </div>
-
-              <div className="">
-                <button className="button-style" variant="primary">
-                  Delete
-                </button>
-              </div>
+            <div className="">
+              <button className="button-style1" variant="primary">
+                Delete
+              </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
 
-      <div className="col-md-12 mt-2 mb-5">
-        <div className="">
+      <div className="row mb-5">
+        <div className="col-md-6">
           <label className="form-label">Any Other Information</label>
           <textarea
-            className="form-control sticky-top"
+            className="form-control sticky-top mt-1"
             rows="2"
             id=""
-            style={{ height: "100px", resize: "none" }}
           ></textarea>
         </div>
 
-        <div className="">
+        <div className="col-md-6">
           <label className="form-label">Conclusion of Review</label>
           <textarea
-            className="form-control sticky-top"
+            className="form-control sticky-top mt-1"
             rows="2"
             id=""
-            style={{ height: "100px", resize: "none" }}
           ></textarea>
         </div>
       </div>

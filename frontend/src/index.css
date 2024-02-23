@@ -218,30 +218,21 @@ code {
 
 .in-fields {
   height: 35px;
-
   margin-top: 10px;
-
   border-radius: 6px;
-
   text-indent: 5px;
 }
 .dropdown-field {
   height: 35px;
-
   margin-top: 10px;
-
   border-radius: 6px !important;
-
   text-indent: 5px;
 }
 
 .in-field {
   height: 35px;
-
   margin-top: 10px;
-
   /* border-radius: 6px; */
-
   text-indent: 5px;
 }
 .form-bg {

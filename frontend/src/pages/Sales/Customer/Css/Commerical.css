@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --Day30: #008000;
   --Day60: #9acd32;
   --Month3: #9acd32;
@@ -104,12 +104,6 @@
   border-radius: 10px 10px 0px 0px;
 }
 
-.address {
-  padding: 20px;
-  /* position: relative;
-    top: -50px;
-    left: 48px; */
-}
 .address-sub {
   font-size: 14px;
-}
+} */

@@ -10,8 +10,9 @@ body {
 
 .title {
   text-align: center;
-  height: 34px;
-  font-size: 16px;
+  font-size: 14px;
+  height: 22px;
+  padding: 2px;
   color: white;
   background-color: #2b3a55;
   border-radius: 10px 10px 0px 0px;
@@ -264,7 +265,7 @@ input:focus {
 }
 
 .ip-select {
-  font-size: 14px;
+  font-size: 12px;
   padding: -3px 10px 10px 5px;
   display: block;
   width: 100%;
@@ -307,10 +308,6 @@ label {
   background-color: white;
 }
 
-.css-63vwl1-MuiTypography-root-MuiBreadcrumbs-root {
-  font-size: 1.3rem !important;
-}
-
 .main-form {
   margin-left: 8px;
 }
@@ -348,8 +345,14 @@ label {
 }
 
 .css-4pdmu4-MuiBreadcrumbs-ol {
-  margin-top: 18px !important;
-  font-size: 16px !important;
+  /* margin-top: 18px !important; */
+  margin-top: 5px !important;
+  /* font-size: 16px !important; */
+  font-size: 14px !important;
+}
+
+.css-63vwl1-MuiTypography-root-MuiBreadcrumbs-root {
+  font-size: 10px !important;
 }
 
 .form-title {
@@ -360,11 +363,11 @@ label {
 }
 
 .table-header {
-  font-size: 14px;
+  font-size: 12px;
 }
 /* table items font size */
 td {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .title_name {
@@ -378,7 +381,7 @@ td {
 
 .tab_font {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .tableHeaderBGColor {
@@ -435,4 +438,33 @@ li.nav-item {
 /* rbt-input-main form-control rbt-input */
 .tbody {
   font-size: 14px !important;
+}
+
+/* *************************************************************************************** */
+
+.input-field {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.input-field2 {
+  font-size: 12px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.button-style1 {
+  width: 60px;
+  height: 25px;
+  border: none;
+  margin-right: 10px;
+  background-color: #2b3a55;
+  color: #ffffff;
+  border-radius: 5px;
+  /* padding: 1px; */
+  margin-top: 8px;
+  font-size: 12px;
 }
