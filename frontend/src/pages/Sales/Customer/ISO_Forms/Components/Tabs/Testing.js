@@ -78,7 +78,7 @@ function Testing({ handleInputChange, handleSubmit }) {
           <div className="mt-3">
             <div
               style={{
-                height: "250px",
+                height: "230px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}
@@ -86,11 +86,15 @@ function Testing({ handleInputChange, handleSubmit }) {
               <Table className="table-data border">
                 <thead
                   className="tableHeaderBGColor"
-                  // style={{ textAlign: "center" }}
+                  style={{
+                    // textAlign: "center",
+                    position: "sticky",
+                    top: "-1px",
+                  }}
                 >
-                  <tr>
+                  <tr className="table-header">
                     <th>SL No</th>
-                    <th>Type of test</th>
+                    <th>Test Type</th>
                     <th>Test Name</th>
                     <th>Details</th>
                   </tr>
@@ -119,14 +123,16 @@ function Testing({ handleInputChange, handleSubmit }) {
         </div>
         <div className="col-md-4">
           <div className="">
-            <label className="form-label">Type Of Test</label>
+            <label className="form-label">Test Type</label>
             <select
               className="ip-select mt-1"
               value={selectedValue}
               onChange={(e) => setSelectedValue(e.target.value)}
               onClick={(e) => handleClick(e)}
             >
-              <option value="">Choose an option</option>
+              <option value="" selected disabled hidden>
+                Select Test Type
+              </option>
               {options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -137,7 +143,11 @@ function Testing({ handleInputChange, handleSubmit }) {
             {showInput && (
               <div className="">
                 <label className="form-label">Other Test</label>
-                <input type="text" onChange={handleOtherTest} />
+                <input
+                  type="text"
+                  className="input-field"
+                  onChange={handleOtherTest}
+                />
               </div>
             )}
           </div>
@@ -150,7 +160,9 @@ function Testing({ handleInputChange, handleSubmit }) {
               onChange={(e) => setSelectedOption(e.target.value)}
               onClick={(e) => handleBox(e)}
             >
-              <option value="">Select the test name</option>
+              <option value="" selected disabled hidden>
+                Select Test
+              </option>
               {nameOptions.map((nameOption) => (
                 <option key={nameOption.value} value={nameOption.value}>
                   {nameOption.label}
@@ -161,26 +173,36 @@ function Testing({ handleInputChange, handleSubmit }) {
             {showBox && (
               <div className="">
                 <label className="form-label">Other Test Name</label>
-                <input type="text" onChange={handleOtherTestName} />
+                <input
+                  type="text"
+                  className="input-field"
+                  onChange={handleOtherTestName}
+                  style={{ margin: "0px" }}
+                />
               </div>
             )}
           </div>
 
           <div className="">
             <label className="form-label">Details</label>
-            <input type="text" onChange={handleTestDetails} />
+            <input
+              type="text"
+              onChange={handleTestDetails}
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
           </div>
 
           <div className="d-flex">
             <div className="">
-              <button className="button-style" variant="primary">
-                Add Test
+              <button className="button-style1" variant="primary">
+                Add
               </button>
             </div>
 
             <div className="">
-              <button className="button-style" variant="primary">
-                Delete Test
+              <button className="button-style1" variant="primary">
+                Delete
               </button>
             </div>
           </div>

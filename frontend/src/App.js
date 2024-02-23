@@ -54,15 +54,10 @@ function App() {
       <ToastContainer position="top-center" />
       <Routes>
         <Route element={<Login />} path="/" />
-
         <Route path="/home" element={<Home />} />
         <Route path="/salesHome" element={<HomeOne />} />
-
         <Route element={<WithNav />}>
-          {/* <Route path="adminpage" element={<AdminPage />} /> */}
-          {/* <Route element={<TestComp />} path='/admin' /> */}
           <Route exact path="/mailer" element={<SendMail />} />
-
           <Route path="/Customer" element={<Parentroute />}>
             <Route path="CustomerInfo" element={<CustomerInfo />} />
             <Route
@@ -70,20 +65,14 @@ function App() {
               element={<ExistedCustomerInfo />}
             />
             <Route path="CustomerNew" element={<CustomerNew />} />
-
-            {/* <Route path="commercial" element={<Commercial />} /> */}
             <Route path="Outstandings" element={<Commercial />} />
-            {/* <Route path="custinvandpayments" element={<Custinvandpayments />} /> */}
-
             <Route path="CustomerInvoiceAndPayments">
               <Route index={true} element={<Custinvandpayments />} />
               <Route path="showinvoice" element={<ShowInvoice />} />
             </Route>
-
             <Route path="DrawingList" element={<DrawingList />} />
             <Route path="Material" element={<Material />} />
             <Route path="Orders">
-              {/* <Route index={true} element={<Order />} /> */}
               <Route path="OrdersCreated" element={<Order />} />
               <Route path="OrdersRecorded" element={<Order />} />
               <Route path="OrdersProcessing" element={<Order />} />
@@ -103,8 +92,6 @@ function App() {
             <Route path="roles" element={<UserRolesModules />} />
 
             <Route path="mapping" element={<MenuRoleMapping />} />
-            {/* <Route path="menuRoles" element={<MenuRoleMapping />} /> */}
-            {/* <Route path="menus" element={<Menus />} /> */}
             <Route path="users" element={<CreateUsers />} />
           </Route>
 
@@ -113,45 +100,6 @@ function App() {
               <Route index={true} element={<Quotation />} />
               <Route path="addDetails" element={<Adddetails />} />
             </Route>
-            {/* <Route path="service" element={<MenuRole />} /> */}
-            {/* <Route path="fabrication" element={<Menus />} /> */}
-          </Route>
-
-          <Route path="/PackingAndInvoices" element={<Parentroute />}>
-            {/* <Route path="menu"> */}
-            <Route index={true} />
-            <Route path="Profile">
-              <Route
-                path="FindSchedule"
-                element={<InspProfileFindSchedule />}
-              />
-              <Route
-                path="ScheduleList"
-                element={<InspProfileScheduleList />}
-              />
-            </Route>
-            <Route path="Fabrication">
-              <Route
-                path="FindSchedule"
-                element={<InspFabricationFindSchedule />}
-              />
-              <Route
-                path="ScheduleList"
-                element={<InspFabricationScheduleList />}
-              />
-            </Route>
-            <Route path="Service">
-              <Route path="FindSchedule">
-                <Route index={true} element={<InspServiceFindSchedule />} />
-
-                <Route path="RejectParts" element={<InternalRejectionForm />} />
-              </Route>
-              <Route
-                path="ScheduleList"
-                element={<InspServiceScheduleList />}
-              />
-            </Route>
-            {/* </Route> */}
           </Route>
         </Route>
       </Routes>

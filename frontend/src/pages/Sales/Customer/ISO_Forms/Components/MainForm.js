@@ -67,154 +67,223 @@ function MainForm() {
   return (
     <div>
       <div>
-        <h4 className="title" style={{ height: "25px" }}>
-          Rate Estimator - Laser Welding
-        </h4>
+        <h4 className="title">Rate Estimator - Laser Welding</h4>
       </div>
-      <div className="col-md-12">
-        <div className="row mb-1">
-          <div className="d-flex col-md-3">
-            <div className="col-md-5">
-              <label className="form-label">Enquiry Date</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input
-                type="text"
-                disabled
-                value={formatDate(formData.enquiryDate)}
-              />
-            </div>
-          </div>
-
-          <div className="d-flex col-md-3">
-            <div className="col-md-5">
-              <label className="form-label">Drawing No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" />
-            </div>
-          </div>
-
-          <div className="d-flex col-md-3">
-            <div className="col-md-5">
-              <label className="form-label">Contact Person</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" value={formData.contactPerson} disabled />
-            </div>
-          </div>
-
-          <div className="d-flex col-md-3">
-            <div className="col-md-5">
-              <label className="form-label">Contact No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" value={formData.contactNo} disabled />
-            </div>
-          </div>
-        </div>
-
-        <div className="row mb-2">
-          <div className="d-flex col-md-3">
-            <div className="col-md-5">
-              <label className="form-label">Customer</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" value={formData.custName} disabled />
-            </div>
-          </div>
-
-          <div className="d-flex col-md-3">
-            <div className="col-md-5">
-              <label className="form-label">Email ID</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" value={formData.emailId} disabled />
-            </div>
-          </div>
-
-          <div className="d-flex col-md-3">
-            <div className="col-md-5">
-              <label className="form-label">Type of Job</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <select
-                className="ip-select mt-1"
-                name="jobType"
-                onChange={handleInputChange}
-              >
-                <option value="" selected disabled hidden>
-                  Select Job Type
-                </option>
-                <option value="Production">Production</option>
-                <option value="Development">Development</option>
-              </select>
-            </div>
-          </div>
-          <div className="d-flex col-md-3">
-            <div className="col-md-5">
-              <label className="form-label">Component</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <select
-                className="ip-select mt-1"
-                name="component"
-                onChange={handleInputChange}
-              >
-                <option value="" selected disabled hidden>
-                  Select Component
-                </option>
-                <option value="New">New</option>
-                <option value="Repeat">Repeat</option>
-                <option value="Redesign">Redesign</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8">
-            <div className="d-flex" style={{ gap: "10px" }}>
-              <div>
-                <label className="form-label">Address</label>
-              </div>
-              <div>
-                <input type="text" value={formData.custAddress} disabled />
-              </div>
-            </div>
-          </div>
-
+      <div className="row">
+        <div className="d-flex col-md-3">
           <div className="col-md-4">
-            <div className="d-flex" style={{ gap: "150px" }}>
-              <div className="col-md-1">
-                <button
-                  type="submit"
-                  className="button-style"
-                  variant="primary"
-                >
-                  Save
-                </button>
-              </div>
-              <div className="col-md-1">
-                <button
-                  type="submit"
-                  className="button-style"
-                  variant="primary"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
+            <label className="form-label">Enquiry Date</label>
+          </div>
+          <div className="col-md-8">
+            <input
+              className="input-field"
+              type="text"
+              disabled
+              value={formatDate(formData.enquiryDate)}
+            />
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Drawing No</label>
+          </div>
+          <div className="col-md-8">
+            <input className="input-field" type="text" />
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Contact</label>
+          </div>
+          <div className="col-md-8">
+            <input
+              className="input-field"
+              type="text"
+              value={formData.contactPerson}
+              disabled
+            />
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Contact No</label>
+          </div>
+          <div className="col-md-8">
+            <input
+              className="input-field"
+              type="text"
+              value={formData.contactNo}
+              disabled
+            />
           </div>
         </div>
       </div>
+      <div className="row mt-1">
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Customer</label>
+          </div>
+          <div className="col-md-8">
+            <input
+              className="input-field"
+              type="text"
+              value={formData.custName}
+              disabled
+            />
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Email ID</label>
+          </div>
+          <div className="col-md-8">
+            <input
+              className="input-field"
+              type="text"
+              value={formData.emailId}
+              disabled
+            />
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Type of Job</label>
+          </div>
+          <div className="col-md-8">
+            <select
+              className="ip-select"
+              name="jobType"
+              onChange={handleInputChange}
+              style={{ marginTop: "12px" }}
+            >
+              <option value="" selected disabled hidden>
+                Select Job Type
+              </option>
+              <option value="Production">Production</option>
+              <option value="Development">Development</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Component</label>
+          </div>
+          <div className="col-md-8">
+            <select
+              className="ip-select"
+              name="jobType"
+              onChange={handleInputChange}
+              style={{ marginTop: "12px" }}
+            >
+              <option value="" selected disabled hidden>
+                Select Component
+              </option>
+              <option value="New">New</option>
+              <option value="Repeat">Repeat</option>
+              <option value="Redesign">Redesign</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div className="row mt-1">
+        <div className="d-flex col-md-6">
+          <div className="col-md-2">
+            <label className="form-label">Address</label>
+          </div>
+          <div className="col-md-10">
+            <input
+              className="input-field"
+              type="text"
+              value={formData.custAddress}
+              disabled
+            />
+          </div>
+        </div>
+
+        <div className="d-flex col-md-6">
+          <div className="col-md-2">
+            <button type="submit" className="button-style1" variant="primary">
+              Save
+            </button>
+          </div>
+
+          <div className="col-md-2">
+            <button type="submit" className="button-style1" variant="primary">
+              Close
+            </button>
+          </div>
+        </div>
+
+        {/* <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Email ID</label>
+          </div>
+          <div className="col-md-8">
+            <input
+              className="input-field"
+              type="text"
+              value={formData.emailId}
+              disabled
+            />
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Type of Job</label>
+          </div>
+          <div className="col-md-8">
+            <select
+              className="ip-select"
+              name="jobType"
+              onChange={handleInputChange}
+              style={{ marginTop: "12px" }}
+            >
+              <option value="" selected disabled hidden>
+                Select Job Type
+              </option>
+              <option value="Production">Production</option>
+              <option value="Development">Development</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3">
+          <div className="col-md-4">
+            <label className="form-label">Component</label>
+          </div>
+          <div className="col-md-8">
+            <select
+              className="ip-select"
+              name="jobType"
+              onChange={handleInputChange}
+              style={{ marginTop: "12px" }}
+            >
+              <option value="" selected disabled hidden>
+                Select Component
+              </option>
+              <option value="New">New</option>
+              <option value="Repeat">Repeat</option>
+              <option value="Redesign">Redesign</option>
+            </select>
+          </div>
+        </div> */}
+      </div>
+
       <div className="form-container">
         <div>
           <Tabs
             id="controlled-tab-example"
             activeKey={key}
             onSelect={(k) => setKey(k)}
-            className="mb-3 mt-3 tab_font"
+            className="mt-3 tab_font"
           >
             <Tab eventKey="Welding_Details" title="Welding Details">
               <WeldingDetails />
