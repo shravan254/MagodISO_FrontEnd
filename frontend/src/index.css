@@ -101,7 +101,8 @@ code {
 }
 
 .header {
-  height: 60px !important;
+  /* height: 60px !important; */
+  height: 40px !important;
 }
 
 .link-default {
