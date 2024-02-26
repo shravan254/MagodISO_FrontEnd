@@ -24,108 +24,133 @@ export default function HomeForm() {
       <div>
         <h4 className="title ">Task Sheet For-Laser Welding</h4>
       </div>
-      <div className="row col-md-12">
+
+      <div className="row mb-2">
         <div className="col-md-4">
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
+          <div className="d-flex">
+            <div className="col-md-4">
               <label className="form-label">Schedule No/Task No</label>
             </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
             </div>
           </div>
 
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Assembly Name/No</label>
-            </div>
-            <div className="col-m-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Sub-Assy Name/No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Qty Received</label>
-            </div>
-            <div className="col-md-6 mt">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
+          <div className="d-flex">
+            <div className="col-md-4">
               <label className="form-label">Any Defects</label>
             </div>
-            <div className="col-md-6 mt">
-              <input type="text" required />
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">
+                Lens distance [Focal Length] in(mm)
+              </label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Assembly Name/No</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
             </div>
           </div>
         </div>
 
         <div className="col-md-4">
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
+          <div className="d-flex">
+            <div className="col-md-4">
               <label className="form-label">Date</label>
             </div>
-            <div className="col-md-6 mt">
-              <input type="date" required />
+            <div className="col-md-8">
+              <input className="input-field" type="date" />
             </div>
           </div>
 
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
+          <div className="d-flex">
+            <div className="col-md-4">
               <label className="form-label">Machine/Model No</label>
             </div>
-            <div className="col-md-6 mt">
-              <input type="text" required />
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
             </div>
           </div>
 
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Program No</label>
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Material Thickness</label>
             </div>
-            <div className="col-md-6 mt">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Fixture Requirement</label>
-            </div>
-            <div className="col-md-6 mt">
-              <input type="text" required />
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex mt-2">
-            <div className="col-md-5">
-              <label className="form-label">
-                Lens distance[Focal Length] in mm
-              </label>
+            <div className="col-md-4">
+              <label className="form-label">Program No</label>
             </div>
-            <div className="col-md-6 mt">
-              <input type="text" required />
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
             </div>
           </div>
         </div>
 
         <div className="col-md-4">
-          <div className="mt-1" style={{ marginLeft: "220px" }}>
-            <button className="button-style" variant="primary">
-              Close
-            </button>
+          <div className="">
+            <div className="col-md-2" style={{ marginLeft: "290px" }}>
+              <button type="submit" className="button-style1" variant="primary">
+                Close
+              </button>
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">With Filler</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Fixture Requirement</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex mt-2">
+            <div className="col-md-4">
+              <label className="form-label">Filler Material</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-4">
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Standard Parameter Ref</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
           </div>
 
           <label className="form-label">Weld Settings Verified By</label>
@@ -181,10 +206,75 @@ export default function HomeForm() {
               </div>
             </div>
           </div>
+        </div>
 
+        <div className="col-md-4">
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Reweld Permitted</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">WPS No</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">PQR No</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-4">
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Batch No/Charge No</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Machine Peak Power</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Type of Laser Equipment</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-4">
           <label className="form-label">First Part Inspection</label>
           <div>
-            <div className="" style={{ display: "flex", gap: "70px" }}>
+            <div
+              className=""
+              style={{ display: "flex", gap: "70px", marginBottom: "-12px" }}
+            >
               <div className="mt-1 p-1">
                 <div className="form-check">
                   <input
@@ -202,7 +292,7 @@ export default function HomeForm() {
                 </div>
               </div>
 
-              <div className="mt-1 p-1">
+              <div className="mt-1 p-1" style={{ marginLeft: "7px" }}>
                 <div className="form-check ">
                   <input
                     className="form-check-input"
@@ -256,365 +346,262 @@ export default function HomeForm() {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* <div className="ms-2 mt-4">
-            <button className="button-style" variant="primary">
-              Close
+        <div className="col-md-4">
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Fixture No</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">PFD No</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-4">
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">Control Plan No</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-md-4">
+              <label className="form-label">WI No</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+
+          {/* <div className="d-flex mt-2">
+            <div className="col-md-4">
+              <label className="form-label">Standard Parameter Ref</label>
+            </div>
+            <div className="col-md-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div> */}
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-8 mt-2">
+          <div
+            style={{
+              height: "140px",
+              overflowY: "scroll",
+              overflowX: "scroll",
+            }}
+          >
+            <Table className="table-data border" striped>
+              <thead
+                className="tableHeaderBGColor"
+                style={{
+                  // textAlign: "center",
+                  position: "sticky",
+                  top: "-1px",
+                }}
+              >
+                <tr className="table-header">
+                  <th>SL No</th>
+                  <th>Sub-assy Part Name/No</th>
+                  <th>Qty Received</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {/* {getValues.map((item, key) => {
+                  return (
+                    <tr
+                      onClick={() => selectedRowFun(item, key)}
+                      className={
+                        key === selectRow?.index ? "selcted-row-clr" : ""
+                      }
+                    >
+                      <td>{item.Material}</td>
+                      <td>{item.Thickness}</td>
+                    </tr>
+                  );
+                })} */}
+              </tbody>
+            </Table>
+          </div>
+        </div>
+
+        <div className="col-md-4">
+          <div className="">
+            <label className="form-label">Sub-assy Part Name/No</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="">
+            <label className="form-label">Qty Received</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="d-flex">
+            <div className="">
+              <button className="button-style1" variant="primary">
+                Add
+              </button>
+            </div>
+
+            <div className="">
+              <button className="button-style1" variant="primary">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 className="form-title  mt-3" style={{ marginLeft: "325px" }}>
+        <b>Welding Parameters</b>
+      </h3>
+      <div className="row col-md-12">
+        <div className="col-md-4 border bg-light" style={{ height: "465px" }}>
+          <SolidStateLaserTabel />
+        </div>
+
+        <div className="col-md-4 border bg-light" style={{ height: "465px" }}>
+          <CoTable />
+        </div>
+
+        <div className="col-md-4">
+          <div className="">
+            <label className="form-label">Pre flow Gas in lpm</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="">
+            <label className="form-label">Post flow Gas in lpm</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="">
+            <label className="form-label">Design Type</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="">
+            <label className="form-label">Weld Single Side</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="">
+            <label className="form-label">Weld Double Side</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="">
+            <label className="form-label">Gas Type</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          <div className="">
+            <label className="form-label">Backing</label>
+            <select
+              className="ip-select"
+              name="jobType"
+              style={{ marginTop: "1px" }}
+            >
+              <option value="" selected disabled hidden>
+                Select Backing
+              </option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div className="">
+            <label className="form-label">Tack Weld</label>
+            <select
+              className="ip-select"
+              name="jobType"
+              style={{ marginTop: "1px" }}
+            >
+              <option value="" selected disabled hidden>
+                Select Tack Weld
+              </option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div className="">
+            <label className="form-label">Note</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div>
+
+          {/* <div className="mb-3">
+            <label className="form-label">Prepared By</label>
+            <input
+              type="text"
+              className="input-field"
+              style={{ margin: "0px" }}
+            />
+          </div> */}
+
+          {/* <div className="">
+            <button className="button-style1" variant="primary">
+              Save
             </button>
           </div> */}
         </div>
       </div>
 
-      <div className="row col-md-12 mt-3">
-        <div className="col-md-8">
-          <div className="bg-light border">
-            <Table striped size="sm">
-              <thead>
-                <tr>
-                  {/* <th></th> */}
-                  <th>Copper Bus Bar</th>
-                  <th>Nickel Bus Bar</th>
-                  <th>Nickel Fuse Bus Bar</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row, index) => (
-                  <tr key={index}>
-                    <td>
-                      <Form.Control type="text" />
-                    </td>
-                    <td>
-                      <Form.Control type="text" />
-                    </td>
-                    <td>
-                      <Form.Control type="text" />
-                    </td>
-                    {index >= 1 && (
-                      <td>
-                        <button
-                          className="button-style"
-                          style={{ width: "80px" }}
-                          onClick={(e) => deleteRow(e, index)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-
-            {/* {rows.length <= 1 && (
-            <button className="button-style" style={{width: "90px"}} onClick={addRow}>
-              Add Row
-            </button>
-          )} */}
-            {rows.length >= 1 && (
-              <div>
-                <button
-                  className="button-style"
-                  style={{
-                    width: "90px",
-                    marginLeft: "20px",
-                    marginBottom: "10px",
-                  }}
-                  onClick={addRow}
-                >
-                  Add Row
-                </button>
-              </div>
-            )}
-          </div>
-
-          <div className="row col-md-12">
-            <div className="col-md-6">
-              <div className="d-flex  mt-1">
-                <div className="col-md-6">
-                  <label className="form-label">Type of Laser Equipment</label>
-                </div>
-                <div className="col-md-6 mt-1">
-                  <input type="text" required />
-                </div>
-              </div>
-
-              <div className="d-flex mt-1">
-                <div className="col-md-6">
-                  <label className="form-label">Reweld Permitted</label>
-                </div>
-                <div className="col-md-6 mt-1">
-                  <input type="text" required />
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="d-flex mt-1">
-                <div className="col-md-5">
-                  <label className="form-label">Fixture No</label>
-                </div>
-                <div className="col-md-6 mt-1">
-                  <input type="text" required />
-                </div>
-              </div>
-
-              <div className="d-flex mt-1">
-                <div className="col-md-5">
-                  <label className="form-label">Machine Peak Power</label>
-                </div>
-                <div className="col-md-6 mt-1">
-                  <input type="text" required />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-4 mt-2">
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Material Thickness</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">With Filler</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Filler Material</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Batch No/Charge No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="row col-md-12">
-        <div className="col-md-4">
-          <div className="d-flex mt-1">
-            <div className="col-md-6">
-              <label className="form-label">Control Plan No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-6">
-              <label className="form-label">PFD No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">PQR No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-5">
-              <label className="form-label">Standard Parameter Ref</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="d-flex mt-1">
-            <div className="col-md-3">
-              <label className="form-label">WPS No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-
-          <div className="d-flex mt-1">
-            <div className="col-md-3">
-              <label className="form-label">WI No</label>
-            </div>
-            <div className="col-md-6 mt-1">
-              <input type="text" required />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <h3 className="form-title  mt-4 ms-2">
-        <b>Welding Parameters</b>
-      </h3>
-      <div className="row col-md-12">
-        <div className="col-md-4 border bg-light">
-          <SolidStateLaserTabel />
-        </div>
-
-        <div className="col-md-4 border bg-light">
-          <CoTable />
-        </div>
-
-        <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">Pre flow Gas in lpm</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Post flow Gas in lpm</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Design Type</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Weld Single Side</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Weld Double Side</label>
-            <input type="text" required />
-          </div>
-
-          <div className="mt-1">
-            <label className="form-label">Gas Type</label>
-            <input type="text" required />
-          </div>
-
-          <label className="form-label">Backing</label>
-          <div className="" style={{ display: "flex", gap: "70px" }}>
-            <div className="mt-1 p-1">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  id="flexRadioDefaultA1"
-                  name="flexRadioDefaultA"
-                />
-                <label
-                  className="form-check-label checkBoxStyle"
-                  htmlFor="flexCheckDefault"
-                >
-                  yes
-                </label>
-              </div>
-            </div>
-
-            <div className="mt-1 p-1">
-              <div className="form-check ">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  id="flexRadioDefaultA2"
-                  name="flexRadioDefaultA"
-                />
-                <label
-                  className="form-check-label checkBoxStyle"
-                  htmlFor="flexCheckDefault"
-                >
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <label className="form-label">Tack Weld</label>
-          <div className="" style={{ display: "flex", gap: "70px" }}>
-            <div className="mt-1 p-1">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  name="yes"
-                  id="flexCheckDefault"
-                />
-                <label
-                  className="form-check-label checkBoxStyle"
-                  htmlFor="flexCheckDefault"
-                >
-                  Yes
-                </label>
-              </div>
-            </div>
-
-            <div className="mt-1 p-1">
-              <div className="form-check ">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="flexCheckDefault"
-                  name="no"
-                />
-                <label
-                  className="form-check-label checkBoxStyle"
-                  htmlFor="flexCheckDefault"
-                >
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="row col-md-12">
-        <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">Note</label>
-            <input type="text" required />
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">Prepared By</label>
-            <input type="text" required />
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="mt-1">
-            <label className="form-label">Welding Operator Stamp</label>
-            <input type="text" required />
-          </div>
-        </div>
-      </div>
-
-      <div className="mb-5 mt-1">
-        <button className="button-style" variant="primary">
+      <div className="mb-4" style={{ marginLeft: "10px" }}>
+        <button className="button-style1" variant="primary">
           Save
         </button>
       </div>
