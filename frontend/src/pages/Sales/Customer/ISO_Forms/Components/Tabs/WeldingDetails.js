@@ -291,25 +291,6 @@ function WeldingDetails({
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Fixture Requirement</label>
-            </div>
-            <div className="col-8">
-              <input
-                type="text"
-                className="input-field"
-                name="fixtureReq"
-                value={formData.fixtureReq}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-md-3 col-sm-6">
-          <div className="d-flex">
-            <div className="col-4">
               <label className="form-label">Depth Of Penetration</label>
             </div>
             <div className="col-8">
@@ -318,6 +299,47 @@ function WeldingDetails({
                 className="input-field"
                 name="depthOfPen"
                 value={formData.depthOfPen}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row mt-1">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Fixture Requirement</label>
+            </div>
+            <div className="col-8">
+              <select
+                className="ip-select"
+                name="fixtureReq"
+                onChange={handleInputChange}
+                style={{ marginTop: "12px" }}
+              >
+                <option value="" selected disabled hidden>
+                  Select Fixture Requirement
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Fixture Remarks</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="text"
+                name="fixtureRemarks"
+                value={formData.fixtureRemarks}
                 onChange={handleInputChange}
               />
             </div>
@@ -347,17 +369,24 @@ function WeldingDetails({
               <label className="form-label">Hermatic Joint</label>
             </div>
             <div className="col-8">
-              <input
-                type="text"
-                className="input-field"
+              <select
+                className="ip-select"
                 name="hermaticJoint"
-                value={formData.hermaticJoint}
                 onChange={handleInputChange}
-              />
+                style={{ marginTop: "12px" }}
+              >
+                <option value="" selected disabled hidden>
+                  Select Hermatic Joint
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
           </div>
         </div>
+      </div>
 
+      <div className="row">
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">

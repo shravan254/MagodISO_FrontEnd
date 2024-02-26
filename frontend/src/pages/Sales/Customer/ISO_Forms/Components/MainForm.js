@@ -33,6 +33,7 @@ function MainForm() {
     batchQty: "",
     yearQty: "",
     fixtureReq: "",
+    fixtureRemarks: "",
     depthOfPen: "",
     strength: "",
     hermaticJoint: "",
