@@ -25,42 +25,42 @@ export default function HomeForm() {
         <h4 className="title ">Task Sheet For-Laser Welding</h4>
       </div>
 
-      <div className="row mb-2">
+      <div className="row">
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-7">
               <label className="form-label">Schedule No/Task No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-5">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-7">
               <label className="form-label">Any Defects</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-5">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-7">
               <label className="form-label">
-                Lens distance [Focal Length] in(mm)
+                Lens distance[Focal Length] in(mm)
               </label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-5">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-7">
               <label className="form-label">Assembly Name/No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-5">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -68,45 +68,50 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Date</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="date" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Machine/Model No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Material Thickness</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex mt-2">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Program No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
         </div>
 
         <div className="col-md-4">
-          <div className="">
-            <div className="col-md-2" style={{ marginLeft: "290px" }}>
+          <div className="d-flex" style={{ gap: "15px" }}>
+            <div className="col-md-2" style={{ marginLeft: "210px" }}>
+              <button type="submit" className="button-style1" variant="primary">
+                Save
+              </button>
+            </div>
+            <div className="col-md-2">
               <button type="submit" className="button-style1" variant="primary">
                 Close
               </button>
@@ -114,28 +119,28 @@ export default function HomeForm() {
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">With Filler</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Fixture Requirement</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex mt-2">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Filler Material</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -145,10 +150,10 @@ export default function HomeForm() {
       <div className="row">
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-7">
               <label className="form-label">Standard Parameter Ref</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-5">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -210,28 +215,28 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Reweld Permitted</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">WPS No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">PQR No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -239,28 +244,28 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Batch No/Charge No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Machine Peak Power</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">Type of Laser Equipment</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -350,19 +355,19 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-4">
-              <label className="form-label">Fixture No</label>
+            <div className="col-md-6">
+              <label className="form-label">Control Plan No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">PFD No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -370,19 +375,19 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-4">
-              <label className="form-label">Control Plan No</label>
+            <div className="col-md-6">
+              <label className="form-label">Fixture No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label className="form-label">WI No</label>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-6">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -480,12 +485,13 @@ export default function HomeForm() {
       <h3 className="form-title  mt-3" style={{ marginLeft: "325px" }}>
         <b>Welding Parameters</b>
       </h3>
+
       <div className="row col-md-12">
-        <div className="col-md-4 border bg-light" style={{ height: "465px" }}>
+        <div className="col-md-4 border bg-light" style={{ height: "415px" }}>
           <SolidStateLaserTabel />
         </div>
 
-        <div className="col-md-4 border bg-light" style={{ height: "465px" }}>
+        <div className="col-md-4 border bg-light" style={{ height: "415px" }}>
           <CoTable />
         </div>
 
@@ -510,29 +516,32 @@ export default function HomeForm() {
 
           <div className="">
             <label className="form-label">Design Type</label>
-            <input
-              type="text"
-              className="input-field"
-              style={{ margin: "0px" }}
-            />
+            <select
+              className="ip-select"
+              name="jobType"
+              style={{ marginTop: "1px" }}
+            >
+              <option value="" selected disabled hidden>
+                Select Design Type
+              </option>
+              <option value="yes">Butt</option>
+              <option value="no">Joint</option>
+            </select>
           </div>
 
           <div className="">
-            <label className="form-label">Weld Single Side</label>
-            <input
-              type="text"
-              className="input-field"
-              style={{ margin: "0px" }}
-            />
-          </div>
-
-          <div className="">
-            <label className="form-label">Weld Double Side</label>
-            <input
-              type="text"
-              className="input-field"
-              style={{ margin: "0px" }}
-            />
+            <label className="form-label">Weld Side</label>
+            <select
+              className="ip-select"
+              name="jobType"
+              style={{ marginTop: "1px" }}
+            >
+              <option value="" selected disabled hidden>
+                Select Welding Side
+              </option>
+              <option value="yes">Single</option>
+              <option value="no">Double</option>
+            </select>
           </div>
 
           <div className="">
@@ -600,11 +609,11 @@ export default function HomeForm() {
         </div>
       </div>
 
-      <div className="mb-4" style={{ marginLeft: "10px" }}>
+      {/* <div className="mb-4" style={{ marginLeft: "10px" }}>
         <button className="button-style1" variant="primary">
           Save
         </button>
-      </div>
+      </div> */}
     </>
   );
 }
