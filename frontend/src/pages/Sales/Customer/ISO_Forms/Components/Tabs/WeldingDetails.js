@@ -85,7 +85,7 @@ function WeldingDetails({
 
         <div
           className="col-md-4 col-sm-12 mt-2"
-          style={{ backgroundColor: "#e6e6e6", padding: "10px" }}
+          style={{ backgroundColor: "#f0f0f0", padding: "10px" }}
         >
           {/* <div className="mb-1">
             <label className="form-label">Material</label>

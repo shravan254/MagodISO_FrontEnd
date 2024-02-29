@@ -73,6 +73,16 @@ function MainForm() {
       });
   }, []);
 
+  useEffect(() => {
+    Axios.get(apipoints.getJobType)
+      .then((response) => {
+        // console.log("response", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching", error);
+      });
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -93,8 +103,8 @@ function MainForm() {
   };
 
   console.log("formData", formData);
-  console.log("selectedRowData", formData.selectedRowData);
-  console.log("materialTableData", formData.materialTableData);
+  // console.log("selectedRowData", formData.selectedRowData);
+  // console.log("materialTableData", formData.materialTableData);
 
   return (
     <div>
@@ -263,9 +273,6 @@ function MainForm() {
 
         <div className="col-md-3 col-sm-12 mt-2 mt-md-0">
           <div className="d-flex justify-content-end" style={{ gap: "10px" }}>
-            <button type="submit" className="button-style1" variant="primary">
-              Create
-            </button>
             <button type="submit" className="button-style1" variant="primary">
               Save
             </button>
