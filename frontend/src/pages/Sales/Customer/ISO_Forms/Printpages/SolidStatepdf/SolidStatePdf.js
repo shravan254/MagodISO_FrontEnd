@@ -1,5 +1,6 @@
 import React, { startTransition, useEffect, useState } from "react";
 import axios from "axios";
+import magodlogo from "../../../../../../images/ISOPdfs/MagodLogo.png";
 import {
   Page,
   Document,
@@ -33,6 +34,12 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginTop: "10px",
   },
+  tableTitle: {
+    marginTop: "25px",
+    fontSize: 12,
+    fontFamily: "Helvetica-Bold",
+    marginBottom: "10px",
+  },
   row: {
     flexDirection: "row",
   },
@@ -47,8 +54,8 @@ const styles = StyleSheet.create({
     fontSize: "8px",
   },
   logo: {
-    width: "80px",
-    height: "80px",
+    width: "60px",
+    height: "60px",
   },
   HeadingText: {
     textAlign: "center",
@@ -342,6 +349,40 @@ const SolidStatePdf = () => {
   const renderContent = () => {
     return (
       <Page size="A4" style={styles.page}>
+        <View style={styles.row}>
+          <View style={styles.column}>
+            <View style={styles.tableContainer}>
+              <View>
+                <Image src={magodlogo} style={styles.logo} />
+              </View>
+              <View>
+                <Text
+                  style={[
+                    styles.tableTitle,
+                    {
+                      fontSize: "15px",
+                      marginLeft: "110px",
+                      textDecoration: "underline",
+                    },
+                  ]}
+                >
+                  Magod Laser Machining Pvt Ltd
+                </Text>
+              </View>
+              {/* <View style={styles.row}>
+                <Text
+                  style={[
+                    styles.globalfontwithoutbold,
+                    { marginLeft: "110px", textDecoration: "underline" },
+                  ]}
+                >
+                  Returnable Material Receipt Voucher
+                </Text>
+              </View> */}
+            </View>
+          </View>
+        </View>
+
         <View style={styles.tableContainerMain}>
           <View style={styles.row}>
             <View style={styles.column}>
@@ -360,7 +401,9 @@ const SolidStatePdf = () => {
                 </View>
               </View>
 
-              <View style={styles.secondBox}></View>
+              {/* <View style={styles.secondBox}>
+                LASER WELDING JOB PARAMETER SHEET-SOLIDSTATE LASER
+              </View> */}
             </View>
           </View>
 
