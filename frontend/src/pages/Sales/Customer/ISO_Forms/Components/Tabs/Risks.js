@@ -52,7 +52,7 @@ const Risks = () => {
         <div
           className="col-md-4 col-sm-6 mt-3"
           style={{
-            backgroundColor: "#e6e6e6",
+            backgroundColor: "#f0f0f0",
             padding: "10px",
             height: "120px",
           }}

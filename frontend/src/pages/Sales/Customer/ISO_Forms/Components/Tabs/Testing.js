@@ -105,7 +105,7 @@ function Testing({
         <div
           className="col-md-4 col-sm-6 mt-2"
           style={{
-            backgroundColor: "#e6e6e6",
+            backgroundColor: "#f0f0f0",
             padding: "10px",
             height: "170px",
           }}
