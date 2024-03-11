@@ -3,7 +3,6 @@ import RateEstimatorModal from "./RateEstimatorModal";
 import TaskSheetButton from "../TaskSheetpdf/TaskSheetButton";
 
 export default function Buttonpdf() {
-
   const [openPrintModal, setOpenPrintModal] = useState("");
 
   const openPdf = () => {
@@ -13,14 +12,20 @@ export default function Buttonpdf() {
   return (
     <div>
       <div className="col-md-2">
-        <RateEstimatorModal openPrintModal={openPrintModal} setOpenPrintModal={setOpenPrintModal}/>
-        <button type="submit" className="button-style1" variant="primary"
-        onClick={openPdf}
+        <RateEstimatorModal
+          openPrintModal={openPrintModal}
+          setOpenPrintModal={setOpenPrintModal}
+        />
+        <button
+          type="submit"
+          className="button-style1"
+          variant="primary"
+          onClick={openPdf}
         >
-          Print
+          Estimator
         </button>
       </div>
-      <TaskSheetButton/>
+      <TaskSheetButton />
     </div>
   );
 }
