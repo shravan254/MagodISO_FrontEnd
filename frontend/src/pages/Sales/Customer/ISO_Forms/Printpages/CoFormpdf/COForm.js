@@ -18,7 +18,7 @@ import {
   textAlign,
   width,
 } from "@mui/system";
-// import magodlogo from "../Logo/MagodLogo.png";
+
 
 const styles = StyleSheet.create({
   page: {

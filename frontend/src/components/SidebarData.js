@@ -41,6 +41,13 @@ export const customerSidebar = [
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
+  {
+    title: "PDF",
+    path: "/Customer/pdf",
+    icon: <SiIcon.SiFormstack />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
 ];
 
 export const MaterialSidebar = [
