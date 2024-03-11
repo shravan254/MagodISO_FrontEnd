@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Form, Table, FormLabel } from "react-bootstrap";
+import Axios from "axios";
+import { apipoints } from "../../../../../api/isoForms/isoForms";
 
 function Testing({
   formData,
@@ -7,48 +9,34 @@ function Testing({
   handleInputChange,
   handleRowSelect,
 }) {
-  const [secondSelectOptions, setSecondSelectOptions] = useState([]);
-  const options = [
-    { value: "Non Destructive Test", label: "Non Destructive Test" },
-    { value: "Destructive Test", label: "Destructive Test" },
-    { value: "Thermal Test", label: "Thermal Test" },
-    { value: "Electric Test", label: "Electric Test" },
-  ];
+  useEffect(() => {
+    Axios.get(apipoints.getTestType)
+      .then((response) => {
+        // console.log("Test Type Response", response.data);
+        setFormData((prevData) => ({
+          ...prevData,
+          testTypeData: response.data,
+        }));
+      })
+      .catch((error) => {
+        console.error("Error Fecthing", error);
+      });
+  }, []);
 
-  const nameOptions = {
-    "Non Destructive Test": [
-      { value: "DP Test", label: "DP Test" },
-      { value: "Leak", label: "Leak" },
-      { value: "Pressure", label: "Pressure" },
-      { value: "X-RAY", label: "X-RAY" },
-      { value: "MPI", label: "MPI" },
-      { value: "UT", label: "UT" },
-      { value: "Other", label: "Other" },
-    ],
-    "Destructive Test": [
-      { value: "Tensile", label: "Tensile" },
-      { value: "Bend", label: "Bend" },
-      { value: "Macro Examination", label: "Macro Examination" },
-      { value: "Form/CUP Test", label: "Form/CUP Test" },
-      { value: "Hardness", label: "Hardness" },
-      { value: "Other", label: "Other" },
-    ],
-    "Thermal Test": [
-      { value: "Diffusivity", label: "Diffusivity" },
-      { value: "Conduction", label: "Conduction" },
-    ],
-    "Electric Test": [{ value: "Conductivity", label: "Conductivity" }],
+  const handleTestTypeSelect = (selectedTestType) => {
+    console.log("selectedTestType", selectedTestType);
+    Axios.post(apipoints.getTestList, { testTypeID: selectedTestType })
+      .then((response) => {
+        setFormData((prevData) => ({
+          ...prevData,
+          testListData: response.data,
+        }));
+      })
+      .catch((error) => {
+        console.error("Error fetching test names", error);
+      });
   };
 
-  const handleFirstSelectChange = (e) => {
-    const selectedValue = e.target.value;
-    setSecondSelectOptions(nameOptions[selectedValue]);
-    setFormData((prevData) => ({
-      ...prevData,
-      testName: "",
-    }));
-    handleInputChange(e);
-  };
   return (
     <>
       <div className="row col-md-12 mb-5">
@@ -110,25 +98,6 @@ function Testing({
             height: "170px",
           }}
         >
-          {/* <div className="">
-            <label className="form-label">Test Type</label>
-            <select
-              className="ip-select mt-1"
-              name="testType"
-              value={formData.testType}
-              onChange={handleFirstSelectChange}
-            >
-              <option value="" selected disabled hidden>
-                Select Test Type
-              </option>
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div> */}
-
           <div className="d-flex">
             <div className="col-3">
               <label className="form-label mt-1">Test Type</label>
@@ -138,39 +107,23 @@ function Testing({
                 className="ip-select2 dropdown-field mt-3"
                 name="testType"
                 value={formData.testType}
-                onChange={handleFirstSelectChange}
+                // onChange={handleInputChange}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  handleTestTypeSelect(e.target.value);
+                }}
               >
                 <option value="" selected disabled hidden>
                   Select Test Type
                 </option>
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
+                {formData.testTypeData?.map((testType, index) => (
+                  <option key={index} value={testType.Test_Type_ID}>
+                    {testType.Test_Type}
                   </option>
                 ))}
               </select>
             </div>
           </div>
-
-          {/* <div className="">
-            <label className="form-label">Test Name</label>
-            <select
-              className="ip-select mt-1"
-              name="testName"
-              value={formData.testName}
-              onChange={handleInputChange}
-            >
-              <option value="" selected disabled hidden>
-                Select Test
-              </option>
-
-              {secondSelectOptions.map((nameOption) => (
-                <option key={nameOption.value} value={nameOption.value}>
-                  {nameOption.label}
-                </option>
-              ))}
-            </select>
-          </div> */}
 
           <div className="d-flex">
             <div className="col-3 mt-1">
@@ -187,25 +140,14 @@ function Testing({
                   Select Test
                 </option>
 
-                {secondSelectOptions.map((nameOption) => (
-                  <option key={nameOption.value} value={nameOption.value}>
-                    {nameOption.label}
+                {formData.testListData?.map((testName, index) => (
+                  <option key={index} value={testName.Test_Name}>
+                    {testName.Test_Name}
                   </option>
                 ))}
               </select>
             </div>
           </div>
-
-          {/* <div className="">
-            <label className="form-label">Details</label>
-            <input
-              type="text"
-              className="input-field2"
-              name="details"
-              value={formData.details}
-              onChange={handleInputChange}
-            />
-          </div> */}
 
           <div className="d-flex">
             <div className="col-3">
@@ -214,27 +156,13 @@ function Testing({
             <div className="col-8">
               <input
                 type="text"
-                name="material"
+                name="testDetails"
                 className="in-field"
-                value={formData.details}
+                value={formData.testDetails}
                 onChange={handleInputChange}
               />
             </div>
           </div>
-
-          {/* <div className="d-flex">
-            <div className="">
-              <button className="button-style1" variant="primary">
-                Add
-              </button>
-            </div>
-
-            <div className="">
-              <button className="button-style1" variant="primary">
-                Delete
-              </button>
-            </div>
-          </div> */}
 
           <div className="d-flex mt-2">
             <div className="col-4">

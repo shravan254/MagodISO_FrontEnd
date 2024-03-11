@@ -57,11 +57,6 @@ const Risks = () => {
             height: "120px",
           }}
         >
-          {/* <div className="">
-            <label className="form-label">Risks</label>
-            <input type="text" name="risks" className="input-field2" />
-          </div> */}
-
           <div className="d-flex">
             <div className="col-3">
               <label className="form-label">Risks</label>

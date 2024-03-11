@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { apipoints } from "../../../../api/isoForms/isoForms";
 import Axios from "axios";
 import { Tab, Tabs } from "react-bootstrap";
-
+import { toast } from "react-toastify";
 import WeldingDetails from "./Tabs/WeldingDetails";
 import Testing from "./Tabs/Testing";
 import Risks from "./Tabs/Risks";
@@ -10,6 +10,9 @@ import QuoteDetails from "./Tabs/QuoteDetails";
 
 function MainForm() {
   const [formData, setFormData] = useState({
+    qtnNo: "",
+    qtnID: 0,
+    enqID: 0,
     enquiryDate: "",
     drawingNo: "",
     contactPerson: "",
@@ -17,7 +20,9 @@ function MainForm() {
     emailId: "",
     custName: "",
     jobType: "",
+    jobTypeData: [],
     component: "",
+    componentData: [],
     custAddress: "",
     otherInfo: "",
     conclusion: "",
@@ -27,27 +32,35 @@ function MainForm() {
     selectedRow1: null,
     selectedRowData: {},
     jointType: "",
+    jointTypeData: [],
     allowComb: "",
     srRequirements: "",
     proQty: "",
-    batchQty: "",
-    yearQty: "",
-    fixtureReq: "",
+    batchQty: 0,
+    yearQty: 0,
+    fixtureReq: 0,
     fixtureRemarks: "",
     depthOfPen: "",
     strength: "",
-    hermaticJoint: "",
+    hermaticJoint: 0,
     allowableDeffects: "",
     drawingAvailable: 0,
     inspection: "",
+    inspectionData: [],
     toolPath: "",
+    toolPathData: [],
     materialSource: "",
+    materialSourceData: [],
     shippingDelivery: "",
-    expectedDelivery: "",
+    deliveryData: [],
+    expectedDelivery: new Date().toISOString().split("T")[0],
     testType: "",
     testName: "",
-    details: "",
-    testTableData: [],
+    testDetails: "",
+    testTypeData: [],
+    testListData: [],
+    isNewEnquiryService: true,
+    isNewWeldingDetails: true,
   });
   const Qtnno = "2009/11/166";
   const [key, setKey] = useState("Welding_Details");
@@ -60,13 +73,15 @@ function MainForm() {
           enquiryDate: response.data[0].EnquiryDate
             ? new Date(response.data[0].EnquiryDate).toLocaleDateString("en-GB")
             : "",
+          qtnNo: response.data[0].QtnNo,
+          qtnID: response.data[0].QtnID,
           contactPerson: response.data[0].Contact,
           emailId: response.data[0].E_mail,
           custName: response.data[0].CustomerName,
           contactNo: response.data[0].CustTele,
           custAddress: response.data[0].CustAddress,
         }));
-        // console.log("response", response.data);
+        console.log("response", response.data);
       })
       .catch((error) => {
         console.error("Error fetching", error);
@@ -76,7 +91,25 @@ function MainForm() {
   useEffect(() => {
     Axios.get(apipoints.getJobType)
       .then((response) => {
-        // console.log("response", response.data);
+        // console.log("Job Type response", response.data);
+        setFormData((prevData) => ({
+          ...prevData,
+          jobTypeData: response.data,
+        }));
+      })
+      .catch((error) => {
+        console.error("Error fetching", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    Axios.get(apipoints.getComponent)
+      .then((response) => {
+        // console.log("Component response", response.data);
+        setFormData((prevData) => ({
+          ...prevData,
+          componentData: response.data,
+        }));
       })
       .catch((error) => {
         console.error("Error fetching", error);
@@ -102,9 +135,51 @@ function MainForm() {
     }));
   };
 
+  const handleSave = async () => {
+    try {
+      if (!formData.drawingNo) {
+        toast.error("Enter Drawing No");
+        return;
+      }
+
+      const enquiryServiceData = {
+        qtnID: formData.qtnID,
+        drawingNo: formData.drawingNo,
+        jobType: formData.jobType,
+        component: formData.component,
+      };
+
+      const weldingDetailsData = {
+        qtnID: formData.qtnID,
+        allowComb: formData.allowComb,
+        srRequirements: formData.srRequirements,
+        jointType: formData.jointType,
+        batchQty: formData.batchQty,
+        yearQty: formData.yearQty,
+        depthOfPen: formData.depthOfPen,
+        fixtureReq: formData.fixtureReq,
+        fixtureRemarks: formData.fixtureRemarks,
+        strength: formData.strength,
+        hermaticJoint: formData.hermaticJoint,
+        allowableDeffects: formData.allowableDeffects,
+        drawingAvailable: formData.drawingAvailable,
+        inspection: formData.inspection,
+        toolPath: formData.toolPath,
+        shippingDelivery: formData.shippingDelivery,
+        materialSource: formData.materialSource,
+        expectedDelivery: formData.expectedDelivery,
+      };
+
+      await Axios.post(apipoints.saveEnquiryService, enquiryServiceData);
+      await Axios.post(apipoints.saveWeldingDetails, weldingDetailsData);
+
+      toast.success("Data Saved");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   console.log("formData", formData);
-  // console.log("selectedRowData", formData.selectedRowData);
-  // console.log("materialTableData", formData.materialTableData);
 
   return (
     <div>
@@ -149,32 +224,44 @@ function MainForm() {
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Contact</label>
+              <label className="form-label">Component</label>
             </div>
             <div className="col-8">
-              <input
-                className="input-field"
-                type="text"
-                value={formData.contactPerson}
-                disabled
-              />
+              <select
+                className="ip-select"
+                name="component"
+                onChange={handleInputChange}
+                style={{ marginTop: "12px" }}
+              >
+                <option value="" selected disabled hidden>
+                  Select Component
+                </option>
+                {formData.componentData?.map((comp, index) => (
+                  <option key={index} value={comp.Component_Name}>
+                    {comp.Component_Name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
 
         <div className="col-md-3 col-sm-6">
-          <div className="d-flex">
-            <div className="col-4">
-              <label className="form-label">Contact No</label>
-            </div>
-            <div className="col-8">
-              <input
-                className="input-field"
-                type="text"
-                value={formData.contactNo}
-                disabled
-              />
-            </div>
+          <div className="d-flex justify-content-end" style={{ gap: "10px" }}>
+            <button
+              type="submit"
+              className="button-style1"
+              variant="primary"
+              onClick={handleSave}
+            >
+              Save
+            </button>
+            <button type="submit" className="button-style1" variant="primary">
+              Print
+            </button>
+            <button type="submit" className="button-style1" variant="primary">
+              Close
+            </button>
           </div>
         </div>
       </div>
@@ -190,6 +277,22 @@ function MainForm() {
                 className="input-field"
                 type="text"
                 value={formData.custName}
+                disabled
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Contact</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="text"
+                value={formData.contactPerson}
                 disabled
               />
             </div>
@@ -215,44 +318,15 @@ function MainForm() {
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Type of Job</label>
+              <label className="form-label">Contact No</label>
             </div>
             <div className="col-8">
-              <select
-                className="ip-select"
-                name="jobType"
-                onChange={handleInputChange}
-                style={{ marginTop: "12px" }}
-              >
-                <option value="" selected disabled hidden>
-                  Select Job Type
-                </option>
-                <option value="Production">Production</option>
-                <option value="Development">Development</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-3 col-sm-6">
-          <div className="d-flex">
-            <div className="col-4">
-              <label className="form-label">Component</label>
-            </div>
-            <div className="col-8">
-              <select
-                className="ip-select"
-                name="component"
-                onChange={handleInputChange}
-                style={{ marginTop: "12px" }}
-              >
-                <option value="" selected disabled hidden>
-                  Select Component
-                </option>
-                <option value="New">New</option>
-                <option value="Repeat">Repeat</option>
-                <option value="Redesign">Redesign</option>
-              </select>
+              <input
+                className="input-field"
+                type="text"
+                value={formData.contactNo}
+                disabled
+              />
             </div>
           </div>
         </div>
@@ -272,16 +346,28 @@ function MainForm() {
         </div>
 
         <div className="col-md-3 col-sm-12 mt-2 mt-md-0">
-          <div className="d-flex justify-content-end" style={{ gap: "10px" }}>
-            <button type="submit" className="button-style1" variant="primary">
-              Save
-            </button>
-            <button type="submit" className="button-style1" variant="primary">
-              Print
-            </button>
-            <button type="submit" className="button-style1" variant="primary">
-              Close
-            </button>
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Type of Job</label>
+            </div>
+            <div className="col-8">
+              <select
+                className="ip-select"
+                name="jobType"
+                onChange={handleInputChange}
+                style={{ marginTop: "12px" }}
+              >
+                <option value="" selected disabled hidden>
+                  Select Job Type
+                </option>
+
+                {formData.jobTypeData.map((jobType, index) => (
+                  <option key={index} value={jobType.Job_Type}>
+                    {jobType.Job_Type}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
