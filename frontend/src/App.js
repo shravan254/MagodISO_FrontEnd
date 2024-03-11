@@ -49,6 +49,7 @@ import "react-toastify/dist/ReactToastify.css";
 import TaskSheet from "./pages/Sales/Customer/ISO_Forms/TaskSheet/TaskSheet";
 import Solidstatelaser from "./pages/Sales/Customer/ISO_Forms/SolidStateLaser/Solidstatelaser";
 import Co2Form from "./pages/Sales/Customer/ISO_Forms/Co2Form/Co2Form";
+import Buttonpdf from "./pages/Sales/Customer/ISO_Forms/Printpages/Rateestimator/Buttonpdf";
 
 function App() {
   return (
@@ -89,6 +90,7 @@ function App() {
             <Route path="TaskSheet" element={<TaskSheet />} />
             <Route path="SolidStateForm" element={<Solidstatelaser/>} />
             <Route path="CO2Form" element={<Co2Form/>} />
+            <Route path="pdf" element={<Buttonpdf/>} />
           </Route>
 
           <Route path="/admin" element={<Parentroute />}>

@@ -26,12 +26,370 @@ export default function HomeForm() {
       </div>
 
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-3 col-sm-6">
           <div className="d-flex">
-            <div className="col-md-7">
+            <div className="col-4">
               <label className="form-label">Schedule No/Task No</label>
             </div>
-            <div className="col-md-5">
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Date</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" name="drawingNo" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Assembly Name/No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="d-flex col-md-3 col-sm-6" style={{ gap: "25px" }}>
+          <div className="col-md-2" style={{ marginLeft: "40px" }}>
+            <button type="submit" className="button-style1" variant="primary">
+              Save
+            </button>
+          </div>
+
+          <div className="col-md-2">
+            <button className="button-style1" variant="primary">
+              Print
+            </button>
+          </div>
+
+          <div className="col-md-2">
+            <button type="submit" className="button-style1" variant="primary">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Any Defects</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Machine/Model No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" name="drawingNo" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Program No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Fixture Requirement</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">
+                Lens distance [Focal Length] in mm
+              </label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Material Thickness</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" name="drawingNo" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">With Filler</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Filler Material</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Batch No/Charge No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Machine Peak Power</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" name="drawingNo" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Type Of Laser Equipment</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Reweld Permitted</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Fixture No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Control Plan No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" name="drawingNo" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">WPS No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">PFD No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">WI No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">PQR No</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" name="drawingNo" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Standard Parameter Ref</label>
+            </div>
+            <div className="col-8">
+              <input className="input-field" type="text" />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <label className="form-label">First Part Inspection</label>
+          <div>
+            <div
+              className=""
+              style={{ display: "flex", gap: "70px", marginBottom: "-12px" }}
+            >
+              <div className="mt-1 p-1">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    name="shift incharge"
+                    id="flexCheckDefault"
+                  />
+                  <label
+                    className="form-check-label checkBoxStyle"
+                    htmlFor="flexCheckDefault"
+                  >
+                    Shift incharge
+                  </label>
+                </div>
+              </div>
+
+              <div className="mt-1 p-1" style={{ marginLeft: "7px" }}>
+                <div className="form-check ">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault"
+                    name="weld engineer"
+                  />
+                  <label
+                    className="form-check-label checkBoxStyle"
+                    htmlFor="flexCheckDefault"
+                  >
+                    Weld Engineer
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="" style={{ display: "flex", gap: "70px" }}>
+              <div className="mt-1 p-1">
+                <div className="form-check ">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault"
+                    name="incharge"
+                  />
+                  <label
+                    className="form-check-label checkBoxStyle"
+                    htmlFor="flexCheckDefault"
+                  >
+                    Incharge
+                  </label>
+                </div>
+              </div>
+
+              <div className="mt-1 p-1">
+                <div className="form-check" style={{ marginLeft: "33px" }}>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="flexCheckDefault"
+                    name="project manager"
+                  />
+                  <label
+                    className="form-check-label checkBoxStyle"
+                    htmlFor="flexCheckDefault"
+                  >
+                    Project Manager
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="row">
+        <div className="col-md-4 col-sm-4">
+          <div className="d-flex">
+            <div className="col-md-7 col-sm-8">
+              <label className="form-label">
+                Schedule No/Task No
+              </label>
+            </div>
+            <div className="col-md-5 col-sm-6">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -57,10 +415,10 @@ export default function HomeForm() {
           </div>
 
           <div className="d-flex">
-            <div className="col-md-7">
+            <div className="col-md-7 col-sm-7">
               <label className="form-label">Any Defects</label>
             </div>
-            <div className="col-md-5">
+            <div className="col-md-5 col-sm-5">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -68,37 +426,37 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Date</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="date" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Program No</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Fixture Requirement</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex mt-2">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Material Thickness</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -124,35 +482,35 @@ export default function HomeForm() {
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Reweld Permitted</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Fixture No</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex mt-2">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Control Plan No</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="row">
+      {/* <div className="row">
         <div className="col-md-4">
           <div className="d-flex">
             <div className="col-md-7">
@@ -220,28 +578,28 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">With Filler</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Filler Material</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Batch No/Charge No</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -249,35 +607,35 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">WPS No</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">PFD No</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">WI No</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="row">
+      {/* <div className="row">
         <div className="col-md-4">
           <label className="form-label">First Part Inspection</label>
           <div>
@@ -360,19 +718,19 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Machine Peak Power</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Type of Laser Equipment</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
@@ -380,33 +738,24 @@ export default function HomeForm() {
 
         <div className="col-md-4">
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label"> PQR No</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
 
           <div className="d-flex">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <label className="form-label">Standard Parameter Ref</label>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-7">
               <input className="input-field" type="text" />
             </div>
           </div>
-
-          {/* <div className="d-flex mt-2">
-            <div className="col-md-4">
-              <label className="form-label">Standard Parameter Ref</label>
-            </div>
-            <div className="col-md-8">
-              <input className="input-field" type="text" />
-            </div>
-          </div> */}
         </div>
-      </div>
+      </div> */}
 
       <div className="row">
         <div className="col-md-8 mt-2">
@@ -452,13 +801,16 @@ export default function HomeForm() {
           </div>
         </div>
 
-        <div className="col-md-4">
+        <div
+          className="col-md-4"
+          style={{ backgroundColor: "#f0f0f0", borderRadius: "10px" }}
+        >
           <div className="">
             <label className="form-label">Sub-assy Part Name/No</label>
             <input
               type="text"
               className="input-field"
-              style={{ margin: "0px" }}
+              style={{ margin: "0px", borderRadius: "5px" }}
             />
           </div>
 
@@ -467,7 +819,7 @@ export default function HomeForm() {
             <input
               type="text"
               className="input-field"
-              style={{ margin: "0px" }}
+              style={{ margin: "0px", borderRadius: "5px" }}
             />
           </div>
 
@@ -485,6 +837,45 @@ export default function HomeForm() {
             </div>
           </div>
         </div>
+
+        {/* <div
+          className="col-md-4 col-sm-12 mt-2"
+          style={{ backgroundColor: "#f0f0f0", borderRadius: "10px" }}
+        >
+          <div className="d-flex">
+            <div className="col-3">
+              <label className="form-label">Sub-assy Part Name/No</label>
+            </div>
+            <div className="col-8">
+              <input type="text" name="material" className="in-field" />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-3">
+              <label className="form-label">Qty Received</label>
+            </div>
+            <div className="col-8">
+              <input type="text" name="thickness" className="in-field" />
+            </div>
+          </div>
+
+          <div className="d-flex mt-2">
+            <div className="col-4">
+              <label className="form-label"></label>
+            </div>
+            <div className="col-auto">
+              <button className="button-style1" variant="primary">
+                Add
+              </button>
+            </div>
+            <div className="col-auto">
+              <button className="button-style1" variant="primary">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div> */}
       </div>
 
       <h3 className="form-title  mt-3" style={{ marginLeft: "325px" }}>

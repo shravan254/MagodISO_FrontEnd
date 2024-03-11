@@ -179,7 +179,11 @@ export default function Solidstatelaser() {
 
         <div
           className="col-md-4 col-sm-12 mt-2"
-          style={{ padding: "10px", backgroundColor: "#f0f0f0" }}
+          style={{
+            padding: "10px",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "10px",
+          }}
         >
           <div className="d-flex">
             <div className="col-3">
@@ -298,7 +302,11 @@ export default function Solidstatelaser() {
 
         <div
           className="col-md-4 col-sm-12 mt-2"
-          style={{ padding: "10px", backgroundColor: "#f0f0f0" }}
+          style={{
+            padding: "10px",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "10px",
+          }}
         >
           <div className="d-flex">
             <div className="col-3">
