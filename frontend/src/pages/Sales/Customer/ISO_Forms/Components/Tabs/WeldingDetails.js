@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-
-import { Row, Col, Form, FormLabel, Table, Toast } from "react-bootstrap";
-import axios from "axios";
+import Axios from "axios";
+import { apipoints } from "../../../../../api/isoForms/isoForms";
+import { Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 function WeldingDetails({
@@ -10,30 +10,149 @@ function WeldingDetails({
   handleInputChange,
   handleRowSelect,
 }) {
-  const handleAddMaterial = () => {
-    const newMaterial = {
-      material: formData.material,
-      thickness: formData.thickness,
-    };
+  const today = new Date().toISOString().split("T")[0];
+  useEffect(() => {
+    Axios.get(apipoints.getJointType)
+      .then((response) => {
+        // console.log("Joint Type Response", response.data);
+        setFormData((prevData) => ({
+          ...prevData,
+          jointTypeData: response.data,
+        }));
+      })
+      .catch((error) => {
+        // console.error("Error Fetching", error);
+      });
+  }, []);
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      materialTableData: [...prevFormData.materialTableData, newMaterial],
-      material: "",
-      thickness: "",
-    }));
+  useEffect(() => {
+    Axios.get(apipoints.getInspection)
+      .then((response) => {
+        // console.log("Inspection Type Response", response.data);
+        setFormData((prevData) => ({
+          ...prevData,
+          inspectionData: response.data,
+        }));
+      })
+      .catch((error) => {
+        console.error("Error Fecthing", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    Axios.get(apipoints.getToolpath)
+      .then((respone) => {
+        // console.log("Tool Path Response", respone.data);
+        setFormData((prevData) => ({
+          ...prevData,
+          toolPathData: respone.data,
+        }));
+      })
+      .catch((error) => {
+        console.log("Error Fecthing", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    Axios.get(apipoints.getDelivery)
+      .then((response) => {
+        // console.log("Delivery Response", response.data)
+        setFormData((prevData) => ({
+          ...prevData,
+          deliveryData: response.data,
+        }));
+      })
+      .catch((error) => {
+        console.error("Error Fetching", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    Axios.get(apipoints.getMaterialSource)
+      .then((respone) => {
+        // console.log("Material Source Response", respone.data)
+        setFormData((prevData) => ({
+          ...prevData,
+          materialSourceData: respone.data,
+        }));
+      })
+      .catch((error) => {
+        console.log("Error Fetching", error);
+      });
+  }, []);
+
+  // const handleAddMaterial = () => {
+  //   const newMaterial = {
+  //     material: formData.material,
+  //     thickness: formData.thickness,
+  //   };
+
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     materialTableData: [...prevFormData.materialTableData, newMaterial],
+  //     material: "",
+  //     thickness: "",
+  //   }));
+  // };
+
+  const handleAddMaterial = async () => {
+    try {
+      const newMaterial = {
+        qtnID: formData.qtnID,
+        material: formData.material,
+        thickness: formData.thickness,
+      };
+
+      const response = await Axios.post(
+        apipoints.insertMaterialDetails,
+        newMaterial
+      );
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+
+        materialTableData: response.data,
+        material: "",
+        thickness: "",
+      }));
+    } catch (error) {
+      console.error("Error Adding Material", error);
+      toast.error("Error Adding Material");
+    }
   };
 
-  const handleDeleteMaterial = (index) => {
-    const updatedMaterialTableData = formData.materialTableData.filter(
-      (_, i) => i !== index
-    );
-    setFormData((prevData) => ({
-      ...prevData,
-      materialTableData: updatedMaterialTableData,
-      selectedRow1: null,
-    }));
+  console.log("materialTableData", formData.materialTableData);
+
+  // const handleDeleteMaterial = (index) => {
+  //   const updatedMaterialTableData = formData.materialTableData.filter(
+  //     (_, i) => i !== index
+  //   );
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     materialTableData: updatedMaterialTableData,
+  //     selectedRow1: null,
+  //   }));
+  // };
+
+  const handleDeleteMaterial = async (materialId) => {
+    try {
+      await Axios.post(apipoints.deleteMaterialDetails, { materialId });
+
+      setFormData((prevData) => ({
+        ...prevData,
+        materialTableData: prevData.materialTableData.filter(
+          (item) => item.Material_ID !== materialId
+        ),
+        selectedRow1: null,
+      }));
+
+      toast.success("Material deleted successfully");
+    } catch (error) {
+      console.error("Error Deleting Material", error);
+      toast.error("Error Deleting Material");
+    }
   };
+
   return (
     <>
       <div className="row">
@@ -68,14 +187,19 @@ function WeldingDetails({
                 {formData.materialTableData.map((item, index) => (
                   <tr
                     key={index}
-                    onClick={() => handleRowSelect(index)}
-                    className={`${
-                      index === formData.selectedRow1 ? "selectedRowClr" : ""
-                    } `}
+                    onClick={() => handleRowSelect(item.Material_ID)}
+                    // className={`${
+                    //   index === formData.selectedRow1 ? "selectedRowClr" : ""
+                    // } `}
+                    className={
+                      formData.selectedRow1 === item.Material_ID
+                        ? "selectedRowClr"
+                        : ""
+                    }
                   >
                     <td>{index + 1}</td>
-                    <td>{item.material}</td>
-                    <td>{item.thickness}</td>
+                    <td>{item.Material}</td>
+                    <td>{item.Thickness}</td>
                   </tr>
                 ))}
               </tbody>
@@ -87,30 +211,6 @@ function WeldingDetails({
           className="col-md-4 col-sm-12 mt-2"
           style={{ backgroundColor: "#f0f0f0", padding: "10px" }}
         >
-          {/* <div className="mb-1">
-            <label className="form-label">Material</label>
-           
-            <input
-              type="text"
-              name="material"
-              className="in-field"
-              value={formData.material}
-              onChange={handleInputChange}
-            />
-          </div> */}
-
-          {/* <div className="mb-1">
-            <label className="form-label">Thickness</label>
-           
-            <input
-              type="text"
-              name="thickness"
-              className="in-field"
-              value={formData.thickness}
-              onChange={handleInputChange}
-            />
-          </div> */}
-
           <div className="d-flex">
             <div className="col-3">
               <label className="form-label">Material</label>
@@ -140,29 +240,6 @@ function WeldingDetails({
               />
             </div>
           </div>
-
-          {/* <div className="d-flex">
-           
-            <div className="">
-              <button
-                className="button-style1"
-                variant="primary"
-                onClick={handleAddMaterial}
-              >
-                Add
-              </button>
-            </div>
-
-            <div className="">
-              <button
-                className="button-style1"
-                variant="primary"
-                onClick={() => handleDeleteMaterial(formData.selectedRow1)}
-              >
-                Delete
-              </button>
-            </div>
-          </div> */}
 
           <div className="d-flex mt-2">
             <div className="col-4">
@@ -244,11 +321,12 @@ function WeldingDetails({
                 <option value="" selected disabled hidden>
                   Select Joint Type
                 </option>
-                <option value="Butt Joint">Butt Joint</option>
-                <option value="Tee Joint">Tee Joint</option>
-                <option value="Lap Joint">Lap Joint</option>
-                <option value="Corner Joint">Corner Joint</option>
-                <option value="Edge Joint">Edge Joint</option>
+
+                {formData.jointTypeData?.map((joint, index) => (
+                  <option key={index} value={joint.Joint_Type}>
+                    {joint.Joint_Type}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -322,8 +400,8 @@ function WeldingDetails({
                 <option value="" selected disabled hidden>
                   Select Fixture Requirement
                 </option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
               </select>
             </div>
           </div>
@@ -378,8 +456,8 @@ function WeldingDetails({
                 <option value="" selected disabled hidden>
                   Select Hermatic Joint
                 </option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
               </select>
             </div>
           </div>
@@ -444,13 +522,17 @@ function WeldingDetails({
                   className="ip-select"
                   name="inspection"
                   style={{ marginTop: "12px" }}
+                  onChange={handleInputChange}
                 >
                   <option value="" selected disabled hidden>
                     Select Inspection
                   </option>
-                  <option value="DimensionChecks">Dimension Checks</option>
-                  <option value="CMM">CMM</option>
-                  <option value="SpecialGauges">Special Gauges</option>
+
+                  {formData.inspectionData?.map((insp, index) => (
+                    <option key={index} value={insp.Inspection_Name}>
+                      {insp.Inspection_Name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -471,8 +553,12 @@ function WeldingDetails({
                   <option value="" selected disabled hidden>
                     Select Tool Path
                   </option>
-                  <option value="Manual Welding">Manual Welding</option>
-                  <option value="Auotmatic Welding">Automatic Welding</option>
+
+                  {formData.toolPathData.map((tool, index) => (
+                    <option key={index} value={tool.Tool_Path}>
+                      {tool.Tool_Path}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -495,9 +581,12 @@ function WeldingDetails({
                   <option value="" selected disabled hidden>
                     Select Delivery
                   </option>
-                  <option value="Magod Delivary">Magod Delivary</option>
-                  <option value="Customer Pick Up">Customer Pick Up</option>
-                  <option value="Transporter">Transporter</option>
+
+                  {formData.deliveryData?.map((del, index) => (
+                    <option key={index} value={del.Delivery}>
+                      {del.Delivery}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -518,8 +607,12 @@ function WeldingDetails({
                   <option value="" selected disabled hidden>
                     Select Source
                   </option>
-                  <option value="Magod">Magod</option>
-                  <option value="Customer">Customer</option>
+
+                  {formData.materialSourceData?.map((msource, index) => (
+                    <option key={index} value={msource.MtrlSource}>
+                      {msource.MtrlSource}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -537,6 +630,7 @@ function WeldingDetails({
                   name="expectedDelivery"
                   value={formData.expectedDelivery}
                   onChange={handleInputChange}
+                  min={today}
                 />
               </div>
             </div>

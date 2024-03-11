@@ -533,7 +533,7 @@ export default function QuoteDetails() {
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Profit Charges</label>
+              <label className="form-label">Overhead Charges(%)</label>
             </div>
             <div className="col-8">
               <input className="input-field" type="text" />
@@ -556,7 +556,7 @@ export default function QuoteDetails() {
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Unit Price Changes</label>
+              <label className="form-label">Revised Unit Price</label>
             </div>
             <div className="col-8">
               <input className="input-field" type="text" />

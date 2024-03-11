@@ -417,6 +417,7 @@ label {
 .nav-tabs .nav-link {
   background-color: rgb(107, 162, 207) !important;
   color: white !important;
+  padding: 3px;
 }
 .nav-tabs .nav-link.active {
   background-color: whitesmoke !important;
@@ -440,10 +441,6 @@ li.nav-item {
 .input-field {
   font-size: 12px;
   margin-top: 10px;
-}
-
-.input-field2 {
-  font-size: 12px;
 }
 
 .form-label {
