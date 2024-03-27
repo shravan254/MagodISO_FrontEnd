@@ -140,18 +140,6 @@ a {
   color: #000000;
   font-size: 14px;
 }
-.button-style {
-  width: 100px;
-  height: 38px;
-  border: none;
-  margin-right: 10px;
-  background-color: #2b3a55;
-  color: #ffffff;
-  border-radius: 5px;
-  padding: 3px;
-  margin-top: 10px;
-  font-size: 16px;
-}
 
 /* width for buttons  */
 
@@ -262,20 +250,6 @@ input:focus {
 
 .tab-content {
   padding: 0px !important;
-}
-
-.ip-select {
-  font-size: 12px;
-  padding: -3px 10px 10px 5px;
-  display: block;
-  width: 100%;
-  border: none;
-  border-radius: 0px;
-  border-bottom: 1px solid #757575;
-}
-.ip-select:focus {
-  outline: none;
-  border-bottom: 1px solid #3932be;
 }
 
 label {
@@ -436,7 +410,7 @@ li.nav-item {
   background-color: #ffffff;
 }
 
-/* *************************************************************************************** */
+/* ****************************************************************************************************** */
 
 .input-field {
   font-size: 12px;
@@ -448,7 +422,7 @@ li.nav-item {
   font-weight: 700;
 }
 
-.button-style1 {
+.button-style {
   width: 60px;
   height: 25px;
   border: none;
@@ -459,6 +433,23 @@ li.nav-item {
   /* padding: 1px; */
   margin-top: 8px;
   font-size: 12px;
+}
+
+.button-disabled {
+  /* color: white !important;
+  background-color: rgb(173, 173, 173) !important;
+  cursor: no-drop; */
+  width: 60px;
+  height: 25px;
+  border: none;
+  margin-right: 10px;
+  background-color: rgb(173, 173, 173) !important;
+  color: white !important;
+  border-radius: 5px;
+  /* padding: 1px; */
+  margin-top: 8px;
+  font-size: 12px;
+  cursor: no-drop;
 }
 
 th {
@@ -477,7 +468,7 @@ td {
   border-radius: 5px;
 }
 
-.ip-select2 {
+.ip-select {
   font-size: 12px;
   padding: -3px 10px 10px 5px;
   display: block;
@@ -488,7 +479,7 @@ td {
   border-bottom: 1px solid #757575;
 }
 
-.ip-select2:focus {
+.ip-select:focus {
   outline: none;
   border-bottom: 1px solid #3932be;
 }
@@ -501,4 +492,34 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.erp_title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.nav-link {
+  padding: 3px;
+}
+
+.tab_font {
+  /* font-weight: 600; */
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.nav-tabs .nav-link {
+  background-color: rgb(107, 162, 207) !important;
+  color: white !important;
+  padding: 3px;
+}
+.nav-tabs .nav-link.active {
+  background-color: whitesmoke !important;
+  color: black !important;
+  padding: 3px;
+}
+
+li.nav-item {
+  margin-left: 5px !important;
 }

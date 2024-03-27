@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import { apipoints } from "../../../../../api/isoForms/isoForms";
+import { apipoints } from "../../../../../api/isoForms/rateEstimator";
 import { Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 
@@ -81,20 +81,6 @@ function WeldingDetails({
       });
   }, []);
 
-  // const handleAddMaterial = () => {
-  //   const newMaterial = {
-  //     material: formData.material,
-  //     thickness: formData.thickness,
-  //   };
-
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     materialTableData: [...prevFormData.materialTableData, newMaterial],
-  //     material: "",
-  //     thickness: "",
-  //   }));
-  // };
-
   const handleAddMaterial = async () => {
     try {
       const newMaterial = {
@@ -113,7 +99,7 @@ function WeldingDetails({
 
         materialTableData: response.data,
         material: "",
-        thickness: "",
+        thickness: 0,
       }));
     } catch (error) {
       console.error("Error Adding Material", error);
@@ -121,18 +107,45 @@ function WeldingDetails({
     }
   };
 
-  console.log("materialTableData", formData.materialTableData);
+  // const handleAddMaterial = async () => {
+  //   try {
+  //     const response = await Axios.post(apipoints.insertMaterialDetails, {
+  //       qtnID: formData.qtnID,
+  //     });
 
-  // const handleDeleteMaterial = (index) => {
-  //   const updatedMaterialTableData = formData.materialTableData.filter(
-  //     (_, i) => i !== index
-  //   );
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     materialTableData: updatedMaterialTableData,
-  //     selectedRow1: null,
-  //   }));
+  //     console.log("response", response.data);
+
+  //     if (response.data.affectedRows !== 0) {
+  //       const id = response.data.insertId;
+  //       const newRow = {
+  //         Material_ID: id,
+  //         Material: "",
+  //         Thickness: 0,
+  //       };
+
+  //       const updatedMaterialTableData = [
+  //         ...formData.materialTableData,
+  //         newRow,
+  //       ];
+
+  //       setFormData((prevFormData) => ({
+  //         ...prevFormData,
+  //         materialTableData: updatedMaterialTableData,
+  //         material: "",
+  //         thickness: 0,
+  //       }));
+
+  //       toast.success("Material added successfully");
+  //     } else {
+  //       toast.error("Record Not Inserted");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error Adding Material", error);
+  //     toast.error("Error Adding Material");
+  //   }
   // };
+
+  console.log("materialTableData", formData.materialTableData);
 
   const handleDeleteMaterial = async (materialId) => {
     try {
@@ -152,6 +165,9 @@ function WeldingDetails({
       toast.error("Error Deleting Material");
     }
   };
+
+  const blockInvalidChar = (e) =>
+    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
 
   return (
     <>
@@ -188,9 +204,6 @@ function WeldingDetails({
                   <tr
                     key={index}
                     onClick={() => handleRowSelect(item.Material_ID)}
-                    // className={`${
-                    //   index === formData.selectedRow1 ? "selectedRowClr" : ""
-                    // } `}
                     className={
                       formData.selectedRow1 === item.Material_ID
                         ? "selectedRowClr"
@@ -215,13 +228,14 @@ function WeldingDetails({
             <div className="col-3">
               <label className="form-label">Material</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input
                 type="text"
                 name="material"
                 className="in-field"
                 value={formData.material}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -230,13 +244,16 @@ function WeldingDetails({
             <div className="col-3">
               <label className="form-label">Thickness</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input
-                type="text"
+                type="number"
+                min="0"
                 name="thickness"
                 className="in-field"
                 value={formData.thickness}
+                onKeyDown={blockInvalidChar}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -247,18 +264,27 @@ function WeldingDetails({
             </div>
             <div className="col-auto">
               <button
-                className="button-style1"
+                className={
+                  formData.tabsEnable ? "button-style" : "button-disabled"
+                }
                 variant="primary"
                 onClick={handleAddMaterial}
+                disabled={!formData.tabsEnable}
               >
                 Add
               </button>
             </div>
             <div className="col-auto">
               <button
-                className="button-style1"
+                // className="button-style"
+                className={
+                  formData.tabsEnable
+                    ? "button-style"
+                    : "button-style button-disabled"
+                }
                 variant="primary"
                 onClick={() => handleDeleteMaterial(formData.selectedRow1)}
+                disabled={!formData.tabsEnable}
               >
                 Delete
               </button>
@@ -280,6 +306,7 @@ function WeldingDetails({
                 name="allowComb"
                 value={formData.allowComb}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -299,6 +326,7 @@ function WeldingDetails({
                 name="srRequirements"
                 value={formData.srRequirements}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -315,8 +343,10 @@ function WeldingDetails({
               <select
                 className="ip-select"
                 name="jointType"
+                value={formData.jointType}
                 onChange={handleInputChange}
                 style={{ marginTop: "12px" }}
+                disabled={!formData.tabsEnable}
               >
                 <option value="" selected disabled hidden>
                   Select Joint Type
@@ -344,6 +374,7 @@ function WeldingDetails({
                 name="batchQty"
                 value={formData.batchQty}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -361,6 +392,7 @@ function WeldingDetails({
                 name="yearQty"
                 value={formData.yearQty}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -378,6 +410,7 @@ function WeldingDetails({
                 name="depthOfPen"
                 value={formData.depthOfPen}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -394,14 +427,16 @@ function WeldingDetails({
               <select
                 className="ip-select"
                 name="fixtureReq"
+                value={formData.fixtureReq}
                 onChange={handleInputChange}
                 style={{ marginTop: "12px" }}
+                disabled={!formData.tabsEnable}
               >
-                <option value="" selected disabled hidden>
+                <option value={null} selected disabled hidden>
                   Select Fixture Requirement
                 </option>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
               </select>
             </div>
           </div>
@@ -419,6 +454,7 @@ function WeldingDetails({
                 name="fixtureRemarks"
                 value={formData.fixtureRemarks}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -436,6 +472,7 @@ function WeldingDetails({
                 name="strength"
                 value={formData.strength}
                 onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -450,14 +487,16 @@ function WeldingDetails({
               <select
                 className="ip-select"
                 name="hermaticJoint"
+                value={formData.hermaticJoint}
                 onChange={handleInputChange}
                 style={{ marginTop: "12px" }}
+                disabled={!formData.tabsEnable}
               >
-                <option value="" selected disabled hidden>
+                <option value={null} selected disabled hidden>
                   Select Hermatic Joint
                 </option>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
               </select>
             </div>
           </div>
@@ -477,6 +516,7 @@ function WeldingDetails({
                 value={formData.allowableDeffects}
                 onChange={handleInputChange}
                 className="input-field"
+                disabled={!formData.tabsEnable}
               />
             </div>
           </div>
@@ -498,15 +538,17 @@ function WeldingDetails({
               <div className="col-8">
                 <select
                   className="ip-select"
+                  value={formData.drawingAvailable}
                   name="drawingAvailable"
                   onChange={handleInputChange}
                   style={{ marginTop: "12px" }}
+                  disabled={!formData.tabsEnable}
                 >
-                  <option value="" selected disabled hidden>
+                  <option value={null} selected disabled hidden>
                     Select Drawing
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="0">No</option>
+                  <option value={1}>Yes</option>
+                  <option value={0}>No</option>
                 </select>
               </div>
             </div>
@@ -520,9 +562,11 @@ function WeldingDetails({
               <div className="col-8">
                 <select
                   className="ip-select"
+                  value={formData.inspection}
                   name="inspection"
                   style={{ marginTop: "12px" }}
                   onChange={handleInputChange}
+                  disabled={!formData.tabsEnable}
                 >
                   <option value="" selected disabled hidden>
                     Select Inspection
@@ -547,8 +591,10 @@ function WeldingDetails({
                 <select
                   className="ip-select"
                   name="toolPath"
+                  value={formData.toolPath}
                   onChange={handleInputChange}
                   style={{ marginTop: "12px" }}
+                  disabled={!formData.tabsEnable}
                 >
                   <option value="" selected disabled hidden>
                     Select Tool Path
@@ -575,6 +621,7 @@ function WeldingDetails({
                 <select
                   className="ip-select"
                   name="shippingDelivery"
+                  value={formData.shippingDelivery}
                   onChange={handleInputChange}
                   style={{ marginTop: "12px" }}
                 >
@@ -601,6 +648,7 @@ function WeldingDetails({
                 <select
                   className="ip-select"
                   name="materialSource"
+                  value={formData.materialSource}
                   onChange={handleInputChange}
                   style={{ marginTop: "12px" }}
                 >
@@ -631,6 +679,7 @@ function WeldingDetails({
                   value={formData.expectedDelivery}
                   onChange={handleInputChange}
                   min={today}
+                  disabled={!formData.tabsEnable}
                 />
               </div>
             </div>

@@ -15,7 +15,7 @@ export default function PrintButton() {
           openPrintModal={openPrintModal}
           setOpenPrintModal={setOpenPrintModal}
         />
-        <button className="button-style1" variant="primary" onClick={openPdf}>
+        <button className="button-style" variant="primary" onClick={openPdf}>
           Print
         </button>
       </div>
