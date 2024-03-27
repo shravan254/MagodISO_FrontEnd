@@ -19,7 +19,7 @@ export default function CoTable() {
   return (
     <div className="mt-3">
       <h5 className="form-title">
-        <b>CO2 Laser - Parsameters</b>
+        <b>CO2 Laser - Parameters</b>
       </h5>
       <Table striped size="sm">
         <thead>

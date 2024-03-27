@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Table } from "react-bootstrap";
 
-export default function SolidStateLaserTabel() {
+export default function SolidStateLaserTable() {
   const [rows, setRows] = useState([
     { desc: "Power at focus Watts/Volts", details: "" },
     { desc: "Focus dia in mm", details: "" },
@@ -19,7 +19,7 @@ export default function SolidStateLaserTabel() {
   return (
     <div className="mt-3">
       <h5 className="form-title">
-        <b>Solid State Laser - Parsameters(PW)</b>
+        <b>Solid State Laser - Parameters(PW)</b>
       </h5>
       <Table striped size="sm">
         <thead>

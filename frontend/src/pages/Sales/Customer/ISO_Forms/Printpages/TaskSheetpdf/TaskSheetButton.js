@@ -17,7 +17,7 @@ export default function TaskSheetButton() {
         />
         <button
           type="submit"
-          className="button-style1"
+          className="button-style"
           variant="primary"
           onClick={openPdf}
         >

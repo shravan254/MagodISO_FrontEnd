@@ -58,7 +58,7 @@ export default function Solidstatelaser() {
 
         <div className="d-flex col-md-3 col-sm-6" style={{ gap: "25px" }}>
           <div className="col-md-2" style={{ marginLeft: "40px" }}>
-            <button type="submit" className="button-style1" variant="primary">
+            <button type="submit" className="button-style" variant="primary">
               Save
             </button>
           </div>
@@ -69,7 +69,7 @@ export default function Solidstatelaser() {
               SetIsoFormOpen={SetIsoFormOpen}
             />
             <button
-              className="button-style1"
+              className="button-style"
               variant="primary"
               onClick={openPdf}
             >
@@ -78,7 +78,7 @@ export default function Solidstatelaser() {
           </div>
 
           <div className="col-md-2">
-            <button type="submit" className="button-style1" variant="primary">
+            <button type="submit" className="button-style" variant="primary">
               Close
             </button>
           </div>
@@ -189,7 +189,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Material</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="material" className="in-field" />
             </div>
           </div>
@@ -198,7 +198,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Thickness</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -208,12 +208,12 @@ export default function Solidstatelaser() {
               <label className="form-label"></label>
             </div>
             <div className="col-auto">
-              <button className="button-style1" variant="primary">
+              <button className="button-style" variant="primary">
                 Add
               </button>
             </div>
             <div className="col-auto">
-              <button className="button-style1" variant="primary">
+              <button className="button-style" variant="primary">
                 Delete
               </button>
             </div>
@@ -312,7 +312,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Bead Dia(mm)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="material" className="in-field" />
             </div>
           </div>
@@ -321,7 +321,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Power(W)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -330,7 +330,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Energy(e)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -339,7 +339,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Pulse Width(Ms)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -348,7 +348,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Frequency(Hz)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -357,7 +357,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Pulse Shape </label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -366,7 +366,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Speed(Mm/Min)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -375,7 +375,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Gas Flow(LPM)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -384,7 +384,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Focus Position</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -393,7 +393,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Stand Off(Mm)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -402,7 +402,7 @@ export default function Solidstatelaser() {
             <div className="col-3">
               <label className="form-label">Comments</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <textarea
                 className="form-control sticky-top mt-1"
                 rows="2"
@@ -418,12 +418,12 @@ export default function Solidstatelaser() {
               <label className="form-label"></label>
             </div>
             <div className="col-auto">
-              <button className="button-style1" variant="primary">
+              <button className="button-style" variant="primary">
                 Add
               </button>
             </div>
             <div className="col-auto">
-              <button className="button-style1" variant="primary">
+              <button className="button-style" variant="primary">
                 Delete
               </button>
             </div>

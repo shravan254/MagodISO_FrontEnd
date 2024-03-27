@@ -56,7 +56,7 @@ export default function Co2Form() {
 
         <div className="d-flex col-md-3 col-sm-6" style={{ gap: "25px" }}>
           <div className="col-md-2" style={{ marginLeft: "40px" }}>
-            <button type="submit" className="button-style1" variant="primary">
+            <button type="submit" className="button-style" variant="primary">
               Save
             </button>
           </div>
@@ -67,7 +67,7 @@ export default function Co2Form() {
               setOpenPrintModal={setOpenPrintModal}
             />
             <button
-              className="button-style1"
+              className="button-style"
               variant="primary"
               onClick={openPdf}
             >
@@ -76,7 +76,7 @@ export default function Co2Form() {
           </div>
 
           <div className="col-md-2">
-            <button type="submit" className="button-style1" variant="primary">
+            <button type="submit" className="button-style" variant="primary">
               Close
             </button>
           </div>
@@ -173,7 +173,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Material</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="material" className="in-field" />
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Thickness</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -192,12 +192,12 @@ export default function Co2Form() {
               <label className="form-label"></label>
             </div>
             <div className="col-auto">
-              <button className="button-style1" variant="primary">
+              <button className="button-style" variant="primary">
                 Add
               </button>
             </div>
             <div className="col-auto">
-              <button className="button-style1" variant="primary">
+              <button className="button-style" variant="primary">
                 Delete
               </button>
             </div>
@@ -277,7 +277,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Gas Type</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="material" className="in-field" />
             </div>
           </div>
@@ -286,7 +286,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Bead Dia(mm)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="material" className="in-field" />
             </div>
           </div>
@@ -295,7 +295,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Power(W)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -304,7 +304,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Gap(mm)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -313,7 +313,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Flow/Pressure</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -322,7 +322,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Focus</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -331,7 +331,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Speed(Mm/Min)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -340,7 +340,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Frequency(Hz)</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
             </div>
           </div>
@@ -349,7 +349,7 @@ export default function Co2Form() {
             <div className="col-3">
               <label className="form-label">Comments</label>
             </div>
-            <div className="col-8">
+            <div className="col-8 mt-2">
               <textarea
                 className="form-control sticky-top mt-1"
                 rows="2"
@@ -365,12 +365,12 @@ export default function Co2Form() {
               <label className="form-label"></label>
             </div>
             <div className="col-auto">
-              <button className="button-style1" variant="primary">
+              <button className="button-style" variant="primary">
                 Add
               </button>
             </div>
             <div className="col-auto">
-              <button className="button-style1" variant="primary">
+              <button className="button-style" variant="primary">
                 Delete
               </button>
             </div>

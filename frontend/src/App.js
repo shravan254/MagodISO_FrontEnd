@@ -3,41 +3,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Sidebar from "./pages/Sidebar";
 import WithNav from "./Layout/WithNav";
 import Customer from "./customer/Customer";
-import CustomerInfo from "./pages/Sales/Customer/Customer/CustomerInfo";
-import CustomerNew from "./pages/Sales/Customer/Customer/CustomerNew";
 import Parentroute from "./Layout/Parentroute";
 import Login from "./pages/Auth/Login";
-import DrawingList from "./pages/Sales/Customer/DrawingList/DrawingList";
-import Material from "./pages/Sales/Customer/Material/Material";
-import Order from "./pages/Sales/Customer/Orders/Order";
-
-import PartList from "./pages/Sales/Customer/PartList/PartList";
-import ISO_Forms from "./pages/Sales/Customer/ISO_Forms/ISO_Forms";
-import Commercial from "./pages/Sales/Customer/Commercial/Outstanding_summary/Commercial";
-import Custinvandpayments from "./pages/Sales/Customer/Commercial/Invoices_and_payments/Custinvandpayments";
-// import Mapping from "./pages/Admin/Access/Mapping";
-// import MenuRole from "./pages/Admin/Access/MenuRole";
-// import Menus from "./pages/Admin/Users/Menus";
-// import Roles from "./pages/Admin/Users/Roles";
-// import Users from "./pages/Admin/Users/Users";
-// import Quotation from "./pages/Quotation/Quotations/Quotation";
-
-import Quotation from "./pages/Sales/Quotation/Quotations/Quotation";
+import QuotationMain from "./pages/Sales/Customer/ISO_Forms/RateEstimator/QuotationMain";
+import RateEstimator from "./pages/Sales/Customer/ISO_Forms/RateEstimator/RateEstimator";
 import Home from "./pages/Home";
 import HomeOne from "./pages/HomeOne";
-// import Adddetails from "./pages/Quotation/Quotations/AddDetails/Adddetails";
-import Adddetails from "./pages/Sales/Quotation/Quotations/AddDetails/Adddetails";
-
-import ShowInvoice from "./pages/Sales/Customer/Commercial/Invoices_and_payments/Components/ShowInvoice";
-import Menu from "./pages/Packing&Invoicing/Menu/Menu";
-import InspServiceScheduleList from "./pages/Packing&Invoicing/Menu/Inspection/Service/InspServiceScheduleList";
-import InspServiceFindSchedule from "./pages/Packing&Invoicing/Menu/Inspection/Service/InspServiceFindSchedule";
-import InspProfileFindSchedule from "./pages/Packing&Invoicing/Menu/Inspection/Profile/InspProfileFindSchedule";
-import InspProfileScheduleList from "./pages/Packing&Invoicing/Menu/Inspection/Profile/InspProfileScheduleList";
-import InspFabricationFindSchedule from "./pages/Packing&Invoicing/Menu/Inspection/Fabrication/InspFabricationFindSchedule";
-import InspFabricationScheduleList from "./pages/Packing&Invoicing/Menu/Inspection/Fabrication/InspFabricationScheduleList";
-import InternalRejectionForm from "./pages/Packing&Invoicing/Menu/Inspection/Components/InternalRejectionForm";
-import ExistedCustomerInfo from "./pages/Sales/Customer/Customer/ExistedCustomerInfo";
 import UserRolesModules from "./pages/admin/userrolesmodules";
 import CreateUsers from "./pages/admin/createusers";
 import MenuRoleMapping from "./pages/admin/menurolemapping";
@@ -62,35 +33,12 @@ function App() {
         <Route element={<WithNav />}>
           <Route exact path="/mailer" element={<SendMail />} />
           <Route path="/Customer" element={<Parentroute />}>
-            <Route path="CustomerInfo" element={<CustomerInfo />} />
-            <Route
-              path="ExistedCustomerInfo"
-              element={<ExistedCustomerInfo />}
-            />
-            <Route path="CustomerNew" element={<CustomerNew />} />
-            <Route path="Outstandings" element={<Commercial />} />
-            <Route path="CustomerInvoiceAndPayments">
-              <Route index={true} element={<Custinvandpayments />} />
-              <Route path="showinvoice" element={<ShowInvoice />} />
-            </Route>
-            <Route path="DrawingList" element={<DrawingList />} />
-            <Route path="Material" element={<Material />} />
-            <Route path="Orders">
-              <Route path="OrdersCreated" element={<Order />} />
-              <Route path="OrdersRecorded" element={<Order />} />
-              <Route path="OrdersProcessing" element={<Order />} />
-              <Route path="OrdersProduced" element={<Order />} />
-              <Route path="OrdersReady" element={<Order />} />
-              <Route path="OrdersDispatched" element={<Order />} />
-              <Route path="OrdersAll" element={<Order />} />
-            </Route>
-
-            <Route path="PartList" element={<PartList />} />
-            <Route path="RateEstimator" element={<ISO_Forms />} />
+            <Route path="Quotation" element={<QuotationMain />} />
+            <Route path="RateEstimator" element={<RateEstimator />} />
             <Route path="TaskSheet" element={<TaskSheet />} />
-            <Route path="SolidStateForm" element={<Solidstatelaser/>} />
-            <Route path="CO2Form" element={<Co2Form/>} />
-            <Route path="pdf" element={<Buttonpdf/>} />
+            <Route path="SolidStateForm" element={<Solidstatelaser />} />
+            <Route path="CO2Form" element={<Co2Form />} />
+            <Route path="pdf" element={<Buttonpdf />} />
           </Route>
 
           <Route path="/admin" element={<Parentroute />}>
@@ -101,12 +49,12 @@ function App() {
             <Route path="users" element={<CreateUsers />} />
           </Route>
 
-          <Route path="/quotation" element={<Parentroute />}>
+          {/* <Route path="/quotation" element={<Parentroute />}>
             <Route path="quotation">
               <Route index={true} element={<Quotation />} />
               <Route path="addDetails" element={<Adddetails />} />
             </Route>
-          </Route>
+          </Route> */}
         </Route>
       </Routes>
     </BrowserRouter>

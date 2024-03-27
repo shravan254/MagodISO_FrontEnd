@@ -47,7 +47,7 @@ function Header({ user }) {
     <>
       <nav className="header">
         <div style={{ marginLeft: "10px" }}>
-          <h4 style={{ fontSize: "16px", fontWeight: "600" }}>MAGOD ERP</h4>
+          <h4 className="erp_title">MAGOD ERP</h4>
         </div>
 
         <div
