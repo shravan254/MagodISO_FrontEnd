@@ -130,7 +130,7 @@ rateEstimator.get("/getToolpath", async (req, res, next) => {
       `SELECT * FROM magodqtn.welding_toolpath where Current = 1`,
       (err, data) => {
         if (err) logger.error(err);
-        // console.log(data);
+        console.log(data);
         res.send(data);
       }
     );
