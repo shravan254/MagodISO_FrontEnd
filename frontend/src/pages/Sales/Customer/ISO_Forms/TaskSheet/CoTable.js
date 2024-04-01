@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Form, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
-export default function CoTable() {
+export default function CoTable({ formData, setFormData }) {
   const [rows, setRows] = useState([
     { desc: "Power transmission efficiency in Watts", details: "" },
     { desc: "Power in Watts", details: "" },
@@ -16,6 +16,37 @@ export default function CoTable() {
     { desc: "Gas flow Orientation in deg", details: "" },
   ]);
 
+  const formDataKeysMapping = {
+    "Power transmission efficiency in Watts": "copowerTransmissionEfficiency",
+    "Power in Watts": "copower",
+    "Frequency in Hz": "cofrequency",
+    "Beam dia in mm": "cobeamDia",
+    "Focus in mm": "cofocusDia",
+    "Gas Pressure in lpm(Avg)": "cogasPressure",
+    "Feed rate in mm/min": "cofeedRate",
+    RPM: "corpm",
+    "Gas purity in %": "cogasPurity",
+    "Gas range in mm": "cogasRange",
+    "Gas flow Orientation in deg": "cogasFlowOrientation",
+  };
+
+  const handleInputChange = (index, value) => {
+    const updatedRows = [...rows];
+    updatedRows[index].details = value;
+    setRows(updatedRows);
+
+    const formDataKey = formDataKeysMapping[updatedRows[index].desc];
+
+    if (formDataKey) {
+      const updatedFormData = { ...formData };
+      updatedFormData[formDataKey] = value;
+      setFormData(updatedFormData);
+    }
+  };
+
+  const blockInvalidChar = (e) =>
+    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
+
   return (
     <div className="mt-3">
       <h5 className="form-title">
@@ -24,21 +55,23 @@ export default function CoTable() {
       <Table striped size="sm">
         <thead>
           <tr>
-            <th></th>
-            <th></th>
+            <th>Description</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((row, index) => (
             <tr key={index}>
-              <td>
-                <td>{row.desc}</td>
-              </td>
+              <td>{row.desc}</td>
               <td>
                 <input
                   className="mb-1"
-                  type="text"
+                  type="number"
+                  min={0}
+                  onKeyDown={blockInvalidChar}
                   style={{ borderRadius: "4px", border: "none" }}
+                  value={row.details}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               </td>
             </tr>

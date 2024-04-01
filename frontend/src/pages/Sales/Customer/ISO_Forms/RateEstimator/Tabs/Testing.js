@@ -63,6 +63,15 @@ function Testing({
   };
 
   const handleAddTest = async () => {
+    if (formData.testType === "") {
+      toast.error("Select Test Type");
+      return;
+    }
+
+    if (formData.testName === "") {
+      toast.error("Select Test Name");
+      return;
+    }
     try {
       const newTest = {
         qtnID: formData.qtnID,
@@ -89,6 +98,10 @@ function Testing({
 
   const handleDeleteTest = async (testId) => {
     try {
+      if (!formData.selectedRow2) {
+        toast.error("Select a row before deleting");
+        return;
+      }
       await Axios.post(apipoints.deleteTestDetails, { testId });
 
       setFormData((prevData) => ({

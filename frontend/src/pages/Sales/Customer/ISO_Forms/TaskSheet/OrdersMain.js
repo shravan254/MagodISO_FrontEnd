@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function QuotationMain() {
-  const [QtnID, setQtnID] = useState(7096);
+function OrdersMain() {
+  const [ScheduleDetailsId, setScheduleDetailsId] = useState(1869007);
   const navigate = useNavigate();
   const handleOpenClick = () => {
-    navigate("/Customer/RateEstimator", {
-      state: { QtnID },
+    navigate("/Customer/TaskSheet", {
+      state: { ScheduleDetailsId },
     });
   };
   return (
@@ -16,10 +16,10 @@ function QuotationMain() {
         style={{ width: "100px" }}
         onClick={handleOpenClick}
       >
-        Rate Estimator
+        Task Sheet
       </button>
     </div>
   );
 }
 
-export default QuotationMain;
+export default OrdersMain;

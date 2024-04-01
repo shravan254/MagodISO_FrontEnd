@@ -37,9 +37,13 @@ function RateEstimator() {
     selectedRow1: null,
     selectedRow2: null,
     selectedRow3: null,
+    selectedRow4: null,
+
     selectedRowData1: {},
     selectedRowData2: {},
     selectedRowData3: {},
+    selectedRowData4: {},
+
     jointType: "",
     jointTypeData: [],
 
@@ -106,6 +110,7 @@ function RateEstimator() {
     fixtureCharges: 0,
     transporationCost: 0,
     overheadCharges: 0,
+    overheadPercentage: 0,
     unitPrice: 0.0,
     revisedUnitPrice: 0.0,
 
@@ -233,6 +238,7 @@ function RateEstimator() {
     if (name === "shippingDelivery" && value === "Customer Pick Up") {
       setFormData((prevData) => ({
         ...prevData,
+        transporationCost: 0,
         transportationCostDisabled: true,
       }));
     } else {
@@ -241,21 +247,32 @@ function RateEstimator() {
         transportationCostDisabled: false,
       }));
     }
+
+    if (name === "revisedUnitPrice") {
+      setFormData((prevData) => ({
+        ...prevData,
+        overheadCharges: 0,
+      }));
+    }
   };
 
   const handleRowSelect = (index) => {
     const selectedRowData1 = formData.materialTableData[index];
     const selectedRowData2 = formData.testTableData[index];
     const selectedRowData3 = formData.riskTableData[index];
+    const selectedRowData4 = formData.riskTableData[index];
 
     setFormData((prevData) => ({
       ...prevData,
       selectedRow1: prevData.selectedRow1 === index ? null : index,
       selectedRow2: prevData.selectedRow2 === index ? null : index,
       selectedRow3: prevData.selectedRow3 === index ? null : index,
+      selectedRow4: prevData.selectedRow4 === index ? null : index,
+
       selectedRowData1: selectedRowData1 || {},
       selectedRowData2: selectedRowData2 || {},
       selectedRowData3: selectedRowData3 || {},
+      selectedRowData4: selectedRowData4 || {},
     }));
   };
 
@@ -469,6 +486,56 @@ function RateEstimator() {
           revisedUnitPrice: quote_register.length
             ? quote_register[0].Revised_Unit_Price
             : 0,
+
+          totalWeldLength: quote_register.length
+            ? quote_register[0].Total_Weld_Length
+            : 0,
+          totalWeldTime: quote_register.length
+            ? quote_register[0].Total_Weld_Time
+            : 0,
+          totalSetupTime: quote_register.length
+            ? quote_register[0].Total_Setup_Time
+            : 0,
+          totalInspectionTime: quote_register.length
+            ? quote_register[0].Total_Inspection_Time
+            : 0,
+          totalCleaningTime: quote_register.length
+            ? quote_register[0].Total_Cleaning_Time
+            : 0,
+          totalAssemblyTime: quote_register.length
+            ? quote_register[0].Total_Assembly_Time
+            : 0,
+          totalPartLoading: quote_register.length
+            ? quote_register[0].Total_Part_Loading
+            : 0,
+          totalPartUnloading: quote_register.length
+            ? quote_register[0].Total_Part_Unloading
+            : 0,
+          totalFinalInspectionTime: quote_register.length
+            ? quote_register[0].Total_FinalInspection_Time
+            : 0,
+          totalPackingDispatchTime: quote_register.length
+            ? quote_register[0].Total_Packing_Dispatch_Time
+            : 0,
+
+          totalSetupCharges: quote_register.length
+            ? quote_register[0].Total_SetUp_Charges
+            : 0,
+          totalInspectionCharges: quote_register.length
+            ? quote_register[0].Total_Inspection_Charges
+            : 0,
+          totalOutSourcingCharges: quote_register.length
+            ? quote_register[0].Total_OutSoucring_Charges
+            : 0,
+          totalConsumables: quote_register.length
+            ? quote_register[0].Total_Consumables
+            : 0,
+          totalMaterialCost: quote_register.length
+            ? quote_register[0].Total_Material_Cost
+            : 0,
+          totalFillerCost: quote_register.length
+            ? quote_register[0].Total_Filler_Cost
+            : 0,
         }));
       } catch (error) {
         console.error("Error fetching data from API", error);
@@ -477,7 +544,7 @@ function RateEstimator() {
     fetchQtnData();
   }, []);
 
-  console.log("formData", formData);
+  // console.log("quoteDetailsTableData", formData.quoteDetailsTableData);
 
   const handleOpenClick = () => {
     navigate("/customer");
@@ -563,6 +630,7 @@ function RateEstimator() {
             <div className="col-md-3 col-sm-6">
               <RateEstimatorModal
                 openPrintModal={openPrintModal}
+                formData={formData}
                 setOpenPrintModal={setOpenPrintModal}
               />
 

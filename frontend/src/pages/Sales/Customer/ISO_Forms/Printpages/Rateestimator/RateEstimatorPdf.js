@@ -8,8 +8,9 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import magodlogo from "../../../../../../images/ISOPdfs/MagodLogo.png";
+import moment from "moment";
 
-export default function RateEstimatorPdf() {
+export default function RateEstimatorPdf({ formData }) {
   const styles = StyleSheet.create({
     page: {
       fontSize: 11,
@@ -392,6 +393,11 @@ export default function RateEstimatorPdf() {
       width: "140px",
       borderRight: 1,
     },
+
+    sideheadingdataAddress: {
+      // width: "140px",
+      borderRight: 1,
+    },
     sideheadingdata1: {
       width: "140px",
       // borderRight: 1,
@@ -427,6 +433,7 @@ export default function RateEstimatorPdf() {
       marginLeft: "30px",
       padding: 3,
       flexWrap: "wrap",
+      textAlign: "center",
     },
     tableData02: {
       fontSize: "9px",
@@ -461,6 +468,7 @@ export default function RateEstimatorPdf() {
       borderBottom: 1,
       padding: 3,
       flexWrap: "wrap",
+      textAlign: "center",
     },
     tableInput: {
       fontSize: "9px",
@@ -479,6 +487,7 @@ export default function RateEstimatorPdf() {
       marginLeft: "30px",
       height: "18px",
       padding: 2,
+      // textDecoration: "underline",
     },
     NDT: {
       width: "540px",
@@ -528,6 +537,16 @@ export default function RateEstimatorPdf() {
     },
   });
 
+  const groupedTests = formData.testTableData.reduce((acc, curr) => {
+    if (!acc[curr.Test_Type]) {
+      acc[curr.Test_Type] = [];
+    }
+    acc[curr.Test_Type].push(curr);
+    return acc;
+  }, {});
+
+  const formattedDate = moment(formData.expectedDelivery).format("DD/MM/YYYY");
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -547,7 +566,6 @@ export default function RateEstimatorPdf() {
             </Text>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -560,7 +578,7 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  2/13/2024
+                  {formData.enquiryDate}
                 </Text>
               </View>
             </View>
@@ -577,13 +595,12 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  51500446C001
+                  {formData.drawingNo}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -596,7 +613,7 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Mr.Anil
+                  {/* Mr.Anil */}
                 </Text>
               </View>
             </View>
@@ -613,13 +630,12 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Mr.Hemant
+                  {formData.contactPerson}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -632,13 +648,12 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Honey Well
+                  {formData.custName}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -650,14 +665,19 @@ export default function RateEstimatorPdf() {
             </View>
             <View style={styles.row}>
               <View>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Pune
+                <Text
+                  style={[
+                    styles.globalfontwithbold1,
+                    { paddingLeft: 5, flexWrap: "wrap" },
+                  ]}
+                >
+                  {/* {formData.custAddress} */}
+                  {formData.custAddress.replace(/\n/g, " ")}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -670,7 +690,7 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={[styles.sideheadingdata2]}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  HemantGangurde.Gangurde@Honeywell.com
+                  {formData.emailId}
                 </Text>
                 y
               </View>
@@ -688,13 +708,12 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  New
+                  {formData.component}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -707,7 +726,7 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  9980971115
+                  {formData.contactNo}
                 </Text>
               </View>
             </View>
@@ -724,18 +743,25 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Production
+                  {formData.jobType}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.WeldingDetails}>
           <Text style={styles.globalfontwithbold}>Welding Details</Text>
         </View>
-
-        <View style={styles.tableContainer2}>
+        <View style={styles.row}>
+          {/* <Text style={styles.tableData01}>SL No</Text> */}
+          <Text style={styles.tableData01}>Material</Text>
+          <Text style={styles.tableData03}>Thickness</Text>
+        </View>
+        {/* <View style={styles.row}>
+          <Text style={styles.tableInput01}>Leak</Text>
+          <Text style={styles.tableInput03}>{formData}</Text>
+        </View> */}
+        {/* <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
@@ -769,8 +795,14 @@ export default function RateEstimatorPdf() {
               </View>
             </View>
           </View>
-        </View>
-
+        </View> */}
+        {formData.materialTableData.map((item, index) => (
+          <View key={index} style={styles.row}>
+            {/* <Text style={styles.tableInput02}>{index + 1}</Text> */}
+            <Text style={styles.tableInput01}>{item.Material}</Text>
+            <Text style={styles.tableInput03}>{item.Thickness}</Text>
+          </View>
+        ))}
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -783,7 +815,7 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Butt Joint
+                  {formData.jointType}
                 </Text>
               </View>
             </View>
@@ -800,14 +832,13 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  418/batch 5000 /year
+                  {formData.batchQty}/batch {formData.yearQty} /year
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
-        <View style={styles.tableContainer2}>
+        {/* <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
@@ -841,8 +872,7 @@ export default function RateEstimatorPdf() {
               </View>
             </View>
           </View>
-        </View>
-
+        </View> */}
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -854,14 +884,13 @@ export default function RateEstimatorPdf() {
             </View>
             <View style={styles.row}>
               <View>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.allowComb}
+                </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -873,14 +902,13 @@ export default function RateEstimatorPdf() {
             </View>
             <View style={styles.row}>
               <View>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.srRequirements}
+                </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -893,7 +921,8 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  No
+                  {/* {formData.fixtureReq} */}
+                  {formData.fixtureReq === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -909,20 +938,18 @@ export default function RateEstimatorPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.fixtureRemarks}
+                </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.WeldingDetails}>
           <Text style={styles.globalfontwithbold}>
             Customer requirments with respect to welding
           </Text>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -935,7 +962,7 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  3.81 MM
+                  {formData.depthOfPen}
                 </Text>
               </View>
             </View>
@@ -951,14 +978,13 @@ export default function RateEstimatorPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.strength}
+                </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -971,7 +997,8 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Yes
+                  {/* {formData.hermaticJoint} */}
+                  {formData.hermaticJoint === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -988,26 +1015,29 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  No
+                  {formData.allowableDeffects}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
+        <View style={styles.WeldingDetails}>
+          <Text style={styles.globalfontwithbold}>Input Geometry</Text>
+        </View>
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Input Geomatry
+                  Drawing Available
                 </Text>
               </View>
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Yes
+                  {/* {formData.drawingAvailable} */}
+                  {formData.drawingAvailable === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -1024,13 +1054,12 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Automatic Welding
+                  {formData.toolPath}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -1043,7 +1072,7 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  CMM
+                  {formData.inspection}
                 </Text>
               </View>
             </View>
@@ -1060,13 +1089,12 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Magod
+                  {formData.materialSource}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
@@ -1079,7 +1107,7 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Magod Delivery
+                  {formData.shippingDelivery}
                 </Text>
               </View>
             </View>
@@ -1096,18 +1124,17 @@ export default function RateEstimatorPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  2/21/2024
+                  {/* {formData.expectedDelivery} */}
+                  {formattedDate}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-
         <View style={styles.WeldingDetails}>
           <Text style={styles.globalfontwithbold}>Testing</Text>
         </View>
-
-        <View style={styles.NDT}>
+        {/* <View style={styles.NDT}>
           <Text style={[styles.globalfontwithbold, { marginLeft: "5px" }]}>
             NDT/DT
           </Text>
@@ -1120,25 +1147,126 @@ export default function RateEstimatorPdf() {
 
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Leak</Text>
-          <Text style={styles.tableInput03}>Yes He Test 10-9</Text>
-        </View>
-
+          <Text style={styles.tableInput03}>{formData}</Text>
+        </View> */}
+        {Object.entries(groupedTests).map(([testType, tests]) => (
+          <React.Fragment key={testType}>
+            <View style={styles.NDT}>
+              <Text style={[styles.globalfontwithbold, { marginLeft: "5px" }]}>
+                {testType}
+              </Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.tableData01}>Test Name</Text>
+              <Text style={styles.tableData03}>Test Details</Text>
+            </View>
+            {tests.map((test, index) => (
+              <View key={index} style={styles.row}>
+                <Text style={styles.tableInput01}>{test.Test_Name}</Text>
+                <Text style={styles.tableInput03}>{test.Test_Details}</Text>
+              </View>
+            ))}
+          </React.Fragment>
+        ))}
         <View style={styles.WeldingDetails}>
           <Text style={styles.globalfontwithbold}>Risks Deatils</Text>
         </View>
-
         <View style={styles.row}>
-          <Text style={styles.SlNo}>SL No</Text>
-          <Text style={styles.risk}>Risks</Text>
+          {/* <Text style={styles.tableData01}>SL No</Text> */}
+          <Text style={styles.tableData01}>SL No</Text>
+          <Text style={styles.tableData03}>Risks</Text>
         </View>
-
-        <View style={styles.row}>
+        {/* <View style={styles.row}>
           <Text style={styles.SlData}>01</Text>
           <Text style={styles.RiskData}>Weld depth 3.8mm</Text>
-        </View>
-
+        </View> */}
+        {formData.riskTableData.map((item, index) => (
+          <View key={index} style={styles.row}>
+            <Text style={styles.tableInput01}>{index + 1}</Text>
+            <Text style={styles.tableInput03}>{item.Risks}</Text>
+          </View>
+        ))}
         <View style={styles.WeldingDetails}>
           <Text style={styles.globalfontwithbold}>Quote Deatils</Text>
+        </View>
+        <View style={styles.row}>
+          {/* <Text style={styles.tableData01}>SL No</Text> */}
+          <Text style={styles.tableData01}>Parameter</Text>
+          <Text style={styles.tableData03}>Total</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Weld Length(mm)</Text>
+          <Text style={styles.tableInput03}>{formData.totalWeldLength}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Weld Time(Sec)</Text>
+          <Text style={styles.tableInput03}>{formData.totalWeldTime}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Setup Time(Sec)</Text>
+          <Text style={styles.tableInput03}>{formData.totalSetupTime}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Inspection Time(Sec)</Text>
+          <Text style={styles.tableInput03}>
+            {formData.totalInspectionTime}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Cleaning Time(Sec)</Text>
+          <Text style={styles.tableInput03}>{formData.totalCleaningTime}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Assembly Time(Sec)</Text>
+          <Text style={styles.tableInput03}>{formData.totalAssemblyTime}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Part Loading(Sec)</Text>
+          <Text style={styles.tableInput03}>{formData.totalPartLoading}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Part Unloading(Sec)</Text>
+          <Text style={styles.tableInput03}>{formData.totalPartUnloading}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Final Inspection Time(Sec)</Text>
+          <Text style={styles.tableInput03}>
+            {formData.totalFinalInspectionTime}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Packing Dispatch Time(Sec)</Text>
+          <Text style={styles.tableInput03}>
+            {formData.totalPackingDispatchTime}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>SetUp Charges</Text>
+          <Text style={styles.tableInput03}>{formData.totalSetupCharges}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Inspection Charges</Text>
+          <Text style={styles.tableInput03}>
+            {formData.totalInspectionCharges}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>OutSoucring Charges</Text>
+          <Text style={styles.tableInput03}>
+            {formData.totalOutSourcingCharges}
+          </Text>
+        </View>{" "}
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Consumables</Text>
+          <Text style={styles.tableInput03}>{formData.totalConsumables}</Text>
+        </View>{" "}
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Material Cost</Text>
+          <Text style={styles.tableInput03}>{formData.totalMaterialCost}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.tableInput01}>Filler Cost</Text>
+          <Text style={styles.tableInput03}>{formData.totalFillerCost}</Text>
         </View>
       </Page>
     </Document>
