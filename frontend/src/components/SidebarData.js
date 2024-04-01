@@ -23,25 +23,34 @@ export const customerSidebar = [
 
   {
     title: "TaskSheet",
-    path: "/Customer/TaskSheet",
+    path: "/Customer/Orders",
     icon: <SiIcon.SiFormstack />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
+  // {
+  //   title: "Solid State Form",
+  //   path: "/Customer/SolidStateForm",
+  //   icon: <SiIcon.SiFormstack />,
+  //   iconClosed: <RiIcons.RiArrowDownSFill />,
+  //   iconOpened: <RiIcons.RiArrowUpSFill />,
+  // },
+  // {
+  //   title: "CO2-Form",
+  //   path: "/Customer/CO2Form",
+  //   icon: <SiIcon.SiFormstack />,
+  //   iconClosed: <RiIcons.RiArrowDownSFill />,
+  //   iconOpened: <RiIcons.RiArrowUpSFill />,
+  // },
+
   {
-    title: "Solid State Form",
-    path: "/Customer/SolidStateForm",
+    title: "Job Parameters",
+    path: "/Customer/JobParameters",
     icon: <SiIcon.SiFormstack />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
-  {
-    title: "CO2-Form",
-    path: "/Customer/CO2Form",
-    icon: <SiIcon.SiFormstack />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-  },
+
   {
     title: "PDF",
     path: "/Customer/pdf",

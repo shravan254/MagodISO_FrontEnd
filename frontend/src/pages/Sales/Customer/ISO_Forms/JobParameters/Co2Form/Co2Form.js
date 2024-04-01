@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
-import SolidStateModal from "../Printpages/SolidStatepdf/SolidStateModal";
+import { useNavigate } from "react-router-dom";
+import Axios from "axios";
+import { Link, useLocation } from "react-router-dom";
+import Printco2modal from "../../Printpages/CoFormpdf/Printco2modal";
 
-export default function Solidstatelaser() {
-  const [isoFormOpen, SetIsoFormOpen] = useState(false);
+export default function Co2Form() {
+  const location = useLocation();
+  const ScheduleDetailsId = location.state?.ScheduleDetailsId || "";
+  const navigate = useNavigate();
+  const [openPrintModal, setOpenPrintModal] = useState("");
+
+  const [formData, setFormData] = useState({
+    scheduleDetailsId: ScheduleDetailsId,
+  });
 
   const openPdf = () => {
-    SetIsoFormOpen(true);
+    setOpenPrintModal(true);
   };
+
+  console.log("scheduleDetailsId", formData.scheduleDetailsId);
 
   return (
     <div>
       <div className="row">
-        <h4 className="title">
-          Laser Welding Job Parameter Sheet - Solid State Laser
-        </h4>
+        <h4 className="title">Laser Welding Job Parameter Sheet - CO2 Laser</h4>
       </div>
 
       <div className="row mt-1">
@@ -24,7 +34,7 @@ export default function Solidstatelaser() {
               <label className="form-label">Schedule No</label>
             </div>
             <div className="col-8">
-              <input className="input-field" type="text" value="24059401" />
+              <input className="input-field" type="text" />
             </div>
           </div>
         </div>
@@ -35,12 +45,7 @@ export default function Solidstatelaser() {
               <label className="form-label">Date</label>
             </div>
             <div className="col-8">
-              <input
-                className="input-field"
-                type="text"
-                name="drawingNo"
-                value="06/02/2024"
-              />
+              <input className="input-field" type="text" name="drawingNo" />
             </div>
           </div>
         </div>
@@ -48,10 +53,10 @@ export default function Solidstatelaser() {
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Operator</label>
+              <label className="form-label">Machine</label>
             </div>
             <div className="col-8">
-              <input className="input-field" type="text" value="Anil Kumar" />
+              <input className="input-field" type="text" />
             </div>
           </div>
         </div>
@@ -64,9 +69,9 @@ export default function Solidstatelaser() {
           </div>
 
           <div className="col-md-2">
-            <SolidStateModal
-              isoFormOpen={isoFormOpen}
-              SetIsoFormOpen={SetIsoFormOpen}
+            <Printco2modal
+              openPrintModal={openPrintModal}
+              setOpenPrintModal={setOpenPrintModal}
             />
             <button
               className="button-style"
@@ -89,7 +94,7 @@ export default function Solidstatelaser() {
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Filler</label>
+              <label className="form-label">Operator</label>
             </div>
             <div className="col-8">
               <input className="input-field" type="text" />
@@ -100,15 +105,10 @@ export default function Solidstatelaser() {
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Gas Type</label>
+              <label className="form-label">ɳT</label>
             </div>
             <div className="col-8">
-              <input
-                className="input-field"
-                type="text"
-                name="drawingNo"
-                value="Argon"
-              />
+              <input className="input-field" type="text" name="drawingNo" />
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function Solidstatelaser() {
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Joint Type</label>
+              <label className="form-label">Joint</label>
             </div>
             <div className="col-8">
               <input className="input-field" type="text" />
@@ -124,16 +124,7 @@ export default function Solidstatelaser() {
           </div>
         </div>
 
-        <div className="col-md-3 col-sm-6">
-          <div className="d-flex">
-            <div className="col-4">
-              <label className="form-label">Machine</label>
-            </div>
-            <div className="col-8">
-              <input className="input-field" type="text" />
-            </div>
-          </div>
-        </div>
+        <div className="col-md-3 col-sm-6"></div>
       </div>
 
       <div className="row">
@@ -164,13 +155,13 @@ export default function Solidstatelaser() {
               <tbody style={{ textAlign: "center" }}>
                 <tr>
                   <td>1</td>
-                  <td>Hastelloy C276</td>
-                  <td></td>
+                  <td>SS304</td>
+                  <td>4</td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>SS316L semi F20VHP</td>
-                  <td></td>
+                  <td>SS310</td>
+                  <td>3</td>
                 </tr>
               </tbody>
             </Table>
@@ -225,7 +216,7 @@ export default function Solidstatelaser() {
         <div className="col-md-8 mt-3">
           <div
             style={{
-              height: "435px",
+              height: "380px",
               overflowY: "scroll",
               overflowX: "scroll",
             }}
@@ -242,58 +233,39 @@ export default function Solidstatelaser() {
               >
                 <tr className="table-header">
                   <th>SL No</th>
+                  <th>Gas Type</th>
                   <th>Bead Dia(mm)</th>
                   <th>Power(W)</th>
-                  <th>Energy(J)</th>
-                  <th>Pulse Width(ms)</th>
-                  <th>Frequency(Hz)</th>
-                  <th>pulse Shape</th>
+                  <th>Gap(mm)</th>
+                  <th>Flow/Pressure</th>
+                  <th>Focus</th>
                   <th>Speed(mm/min)</th>
-                  <th>Gas Flow(LPM)</th>
-                  <th>Focus Position</th>
-                  <th>Stand Off(mm)</th>
+                  <th>Frequency(Hz)</th>
                 </tr>
               </thead>
 
               <tbody style={{ textAlign: "center" }}>
                 <tr>
                   <td>1</td>
-                  <td>0.99</td>
-                  <td>1800</td>
-                  <td>8.67</td>
-                  <td>4.80</td>
-                  <td>8.0</td>
-                  <td>SW</td>
-                  <td>R 30</td>
-                  <td>6</td>
+                  <td>N2</td>
+                  <td>653</td>
+                  <td>99</td>
                   <td></td>
-                  <td></td>
+                  <td>12</td>
+                  <td>0.00</td>
+                  <td>1.500</td>
+                  <td>5010</td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>0.80</td>
-                  <td>1400</td>
-                  <td>7.02</td>
-                  <td>5.0</td>
-                  <td>10.0</td>
-                  <td>SW</td>
-                  <td>R 30</td>
-                  <td>6</td>
+                  <td>N2</td>
+                  <td>164</td>
+                  <td>1450</td>
                   <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>0.90</td>
-                  <td>1800</td>
-                  <td>8.76</td>
-                  <td>48.5</td>
-                  <td>8.5</td>
-                  <td>SW</td>
-                  <td>R 30</td>
-                  <td>6</td>
-                  <td></td>
-                  <td></td>
+                  <td>8</td>
+                  <td>0.00</td>
+                  <td>2.00</td>
+                  <td>70.00</td>
                 </tr>
               </tbody>
             </Table>
@@ -308,6 +280,15 @@ export default function Solidstatelaser() {
             borderRadius: "10px",
           }}
         >
+          <div className="d-flex">
+            <div className="col-3">
+              <label className="form-label">Gas Type</label>
+            </div>
+            <div className="col-8 mt-2">
+              <input type="text" name="material" className="in-field" />
+            </div>
+          </div>
+
           <div className="d-flex">
             <div className="col-3">
               <label className="form-label">Bead Dia(mm)</label>
@@ -328,7 +309,7 @@ export default function Solidstatelaser() {
 
           <div className="d-flex">
             <div className="col-3">
-              <label className="form-label">Energy(e)</label>
+              <label className="form-label">Gap(mm)</label>
             </div>
             <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
@@ -337,7 +318,7 @@ export default function Solidstatelaser() {
 
           <div className="d-flex">
             <div className="col-3">
-              <label className="form-label">Pulse Width(Ms)</label>
+              <label className="form-label">Flow/Pressure</label>
             </div>
             <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
@@ -346,16 +327,7 @@ export default function Solidstatelaser() {
 
           <div className="d-flex">
             <div className="col-3">
-              <label className="form-label">Frequency(Hz)</label>
-            </div>
-            <div className="col-8 mt-2">
-              <input type="text" name="thickness" className="in-field" />
-            </div>
-          </div>
-
-          <div className="d-flex">
-            <div className="col-3">
-              <label className="form-label">Pulse Shape </label>
+              <label className="form-label">Focus</label>
             </div>
             <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />
@@ -373,25 +345,7 @@ export default function Solidstatelaser() {
 
           <div className="d-flex">
             <div className="col-3">
-              <label className="form-label">Gas Flow(LPM)</label>
-            </div>
-            <div className="col-8 mt-2">
-              <input type="text" name="thickness" className="in-field" />
-            </div>
-          </div>
-
-          <div className="d-flex">
-            <div className="col-3">
-              <label className="form-label">Focus Position</label>
-            </div>
-            <div className="col-8 mt-2">
-              <input type="text" name="thickness" className="in-field" />
-            </div>
-          </div>
-
-          <div className="d-flex">
-            <div className="col-3">
-              <label className="form-label">Stand Off(Mm)</label>
+              <label className="form-label">Frequency(Hz)</label>
             </div>
             <div className="col-8 mt-2">
               <input type="text" name="thickness" className="in-field" />

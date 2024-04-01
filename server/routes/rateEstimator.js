@@ -130,7 +130,7 @@ rateEstimator.get("/getToolpath", async (req, res, next) => {
       `SELECT * FROM magodqtn.welding_toolpath where Current = 1`,
       (err, data) => {
         if (err) logger.error(err);
-        console.log(data);
+        // console.log(data);
         res.send(data);
       }
     );
@@ -275,7 +275,7 @@ rateEstimator.post("/saveWeldingDetails", async (req, res, next) => {
   // console.log("expectedDelivery ", typeof req.body.expectedDelivery);
   // console.log("expectedDeliveryValue", typeof expectedDeliveryValue);
 
-  console.log("expectedDeliveryValue", expectedDeliveryValue);
+  // console.log("expectedDeliveryValue", expectedDeliveryValue);
   try {
     qtnQueryMod(
       `SELECT COUNT(*) AS count FROM magodqtn.welding_register where QtnID = ${qtnID}`,
@@ -288,7 +288,24 @@ rateEstimator.post("/saveWeldingDetails", async (req, res, next) => {
 
         if (count === 0) {
           qtnQueryMod(
-            `INSERT INTO magodqtn.welding_register (QtnID, Allowable_Combination, Statutory_Regulatory_Req, Joint_Type, Batch_Qty, Year_Qty, Depth_of_Penetration, Fixture_Requirement, Fixture_Remarks, Strength, Hermatic_Joint, Allowable_Defects, DrawingAvailable, Inspection_Name, Tool_Path, MtrlSource, Delivery, Expected_Delivery) VALUES (${qtnID}, '${allowComb}', '${srRequirements}', '${jointType}', ${batchQty}, ${yearQty}, '${depthOfPen}', ${fixtureReq}, '${fixtureRemarks}', '${strength}', ${hermaticJoint}, '${allowableDeffects}', ${drawingAvailable}, '${inspection}', '${toolPath}', '${materialSource}', '${shippingDelivery}', ${expectedDeliveryValue})`,
+            // `INSERT INTO magodqtn.welding_register (QtnID, Allowable_Combination, Statutory_Regulatory_Req, Joint_Type, Batch_Qty, Year_Qty, Depth_of_Penetration, Fixture_Requirement, Fixture_Remarks, Strength, Hermatic_Joint, Allowable_Defects, DrawingAvailable, Inspection_Name, Tool_Path, MtrlSource, Delivery, Expected_Delivery) VALUES (${qtnID}, '${allowComb}', '${srRequirements}', '${jointType}', ${batchQty}, ${yearQty}, '${depthOfPen}', ${fixtureReq}, '${fixtureRemarks}', '${strength}', ${hermaticJoint}, '${allowableDeffects}', ${drawingAvailable}, '${inspection}', '${toolPath}', '${materialSource}', '${shippingDelivery}', ${expectedDeliveryValue})`,
+            `INSERT INTO magodqtn.welding_register (QtnID, Allowable_Combination, Statutory_Regulatory_Req, Joint_Type, Batch_Qty, Year_Qty, Depth_of_Penetration, Fixture_Requirement, Fixture_Remarks, Strength, Hermatic_Joint, Allowable_Defects, DrawingAvailable, Inspection_Name, Tool_Path, MtrlSource, Delivery, Expected_Delivery) VALUES (${qtnID}, ${
+              allowComb ? `'${allowComb}'` : "NULL"
+            }, ${srRequirements ? `'${srRequirements}'` : "NULL"}, ${
+              jointType ? `'${jointType}'` : "NULL"
+            }, ${batchQty}, ${yearQty}, ${
+              depthOfPen ? `'${depthOfPen}'` : "NULL"
+            }, ${fixtureReq ? `'${fixtureReq}'` : "NULL"}, ${
+              fixtureRemarks ? `'${fixtureRemarks}'` : "NULL"
+            }, ${strength ? `'${strength}'` : "NULL"}, ${hermaticJoint}, ${
+              allowableDeffects ? `'${allowableDeffects}'` : "NULL"
+            }, ${drawingAvailable ? `'${drawingAvailable}'` : "NULL"}, ${
+              inspection ? `'${inspection}'` : "NULL"
+            }, ${toolPath ? `'${toolPath}'` : "NULL"}, ${
+              materialSource ? `'${materialSource}'` : "NULL"
+            }, ${
+              shippingDelivery ? `'${shippingDelivery}'` : "NULL"
+            }, ${expectedDeliveryValue})`,
             (err, result) => {
               if (err) {
                 logger.error(err);
@@ -372,7 +389,7 @@ rateEstimator.post("/insertMaterialDetails", async (req, res, next) => {
 
 rateEstimator.post("/updateMaterialDetails", async (req, res, next) => {
   const { material, thickness } = req.body;
-  console.log("Field", req.body);
+  // console.log("Field", req.body);
 
   // try {
   //   qtnQueryMod(
@@ -413,7 +430,7 @@ rateEstimator.post("/deleteMaterialDetails", async (req, res, next) => {
           logger.error(err);
           return res
             .status(500)
-            .send("Error inserting data into welding_register");
+            .send("Error deleting data from welding_register");
         }
 
         res.send(result);
@@ -515,7 +532,7 @@ rateEstimator.post("/deleteTestDetails", async (req, res, next) => {
           logger.error(err);
           return res
             .status(500)
-            .send("Error inserting data into testing_details");
+            .send("Error deleting data from testing_details");
         }
 
         res.send(result);
@@ -613,7 +630,7 @@ rateEstimator.post("/deleteRiskDetails", async (req, res, next) => {
       async (err, result) => {
         if (err) {
           logger.error(err);
-          return res.status(500).send("Error inserting data into risk_details");
+          return res.status(500).send("Error deleting data from risk_details");
         }
 
         res.send(result);
@@ -869,14 +886,12 @@ rateEstimator.post("/updateQuoteRegister", async (req, res, next) => {
     totalConsumables,
     totalMaterialCost,
     totalFillerCost,
-
     labourTime,
     unitPrice,
     machineTime,
     revisedUnitPrice,
   } = req.body;
 
-  console.log("Updated", req.body);
   try {
     qtnQueryMod(
       `UPDATE magodqtn.quote_register SET
@@ -922,6 +937,53 @@ rateEstimator.post("/deleteQuoteDetails", async (req, res, next) => {
   try {
     qtnQueryMod(
       `DELETE FROM magodqtn.quote_details WHERE ID = ${id};`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error deleting data from testing_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+rateEstimator.post("/updateQuoteDetailsAfterDelete", async (req, res, next) => {
+  const recalculatedValues = req.body.recalculatedValues;
+  const qtnID = req.body.qtnID;
+
+  console.log("recalculatedValues", recalculatedValues);
+  // console.log("qtnID", qtnID);
+  try {
+    qtnQueryMod(
+      `UPDATE magodqtn.quote_register SET
+      Total_Weld_Length = ${recalculatedValues.totalWeldLength},
+      Total_Weld_Time = ${recalculatedValues.totalWeldTime},
+      Total_Setup_Time = ${recalculatedValues.totalSetupTime},
+      Total_Inspection_Time = ${recalculatedValues.totalInspectionTime},
+      Total_Cleaning_Time = ${recalculatedValues.totalCleaningTime},
+      Total_Assembly_Time = ${recalculatedValues.totalAssemblyTime},
+      Total_Part_Loading = ${recalculatedValues.totalPartLoading},
+      Total_Part_Unloading = ${recalculatedValues.totalPartUnloading},
+      Total_FinalInspection_Time = ${recalculatedValues.totalFinalInspectionTime},
+      Total_Packing_Dispatch_Time = ${recalculatedValues.totalPackingDispatchTime},
+      Total_SetUp_Charges = ${recalculatedValues.totalSetupCharges},
+      Total_Inspection_Charges = ${recalculatedValues.totalInspectionCharges},
+      Total_OutSoucring_Charges = ${recalculatedValues.totalOutSourcingCharges},
+      Total_Consumables = ${recalculatedValues.totalConsumables},
+      Total_Material_Cost = ${recalculatedValues.totalMaterialCost},
+      Total_Filler_Cost = ${recalculatedValues.totalFillerCost},
+      Labour_Time = ${recalculatedValues.labourTime},
+      Machine_Time = ${recalculatedValues.machineTime},
+      Unit_Price = ${recalculatedValues.unitPrice},
+      Revised_Unit_Price = ${recalculatedValues.revisedUnitPrice},
+      Overhead_Charges = ${recalculatedValues.overheadCharges}
+      WHERE QtnID = ${qtnID}`,
       async (err, result) => {
         if (err) {
           logger.error(err);

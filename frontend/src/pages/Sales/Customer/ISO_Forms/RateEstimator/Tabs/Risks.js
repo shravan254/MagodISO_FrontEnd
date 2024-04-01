@@ -12,6 +12,10 @@ const Risks = ({
 }) => {
   const handleAddRisk = async () => {
     try {
+      if (formData.risk === "") {
+        toast.error("Enter Risk");
+        return;
+      }
       const newRisk = {
         qtnID: formData.qtnID,
         risk: formData.risk,
@@ -33,6 +37,10 @@ const Risks = ({
 
   const handleDeleteRisk = async (riskId) => {
     try {
+      if (!formData.selectedRow3) {
+        toast.error("Select a row before deleting");
+        return;
+      }
       await Axios.post(apipoints.deleteRiskDetails, { riskId });
 
       setFormData((prevData) => ({

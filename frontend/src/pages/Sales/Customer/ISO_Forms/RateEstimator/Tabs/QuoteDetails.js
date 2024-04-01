@@ -25,6 +25,10 @@ export default function QuoteDetails({
 
   const handleAddQuote = async () => {
     try {
+      if (formData.jointNo === "") {
+        toast.error("Enter Joint No");
+        return;
+      }
       const newQuote = {
         qtnID: formData.qtnID,
         jointNo: formData.jointNo,
@@ -128,17 +132,37 @@ export default function QuoteDetails({
         0
       );
 
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        totalWeldLength: totalWeldLength.toFixed(2),
+        totalWeldTime: totalWeldTime,
+        totalSetupTime: totalSetupTime,
+        totalInspectionTime: totalInspectionTime,
+        totalCleaningTime: totalCleaningTime,
+        totalAssemblyTime: totalAssemblyTime,
+        totalPartLoading: totalPartLoading,
+        totalPartUnloading: totalPartUnloading,
+        totalFinalInspectionTime: totalFinalInspectionTime,
+        totalPackingDispatchTime: totalPackingDispatchTime,
+        totalSetupCharges: totalSetupCharges.toFixed(2),
+        totalInspectionCharges: totalInspectionCharges.toFixed(2),
+        totalOutSourcingCharges: totalOutSourcingCharges.toFixed(2),
+        totalConsumables: totalConsumables.toFixed(2),
+        totalMaterialCost: totalMaterialCost.toFixed(2),
+        totalFillerCost: totalFillerCost.toFixed(2),
+      }));
+
       const labourTime =
-        formData.totalInspectionTime +
-        formData.totalCleaningTime +
-        formData.totalAssemblyTime +
-        formData.totalPackingDispatchTime;
+        totalInspectionTime +
+        totalCleaningTime +
+        totalAssemblyTime +
+        totalPackingDispatchTime;
 
       const machineTime =
-        formData.totalPartLoading +
-        formData.totalPartUnloading +
-        formData.totalWeldTime +
-        formData.totalFinalInspectionTime;
+        totalPartLoading +
+        totalPartUnloading +
+        totalWeldTime +
+        totalFinalInspectionTime;
 
       const sum =
         parseFloat(totalWeldLength) +
@@ -179,19 +203,13 @@ export default function QuoteDetails({
         totalConsumables: totalConsumables.toFixed(2),
         totalMaterialCost: totalMaterialCost.toFixed(2),
         totalFillerCost: totalFillerCost.toFixed(2),
-
-        // labourTime: isNaN(labourTime) ? 0 : labourTime,
-        // unitPrice: isNaN(unitPrice) ? 0 : unitPrice,
-        // revisedUnitPrice: isNaN(unitPrice) ? 0 : unitPrice,
-        // machineTime: isNaN(machineTime) ? 0 : machineTime,
-
         labourTime: labourTime,
         unitPrice: unitPrice,
         revisedUnitPrice: unitPrice,
         machineTime: machineTime,
       };
 
-      console.log("updatedFormData", updatedFormData);
+      // console.log("updatedFormData", updatedFormData);
 
       await Axios.post(apipoints.updateQuoteRegister, updatedFormData);
 
@@ -223,18 +241,207 @@ export default function QuoteDetails({
     }
   };
 
+  const calculateTotalValues = (updatedData) => {
+    const totalWeldLength = updatedData.reduce(
+      (acc, curr) => acc + parseFloat(curr.Weld_Length || 0),
+      0
+    );
+
+    const totalWeldTime = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Weld_Time || 0),
+      0
+    );
+
+    const totalSetupTime = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Setup_Time || 0),
+      0
+    );
+
+    const totalInspectionTime = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Inspection_Time || 0),
+      0
+    );
+
+    const totalCleaningTime = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Cleaning_Time || 0),
+      0
+    );
+
+    const totalAssemblyTime = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Assembly_Time || 0),
+      0
+    );
+
+    const totalPartLoading = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Part_Loading || 0),
+      0
+    );
+
+    const totalPartUnloading = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Part_Unloading || 0),
+      0
+    );
+
+    const totalFinalInspectionTime = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.FinalInspection_Time || 0),
+      0
+    );
+
+    const totalPackingDispatchTime = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Packing_Dispatch_Time || 0),
+      0
+    );
+
+    const totalSetupCharges = updatedData.reduce(
+      (acc, curr) => acc + parseFloat(curr.SetUp_Charges || 0),
+      0
+    );
+
+    const totalInspectionCharges = updatedData.reduce(
+      (acc, curr) => acc + parseFloat(curr.Inspection_Charges || 0),
+      0
+    );
+
+    const totalOutSourcingCharges = updatedData.reduce(
+      (acc, curr) => acc + parseFloat(curr.OutSoucring_Charges || 0),
+      0
+    );
+
+    const totalConsumables = updatedData.reduce(
+      (acc, curr) => acc + parseFloat(curr.Consumables || 0),
+      0
+    );
+
+    const totalMaterialCost = updatedData.reduce(
+      (acc, curr) => acc + parseFloat(curr.Material_Cost || 0),
+      0
+    );
+
+    const totalFillerCost = updatedData.reduce(
+      (acc, curr) => acc + parseFloat(curr.Filler_Cost || 0),
+      0
+    );
+
+    // Calculate other derived values
+    const labourTime =
+      totalInspectionTime +
+      totalCleaningTime +
+      totalAssemblyTime +
+      totalPackingDispatchTime;
+
+    const machineTime =
+      totalPartLoading +
+      totalPartUnloading +
+      totalWeldTime +
+      totalFinalInspectionTime;
+
+    const sum =
+      parseFloat(totalWeldLength) +
+      parseInt(totalWeldTime) +
+      parseInt(totalSetupTime) +
+      parseInt(totalInspectionTime) +
+      parseInt(totalCleaningTime) +
+      parseInt(totalAssemblyTime) +
+      parseInt(totalPartLoading) +
+      parseInt(totalPartUnloading) +
+      parseInt(totalFinalInspectionTime) +
+      parseInt(totalPackingDispatchTime) +
+      parseFloat(totalSetupCharges) +
+      parseFloat(totalInspectionCharges) +
+      parseFloat(totalOutSourcingCharges) +
+      parseFloat(totalConsumables) +
+      parseFloat(totalMaterialCost) +
+      parseFloat(totalFillerCost);
+
+    const unitPrice =
+      parseFloat(sum).toFixed(2) / parseFloat(formData.batchQty);
+
+    const overheadCharges = updatedData.reduce(
+      (acc, curr) => acc + parseFloat(curr.Overhead_Charges || 0),
+      0
+    );
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      totalWeldLength: totalWeldLength.toFixed(2),
+      totalWeldTime: totalWeldTime,
+      totalSetupTime: totalSetupTime,
+      totalInspectionTime: totalInspectionTime,
+      totalCleaningTime: totalCleaningTime,
+      totalAssemblyTime: totalAssemblyTime,
+      totalPartLoading: totalPartLoading,
+      totalPartUnloading: totalPartUnloading,
+      totalFinalInspectionTime: totalFinalInspectionTime,
+      totalPackingDispatchTime: totalPackingDispatchTime,
+      totalSetupCharges: totalSetupCharges.toFixed(2),
+      totalInspectionCharges: totalInspectionCharges.toFixed(2),
+      totalOutSourcingCharges: totalOutSourcingCharges.toFixed(2),
+      totalConsumables: totalConsumables.toFixed(2),
+      totalMaterialCost: totalMaterialCost.toFixed(2),
+      totalFillerCost: totalFillerCost.toFixed(2),
+      overheadCharges: overheadCharges.toFixed(2),
+    }));
+
+    return {
+      totalWeldLength: totalWeldLength.toFixed(2),
+      totalWeldTime: totalWeldTime,
+      totalSetupTime: totalSetupTime,
+      totalInspectionTime: totalInspectionTime,
+      totalCleaningTime: totalCleaningTime,
+      totalAssemblyTime: totalAssemblyTime,
+      totalPartLoading: totalPartLoading,
+      totalPartUnloading: totalPartUnloading,
+      totalFinalInspectionTime: totalFinalInspectionTime,
+      totalPackingDispatchTime: totalPackingDispatchTime,
+      totalSetupCharges: totalSetupCharges.toFixed(2),
+      totalInspectionCharges: totalInspectionCharges.toFixed(2),
+      totalOutSourcingCharges: totalOutSourcingCharges.toFixed(2),
+      totalConsumables: totalConsumables.toFixed(2),
+      totalMaterialCost: totalMaterialCost.toFixed(2),
+      totalFillerCost: totalFillerCost.toFixed(2),
+      labourTime: labourTime,
+      unitPrice: unitPrice,
+      revisedUnitPrice: unitPrice,
+      machineTime: machineTime,
+      overheadCharges: overheadCharges.toFixed(2),
+    };
+  };
+
   const handleDeleteQuote = async (id) => {
     try {
+      if (!formData.selectedRow4) {
+        toast.error("Select a row before deleting");
+        return;
+      }
       await Axios.post(apipoints.deleteQuoteDetails, { id });
 
-      setFormData((prevData) => ({
-        ...prevData,
-        quoteDetailsTableData: prevData.quoteDetailsTableData.filter(
+      setFormData((prevData) => {
+        const updatedTableData = prevData.quoteDetailsTableData.filter(
           (item) => item.ID !== id
-        ),
-        selectedRow3: null,
-      }));
+        );
 
+        const recalculatedValues = calculateTotalValues(updatedTableData);
+        console.log("recalculatedValues", recalculatedValues);
+
+        Axios.post(apipoints.updateQuoteDetailsAfterDelete, {
+          recalculatedValues: recalculatedValues,
+          qtnID: prevData.qtnID,
+        })
+          .then(() => {
+            // toast.success("Quote Deleted successfully");
+          })
+          .catch((error) => {
+            console.error("Error updating quote details after delete", error);
+            toast.error("Error updating quote details after delete");
+          });
+
+        return {
+          ...prevData,
+          quoteDetailsTableData: updatedTableData,
+          selectedRow4: null,
+          ...recalculatedValues,
+        };
+      });
       toast.success("Quote Deleted successfully");
     } catch (error) {
       console.error("Error Deleting Quote", error);
@@ -242,7 +449,22 @@ export default function QuoteDetails({
     }
   };
 
-  // console.log("quoteDetailsTableData", formData.quoteDetailsTableData);
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "overheadCharges") {
+      const percentage = parseFloat(value);
+
+      if (!isNaN(percentage)) {
+        const totalOverheadCharges =
+          (percentage / 100) * formData.revisedUnitPrice;
+        setFormData((prevData) => ({
+          ...prevData,
+          overheadCharges: totalOverheadCharges.toFixed(2),
+        }));
+      }
+    }
+  };
 
   return (
     <>
@@ -676,7 +898,7 @@ export default function QuoteDetails({
                 }
                 variant="primary"
                 disabled={!formData.tabsEnable}
-                onClick={() => handleDeleteQuote(formData.selectedRow3)}
+                onClick={() => handleDeleteQuote(formData.selectedRow4)}
               >
                 Delete
               </button>
@@ -732,7 +954,7 @@ export default function QuoteDetails({
                       key={index}
                       onClick={() => handleRowSelect(item.ID)}
                       className={
-                        formData.selectedRow3 === item.ID
+                        formData.selectedRow4 === item.ID
                           ? "selectedRowClr"
                           : ""
                       }
@@ -896,7 +1118,7 @@ export default function QuoteDetails({
                 onKeyDown={blockInvalidChar}
                 disabled={
                   !formData.tabsEnable ||
-                  (formData.shippingDelivery = "Customer Pick Up")
+                  formData.shippingDelivery === "Customer Pick Up"
                 }
               />
             </div>
@@ -957,6 +1179,7 @@ export default function QuoteDetails({
                 value={formData.overheadCharges}
                 min={0}
                 onChange={handleInputChange}
+                onBlur={handleBlur}
                 onKeyDown={blockInvalidChar}
                 disabled={!formData.tabsEnable}
               />

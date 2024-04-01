@@ -17,9 +17,14 @@ import SendMail from "./pages/sendmail/sendmails";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import OrdersMain from "./pages/Sales/Customer/ISO_Forms/TaskSheet/OrdersMain";
 import TaskSheet from "./pages/Sales/Customer/ISO_Forms/TaskSheet/TaskSheet";
-import Solidstatelaser from "./pages/Sales/Customer/ISO_Forms/SolidStateLaser/Solidstatelaser";
-import Co2Form from "./pages/Sales/Customer/ISO_Forms/Co2Form/Co2Form";
+
+// import Solidstatelaser from "./pages/Sales/Customer/ISO_Forms/SolidStateLaser/Solidstatelaser";
+// import Co2Form from "./pages/Sales/Customer/ISO_Forms/Co2Form/Co2Form";
+import Solidstatelaser from "./pages/Sales/Customer/ISO_Forms/JobParameters/SolidStateLaser/Solidstatelaser";
+import Co2Form from "./pages/Sales/Customer/ISO_Forms/JobParameters/Co2Form/Co2Form";
+import JobParameter from "./pages/Sales/Customer/ISO_Forms/JobParameters/JobParameter";
 import Buttonpdf from "./pages/Sales/Customer/ISO_Forms/Printpages/Rateestimator/Buttonpdf";
 
 function App() {
@@ -35,7 +40,9 @@ function App() {
           <Route path="/Customer" element={<Parentroute />}>
             <Route path="Quotation" element={<QuotationMain />} />
             <Route path="RateEstimator" element={<RateEstimator />} />
+            <Route path="Orders" element={<OrdersMain />} />
             <Route path="TaskSheet" element={<TaskSheet />} />
+            <Route path="JobParameters" element={<JobParameter />} />
             <Route path="SolidStateForm" element={<Solidstatelaser />} />
             <Route path="CO2Form" element={<Co2Form />} />
             <Route path="pdf" element={<Buttonpdf />} />

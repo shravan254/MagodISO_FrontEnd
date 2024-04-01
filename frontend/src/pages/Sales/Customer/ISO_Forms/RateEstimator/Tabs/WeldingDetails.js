@@ -81,8 +81,14 @@ function WeldingDetails({
       });
   }, []);
 
+  console.log("formData", formData);
+
   const handleAddMaterial = async () => {
     try {
+      if (formData.material === "") {
+        toast.error("Enter Material");
+        return;
+      }
       const newMaterial = {
         qtnID: formData.qtnID,
         material: formData.material,
@@ -103,52 +109,16 @@ function WeldingDetails({
       }));
     } catch (error) {
       console.error("Error Adding Material", error);
-      toast.error("Error Adding Material");
+      // toast.error("Error Adding Material");
     }
   };
 
-  // const handleAddMaterial = async () => {
-  //   try {
-  //     const response = await Axios.post(apipoints.insertMaterialDetails, {
-  //       qtnID: formData.qtnID,
-  //     });
-
-  //     console.log("response", response.data);
-
-  //     if (response.data.affectedRows !== 0) {
-  //       const id = response.data.insertId;
-  //       const newRow = {
-  //         Material_ID: id,
-  //         Material: "",
-  //         Thickness: 0,
-  //       };
-
-  //       const updatedMaterialTableData = [
-  //         ...formData.materialTableData,
-  //         newRow,
-  //       ];
-
-  //       setFormData((prevFormData) => ({
-  //         ...prevFormData,
-  //         materialTableData: updatedMaterialTableData,
-  //         material: "",
-  //         thickness: 0,
-  //       }));
-
-  //       toast.success("Material added successfully");
-  //     } else {
-  //       toast.error("Record Not Inserted");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error Adding Material", error);
-  //     toast.error("Error Adding Material");
-  //   }
-  // };
-
-  console.log("materialTableData", formData.materialTableData);
-
   const handleDeleteMaterial = async (materialId) => {
     try {
+      if (!formData.selectedRow1) {
+        toast.error("Select a row before deleting");
+        return;
+      }
       await Axios.post(apipoints.deleteMaterialDetails, { materialId });
 
       setFormData((prevData) => ({
@@ -162,7 +132,7 @@ function WeldingDetails({
       toast.success("Material deleted successfully");
     } catch (error) {
       console.error("Error Deleting Material", error);
-      toast.error("Error Deleting Material");
+      // toast.error("Error Deleting Material");
     }
   };
 
@@ -247,7 +217,7 @@ function WeldingDetails({
             <div className="col-8 mt-2">
               <input
                 type="number"
-                min="0"
+                min={0}
                 name="thickness"
                 className="in-field"
                 value={formData.thickness}
@@ -624,6 +594,7 @@ function WeldingDetails({
                   value={formData.shippingDelivery}
                   onChange={handleInputChange}
                   style={{ marginTop: "12px" }}
+                  disabled={!formData.tabsEnable}
                 >
                   <option value="" selected disabled hidden>
                     Select Delivery
@@ -651,6 +622,7 @@ function WeldingDetails({
                   value={formData.materialSource}
                   onChange={handleInputChange}
                   style={{ marginTop: "12px" }}
+                  disabled={!formData.tabsEnable}
                 >
                   <option value="" selected disabled hidden>
                     Select Source
