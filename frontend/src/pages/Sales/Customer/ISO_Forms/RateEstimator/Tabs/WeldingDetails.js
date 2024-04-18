@@ -89,6 +89,11 @@ function WeldingDetails({
         toast.error("Enter Material");
         return;
       }
+
+      if (formData.thickness === "") {
+        toast.error("Enter Material Thickness");
+        return;
+      }
       const newMaterial = {
         qtnID: formData.qtnID,
         material: formData.material,
@@ -133,6 +138,51 @@ function WeldingDetails({
     } catch (error) {
       console.error("Error Deleting Material", error);
       // toast.error("Error Deleting Material");
+    }
+  };
+
+  const handleMaterialChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.materialTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
+      }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      materialTableData: updatedItems,
+    }));
+  };
+
+  const handleBlur = async (index, materialID, material, thickness) => {
+    try {
+      const updateData = {
+        qtnID: formData.qtnID,
+        materialID: materialID,
+        material,
+        thickness,
+      };
+
+      await Axios.post(apipoints.updateMaterialDetails, updateData);
+
+      const updatedMaterials = [...formData.materialTableData];
+      updatedMaterials[index] = {
+        ...updatedMaterials[index],
+        material,
+        thickness,
+      };
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        materialTableData: updatedMaterials,
+      }));
+
+      // toast.success("Material details updated successfully");
+    } catch (error) {
+      console.error("Error updating material details", error);
+      // toast.error("Error updating material details");
     }
   };
 
@@ -181,8 +231,54 @@ function WeldingDetails({
                     }
                   >
                     <td>{index + 1}</td>
-                    <td>{item.Material}</td>
-                    <td>{item.Thickness}</td>
+                    {/* <td>{item.Material}</td> */}
+                    <td>
+                      <input
+                        type="text"
+                        value={item.Material}
+                        name="Material"
+                        onChange={(e) => handleMaterialChange(e, index)}
+                        onBlur={() =>
+                          handleBlur(
+                            index,
+                            item.Material_ID,
+                            item.Material,
+                            item.Thickness
+                          )
+                        }
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "transparent",
+                          border: "none",
+                          textAlign: "center",
+                        }}
+                      />
+                    </td>
+                    {/* <td>{item.Thickness}</td> */}
+                    <td>
+                      <input
+                        type="text"
+                        value={item.Thickness}
+                        name="Thickness"
+                        onChange={(e) => handleMaterialChange(e, index)}
+                        onBlur={() =>
+                          handleBlur(
+                            index,
+                            item.Material_ID,
+                            item.Material,
+                            item.Thickness
+                          )
+                        }
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "transparent",
+                          border: "none",
+                          textAlign: "center",
+                        }}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -339,12 +435,14 @@ function WeldingDetails({
             </div>
             <div className="col-8">
               <input
-                type="text"
+                type="number"
                 className="input-field"
                 name="batchQty"
+                min={0}
                 value={formData.batchQty}
                 onChange={handleInputChange}
                 disabled={!formData.tabsEnable}
+                onKeyDown={blockInvalidChar}
               />
             </div>
           </div>
@@ -357,12 +455,14 @@ function WeldingDetails({
             </div>
             <div className="col-8">
               <input
-                type="text"
+                type="number"
                 className="input-field"
                 name="yearQty"
+                min={0}
                 value={formData.yearQty}
                 onChange={handleInputChange}
                 disabled={!formData.tabsEnable}
+                onKeyDown={blockInvalidChar}
               />
             </div>
           </div>
@@ -402,11 +502,12 @@ function WeldingDetails({
                 style={{ marginTop: "12px" }}
                 disabled={!formData.tabsEnable}
               >
-                <option value={null} selected disabled hidden>
+                <option value="" selected disabled hidden>
                   Select Fixture Requirement
                 </option>
                 <option value={1}>Yes</option>
                 <option value={0}>No</option>
+                <option value={2}>NA</option>
               </select>
             </div>
           </div>
@@ -462,11 +563,12 @@ function WeldingDetails({
                 style={{ marginTop: "12px" }}
                 disabled={!formData.tabsEnable}
               >
-                <option value={null} selected disabled hidden>
+                <option value="" selected disabled hidden>
                   Select Hermatic Joint
                 </option>
                 <option value={1}>Yes</option>
                 <option value={0}>No</option>
+                <option value={2}>NA</option>
               </select>
             </div>
           </div>
@@ -514,11 +616,12 @@ function WeldingDetails({
                   style={{ marginTop: "12px" }}
                   disabled={!formData.tabsEnable}
                 >
-                  <option value={null} selected disabled hidden>
+                  <option value="" selected disabled hidden>
                     Select Drawing
                   </option>
                   <option value={1}>Yes</option>
                   <option value={0}>No</option>
+                  <option value={2}>NA</option>
                 </select>
               </div>
             </div>

@@ -1,25 +1,37 @@
 import React, { useState, Fragment } from "react";
 import Modal from "react-bootstrap/Modal";
 import { PDFViewer, StyleSheet, Image } from "@react-pdf/renderer";
-import ISOFormPDF from "./SolidStatePdf";
+import SolidStatePdf from "./SolidStatePdf";
 
-export default function SolidStateModal({ isoFormOpen, SetIsoFormOpen }) {
+export default function SolidStateModal({
+  solidStateFormOpen,
+  setSolidStateFormOpen,
+  formData,
+}) {
   const [fullscreen, setFullscreen] = useState(true);
 
   const handleClose = () => {
-    SetIsoFormOpen(false);
+    setSolidStateFormOpen(false);
   };
 
   return (
     <div>
-      <Modal show={isoFormOpen} fullscreen={fullscreen} onHide={handleClose}>
+      <Modal
+        show={solidStateFormOpen}
+        fullscreen={fullscreen}
+        onHide={handleClose}
+      >
         <Modal.Header closeButton>
           <Modal.Title> Parameter Sheet - Solid State Laser</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Fragment>
-            <PDFViewer width="1200" height="600" filename="ParameterSolidState.pdf">
-              <ISOFormPDF />
+            <PDFViewer
+              width="1200"
+              height="600"
+              filename="ParameterSolidState.pdf"
+            >
+              <SolidStatePdf formData={formData} />
             </PDFViewer>
           </Fragment>
         </Modal.Body>

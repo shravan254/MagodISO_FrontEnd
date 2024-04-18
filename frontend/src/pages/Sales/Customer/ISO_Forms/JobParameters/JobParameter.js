@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function JobParameter() {
-  const [ScheduleDetailsId, setScheduleDetailsId] = useState(1869007);
+  const [NcId, SetNcId] = useState(422756);
   const navigate = useNavigate();
   const handleOpenClick1 = () => {
     navigate("/Customer/SolidStateForm", {
-      state: { ScheduleDetailsId },
+      state: { NcId },
     });
   };
 
   const handleOpenClick2 = () => {
     navigate("/Customer/CO2Form", {
-      state: { ScheduleDetailsId },
+      state: { NcId },
     });
   };
   return (

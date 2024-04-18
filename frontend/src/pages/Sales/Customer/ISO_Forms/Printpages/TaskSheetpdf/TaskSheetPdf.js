@@ -9,7 +9,7 @@ import {
 } from "@react-pdf/renderer";
 import magodlogo from "../../../../../../images/ISOPdfs/MagodLogo.png";
 
-export default function TaskSheetPdf() {
+export default function TaskSheetPdf({ formData = { formData } }) {
   const styles = StyleSheet.create({
     page: {
       fontSize: 11,
@@ -404,7 +404,7 @@ export default function TaskSheetPdf() {
       fontSize: "9px",
       fontFamily: "Helvetica-Bold",
     },
-    globalfontwithbold1: {
+    globalfontwithoutbold: {
       fontSize: "9px",
     },
     tableData01: {
@@ -427,6 +427,7 @@ export default function TaskSheetPdf() {
       marginLeft: "30px",
       padding: 2,
       flexWrap: "wrap",
+      textAlign: "center",
     },
     tableData02: {
       fontSize: "9px",
@@ -444,6 +445,7 @@ export default function TaskSheetPdf() {
       borderBottom: 1,
       padding: 3,
       flexWrap: "wrap",
+      textAlign: "center",
     },
     tableData03: {
       fontSize: "9px",
@@ -461,6 +463,8 @@ export default function TaskSheetPdf() {
       borderBottom: 1,
       padding: 2,
       flexWrap: "wrap",
+      textAlign: "center",
+      textAlign: "center",
     },
     tableInput: {
       fontSize: "9px",
@@ -642,7 +646,7 @@ export default function TaskSheetPdf() {
       padding: 3,
       marginLeft: "30px",
       flexWrap: "wrap",
-      fontFamily: "Helvetica-Bold",
+      // fontFamily: "Helvetica-Bold",
       fontSize: "9px",
     },
   });
@@ -678,8 +682,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  240436 01 01
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.taskNo}
                 </Text>
               </View>
             </View>
@@ -695,8 +701,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  15/02/2024
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.taskDate}
                 </Text>
               </View>
             </View>
@@ -704,14 +712,22 @@ export default function TaskSheetPdf() {
         </View>
 
         <View style={styles.row}>
-          <Text style={styles.tableData01}>Assembly Part Name/No</Text>
-          <Text style={styles.tableData03}>Sub-assy Part Name/No</Text>
+          <Text style={styles.tableData01}>Sub-assy Part Name/No</Text>
+          <Text style={styles.tableData03}>Qty Received</Text>
         </View>
 
-        <View style={styles.row}>
+        {/* <View style={styles.row}>
           <Text style={styles.tableInput01}>BB-00008373</Text>
           <Text style={styles.tableInput03}>10</Text>
-        </View>
+        </View> */}
+
+        {formData.subAssyTableData?.map((item, index) => (
+          <View key={index} style={styles.row}>
+            {/* <Text style={styles.tableInput02}>{index + 1}</Text> */}
+            <Text style={styles.tableInput01}>{item.Sub_Assy_Part_Name}</Text>
+            <Text style={styles.tableInput03}>{item.Qty_Received}</Text>
+          </View>
+        ))}
 
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
@@ -724,8 +740,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  NO
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.anyDeffects === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -741,8 +759,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  1.2 MM
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.mtrlThickness}
                 </Text>
               </View>
             </View>
@@ -760,8 +780,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  LasWeld2
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.machineNo}
                 </Text>
               </View>
             </View>
@@ -777,8 +799,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Yes
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.withFiller === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -796,8 +820,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  451459
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.programNo}
                 </Text>
               </View>
             </View>
@@ -813,8 +839,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  SS 316L 0.4
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.fillerMaterial}
                 </Text>
               </View>
             </View>
@@ -832,8 +860,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Yes
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.fixtureRequirement === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -849,8 +879,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  12345
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.batchNo}
                 </Text>
               </View>
             </View>
@@ -862,14 +894,16 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Lens distance [Focal Length] in mm
+                  Lens distance in mm
                 </Text>
               </View>
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  150 MM
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.lensDistance}
                 </Text>
               </View>
             </View>
@@ -885,8 +919,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  13KW
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.machinePeakPower}
                 </Text>
               </View>
             </View>
@@ -900,19 +936,33 @@ export default function TaskSheetPdf() {
 
         <View style={styles.row}>
           <Text style={styles.CheckBoxLabel01}>QC</Text>
-          <Text style={styles.CheckBox01}></Text>
+          <Text style={styles.CheckBox01}>
+            {formData.partInspectionQC === 1 ? "Yes" : ""}
+          </Text>
           <Text style={styles.CheckBoxLabel02}>Weld Engineer</Text>
-          <Text style={styles.CheckBox02}></Text>
+          <Text style={styles.CheckBox02}>
+            {formData.partInspectionWeldEngineer === 1 ? "Yes" : ""}
+          </Text>
           <Text style={styles.CheckBoxLabel02}>Incharge</Text>
-          <Text style={styles.CheckBox02}></Text>
-          <Text style={styles.CheckBoxLabel03}>QC</Text>
-          <Text style={styles.CheckBox03}></Text>
-          <Text style={styles.CheckBoxLabel02}>Weld Engineer</Text>
-          <Text style={styles.CheckBox02}></Text>
-          <Text style={styles.CheckBoxLabel02}>Incharge</Text>
-          <Text style={styles.CheckBox02}></Text>
+          <Text style={styles.CheckBox02}>
+            {formData.partInspectionIncharge === 1 ? "Yes" : ""}
+          </Text>
           <Text style={styles.CheckBoxLabel02}>Project Incharge</Text>
-          <Text style={styles.CheckBox02}></Text>
+          <Text style={styles.CheckBox02}>
+            {formData.partInspectionProjectManager === 1 ? "Yes" : ""}
+          </Text>
+          <Text style={styles.CheckBoxLabel03}>QC</Text>
+          <Text style={styles.CheckBox03}>
+            {formData.weldSettingQC === 1 ? "Yes" : ""}
+          </Text>
+          <Text style={styles.CheckBoxLabel02}>Weld Engineer</Text>
+          <Text style={styles.CheckBox02}>
+            {formData.weldSettingWeldEngineer === 1 ? "Yes" : ""}
+          </Text>
+          <Text style={styles.CheckBoxLabel02}>Incharge</Text>
+          <Text style={styles.CheckBox02}>
+            {formData.weldSettingIncharge === 1 ? "Yes" : ""}
+          </Text>
         </View>
 
         <View style={styles.tableContainer2}>
@@ -926,8 +976,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Ndyag
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.laserEquipment}
                 </Text>
               </View>
             </View>
@@ -943,8 +995,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Yes
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.reweldPermitted === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -963,8 +1017,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.fixtureNo}
+                </Text>
               </View>
             </View>
           </View>
@@ -980,8 +1036,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.controlPlanNo}
+                </Text>
               </View>
             </View>
           </View>
@@ -999,8 +1057,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.wpsNo}
+                </Text>
               </View>
             </View>
           </View>
@@ -1016,8 +1076,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.pfdNo}
+                </Text>
               </View>
             </View>
           </View>
@@ -1035,8 +1097,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.wiNo}
+                </Text>
               </View>
             </View>
           </View>
@@ -1052,8 +1116,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.pqrNo}
+                </Text>
               </View>
             </View>
           </View>
@@ -1071,8 +1137,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.standardOfRef}
+                </Text>
               </View>
             </View>
           </View>
@@ -1088,8 +1156,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.gasType}
+                </Text>
               </View>
             </View>
           </View>
@@ -1107,8 +1177,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.preFlowGas}
+                </Text>
               </View>
             </View>
           </View>
@@ -1124,8 +1196,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.postFlowGas}
+                </Text>
               </View>
             </View>
           </View>
@@ -1143,8 +1217,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.designType}
+                </Text>
               </View>
             </View>
           </View>
@@ -1160,8 +1236,10 @@ export default function TaskSheetPdf() {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.weldSide}
+                </Text>
               </View>
             </View>
           </View>
@@ -1178,8 +1256,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Yes
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.backing === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -1195,8 +1275,10 @@ export default function TaskSheetPdf() {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  Yes
+                <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.tackWeld === 1 ? "Yes" : "No"}
                 </Text>
               </View>
             </View>
@@ -1216,100 +1298,109 @@ export default function TaskSheetPdf() {
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Power at focus Watts/volts</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.sspoweratfocus}</Text>
           <Text style={styles.tableCOLable}>
             Power transmission efficiency in watts
           </Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>
+            {formData.copowerTransmissionEfficiency}
+          </Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Focus dia in mm</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.ssfocusDia}</Text>
           <Text style={styles.tableCOLable}>Power in Watts</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.copower}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Pulse duration in ms</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.sspulseDuration}</Text>
           <Text style={styles.tableCOLable}>Frequency in Hz</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.cofrequency}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Pulse frequency in Hz</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.sspulseFrequency}</Text>
           <Text style={styles.tableCOLable}>Beam dia in mm</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.cobeamDia}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Pulse shape No</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.sspulseShapeNo}</Text>
           <Text style={styles.tableCOLable}>Focus in mm</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.cofocus}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Gas pressure in lpm (Avg)</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.ssgasPressure}</Text>
           <Text style={styles.tableCOLable}>Gas pressure in lpm (Avg)</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.cogasPressure}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Feed rate in mm/min</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.ssfeedRate}</Text>
           <Text style={styles.tableCOLable}>Feed rate in mm/min</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.cofeedRate}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>RPM</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.ssrpm}</Text>
           <Text style={styles.tableCOLable}>RPM</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.corpm}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Gas purity in %</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.ssgasPurity}</Text>
           <Text style={styles.tableCOLable}>Gas purity in %</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.cogasPurity}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>Gap Range in mm</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.ssgapRange}</Text>
           <Text style={styles.tableCOLable}>Gap Range in mm</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>{formData.cogapRange}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableSolidLable}>
             Gas flow orientation in deg
           </Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>
+            {formData.ssgasFlowOrientation}
+          </Text>
           <Text style={styles.tableCOLable}>Gas flow orientation in deg</Text>
-          <Text style={styles.tableSolidData}></Text>
+          <Text style={styles.tableSolidData}>
+            {formData.cogasFlowOrientation}
+          </Text>
         </View>
 
         <View style={styles.row}>
           <View style={styles.comments}>
-            <Text>Note:</Text>
+            <Text style={styles.globalfontwithbold}>Note: </Text>
+            <Text style={styles.globalfontwithoutbold}>{formData.note}</Text>
           </View>
         </View>
 
         <View style={styles.row}>
           <View style={styles.comments}>
-            <Text>Prepared By:</Text>
+            <Text style={styles.globalfontwithbold}>Prepared By:</Text>
           </View>
         </View>
 
         <View style={styles.row}>
           <View style={styles.comments}>
-            <Text>Welding Operator Stamp:</Text>
+            <Text style={styles.globalfontwithbold}>
+              Welding Operator Stamp:
+            </Text>
           </View>
         </View>
       </Page>

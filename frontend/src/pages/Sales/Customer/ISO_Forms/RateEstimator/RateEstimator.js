@@ -74,9 +74,11 @@ function RateEstimator() {
     testTypeName: "",
     testName: "",
     testDetails: "",
+    testCost: 0,
     testTypeData: [],
     testListData: [],
     testTableData: [],
+    totalTestCost: 0,
 
     // Risks
     risk: "",
@@ -94,8 +96,8 @@ function RateEstimator() {
     incomingInspectionTime: 0,
     cleaningTime: 0,
     assemblyTime: 0,
-    partLoading: 0,
-    partUnloading: 0,
+    partLoadingTime: 0,
+    partUnloadingTime: 0,
     finalInspectionTime: 0,
     packingDispatchTime: 0,
     setupCharges: 0,
@@ -111,11 +113,13 @@ function RateEstimator() {
     transporationCost: 0,
     overheadCharges: 0,
     overheadPercentage: 0,
-    unitPrice: 0.0,
-    revisedUnitPrice: 0.0,
+    percentage: 0,
+    unitPrice: 0,
+    revisedUnitPrice: 0,
 
     totalWeldLength: 0,
     totalWeldTime: 0,
+    totalWeldSpeed: 0,
     totalSetupTime: 0,
     totalInspectionTime: 0,
     totalCleaningTime: 0,
@@ -133,6 +137,17 @@ function RateEstimator() {
 
     transportationCostDisabled: false,
     quoteDetailsTableData: [],
+
+    // new fields
+    manPowerCost: 0,
+    weldingSettingCost: 0,
+    perhrMacCost: 0,
+    weldSpeed: 0,
+    outPutPerHour: 0,
+    labourCost: 0,
+    machineCost: 0,
+
+    totalCost: 0,
   });
   const Qtnno = "2009/11/166";
   const [key, setKey] = useState("Welding_Details");
@@ -248,10 +263,12 @@ function RateEstimator() {
       }));
     }
 
-    if (name === "revisedUnitPrice") {
+    if (name === "percentage") {
       setFormData((prevData) => ({
         ...prevData,
         overheadCharges: 0,
+        unitPrice: 0,
+        revisedUnitPrice: 0,
       }));
     }
   };
@@ -280,6 +297,14 @@ function RateEstimator() {
     try {
       if (!formData.drawingNo) {
         toast.error("Enter Drawing No");
+        return;
+      }
+      if (formData.batchQty === "") {
+        toast.error("Enter Batch Quantity");
+        return;
+      }
+      if (formData.yearQty === "") {
+        toast.error("Enter Year Quantity");
         return;
       }
 
@@ -332,8 +357,16 @@ function RateEstimator() {
         fixtureCharges: formData.fixtureCharges,
         transporationCost: formData.transporationCost,
         overheadCharges: formData.overheadCharges,
+        percentage: formData.percentage,
         unitPrice: formData.unitPrice,
         revisedUnitPrice: formData.revisedUnitPrice,
+
+        manPowerCost: formData.manPowerCost,
+        weldingSettingCost: formData.weldingSettingCost,
+        perhrMacCost: formData.perhrMacCost,
+        outPutPerHour: formData.outPutPerHour,
+        labourCost: formData.labourCost,
+        machineCost: formData.machineCost,
       };
 
       await Axios.post(apipoints.saveEnquiryService, enquiryServiceData);
@@ -419,7 +452,7 @@ function RateEstimator() {
 
           hermaticJoint: welding_register.length
             ? welding_register[0].Hermatic_Joint
-            : 0,
+            : "",
 
           allowableDeffects: welding_register.length
             ? welding_register[0].Allowable_Defects
@@ -462,6 +495,23 @@ function RateEstimator() {
           machine: quote_register.length ? quote_register[0].Machine : "",
 
           filler: quote_register.length ? quote_register[0].Filler : "",
+          manPowerCost: quote_register.length
+            ? quote_register[0].Man_Power_Cost
+            : 0,
+          weldingSettingCost: quote_register.length
+            ? quote_register[0].Welding_Setting_Cost
+            : 0,
+          perhrMacCost: quote_register.length
+            ? quote_register[0].Per_hour_Man_Cost
+            : 0,
+
+          outPutPerHour: quote_register.length
+            ? quote_register[0].Output_Per_Hour
+            : 0,
+          labourCost: quote_register.length ? quote_register[0].Labour_Cost : 0,
+          machineCost: quote_register.length
+            ? quote_register[0].Machine_Cost
+            : 0,
 
           quoteDetailsTableData: quote_details.length ? quote_details : [],
 
@@ -492,6 +542,10 @@ function RateEstimator() {
             : 0,
           totalWeldTime: quote_register.length
             ? quote_register[0].Total_Weld_Time
+            : 0,
+
+          totalWeldSpeed: quote_register.length
+            ? quote_register[0].Total_Weld_Speed
             : 0,
           totalSetupTime: quote_register.length
             ? quote_register[0].Total_Setup_Time
@@ -546,7 +600,7 @@ function RateEstimator() {
 
   // console.log("quoteDetailsTableData", formData.quoteDetailsTableData);
 
-  const handleOpenClick = () => {
+  const handleClose = () => {
     navigate("/customer");
   };
 
@@ -648,7 +702,7 @@ function RateEstimator() {
               type="submit"
               className="button-style"
               variant="primary"
-              onClick={handleOpenClick}
+              onClick={handleClose}
             >
               Close
             </button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { apipoints } from "../../../../../api/isoForms/rateEstimator";
 import { Table } from "react-bootstrap";
@@ -23,23 +23,60 @@ export default function QuoteDetails({
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
 
+  const blockInvalidPointChar = (e) =>
+    ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
+
   const handleAddQuote = async () => {
     try {
+      const fieldsToValidate = [
+        "jointNo",
+        "weldLength",
+        "weldSpeed",
+        "weldingTime",
+        "setUpTime",
+        "incomingInspectionTime",
+        "cleaningTime",
+        "assemblyTime",
+        "partLoadingTime",
+        "partUnloadingTime",
+        "finalInspectionTime",
+        "packingDispatchTime",
+        "setupCharges",
+        "inspectionCharges",
+        "outSourcingCharges",
+        "consumables",
+        "materialCost",
+        "fillerCost",
+      ];
       if (formData.jointNo === "") {
         toast.error("Enter Joint No");
         return;
+      }
+
+      for (const field of fieldsToValidate) {
+        if (formData[field] === "") {
+          toast.error(
+            `Enter ${field
+              .replace(/([A-Z])/g, " $1")
+              .trim()
+              .replace(/^\w/, (c) => c.toUpperCase())}`
+          );
+
+          return;
+        }
       }
       const newQuote = {
         qtnID: formData.qtnID,
         jointNo: formData.jointNo,
         weldLength: formData.weldLength,
+        weldSpeed: formData.weldSpeed,
         weldingTime: formData.weldingTime,
         setUpTime: formData.setUpTime,
         incomingInspectionTime: formData.incomingInspectionTime,
         cleaningTime: formData.cleaningTime,
         assemblyTime: formData.assemblyTime,
-        partLoading: formData.partLoading,
-        partUnloading: formData.partUnloading,
+        partLoadingTime: formData.partLoadingTime,
+        partUnloadingTime: formData.partUnloadingTime,
         finalInspectionTime: formData.finalInspectionTime,
         packingDispatchTime: formData.packingDispatchTime,
         setupCharges: formData.setupCharges,
@@ -54,6 +91,11 @@ export default function QuoteDetails({
 
       const totalWeldLength = response.data.reduce(
         (acc, curr) => acc + parseFloat(curr.Weld_Length || 0),
+        0
+      );
+
+      const totalWeldSpeed = response.data.reduce(
+        (acc, curr) => acc + parseInt(curr.Weld_Speed || 0),
         0
       );
 
@@ -136,6 +178,7 @@ export default function QuoteDetails({
         ...prevFormData,
         totalWeldLength: totalWeldLength.toFixed(2),
         totalWeldTime: totalWeldTime,
+        totalWeldSpeed: totalWeldSpeed.toFixed(2),
         totalSetupTime: totalSetupTime,
         totalInspectionTime: totalInspectionTime,
         totalCleaningTime: totalCleaningTime,
@@ -164,30 +207,10 @@ export default function QuoteDetails({
         totalWeldTime +
         totalFinalInspectionTime;
 
-      const sum =
-        parseFloat(totalWeldLength) +
-        parseInt(totalWeldTime) +
-        parseInt(totalSetupTime) +
-        parseInt(totalInspectionTime) +
-        parseInt(totalCleaningTime) +
-        parseInt(totalAssemblyTime) +
-        parseInt(totalPartLoading) +
-        parseInt(totalPartUnloading) +
-        parseInt(totalFinalInspectionTime) +
-        parseInt(totalPackingDispatchTime) +
-        parseFloat(totalSetupCharges) +
-        parseFloat(totalInspectionCharges) +
-        parseFloat(totalOutSourcingCharges) +
-        parseFloat(totalConsumables) +
-        parseFloat(totalMaterialCost) +
-        parseFloat(totalFillerCost);
-
-      const unitPrice =
-        parseFloat(sum).toFixed(2) / parseFloat(formData.batchQty);
-
       const updatedFormData = {
         qtnID: formData.qtnID,
         totalWeldLength: totalWeldLength.toFixed(2),
+        totalWeldSpeed: totalWeldSpeed.toFixed(2),
         totalWeldTime: totalWeldTime,
         totalSetupTime: totalSetupTime,
         totalInspectionTime: totalInspectionTime,
@@ -204,12 +227,10 @@ export default function QuoteDetails({
         totalMaterialCost: totalMaterialCost.toFixed(2),
         totalFillerCost: totalFillerCost.toFixed(2),
         labourTime: labourTime,
-        unitPrice: unitPrice,
-        revisedUnitPrice: unitPrice,
+        unitPrice: formData.unitPrice,
+        revisedUnitPrice: formData.revisedUnitPrice,
         machineTime: machineTime,
       };
-
-      // console.log("updatedFormData", updatedFormData);
 
       await Axios.post(apipoints.updateQuoteRegister, updatedFormData);
 
@@ -219,13 +240,14 @@ export default function QuoteDetails({
         quoteDetailsTableData: response.data,
         jointNo: "",
         weldLength: 0,
+        weldSpeed: 0,
         weldingTime: 0,
         setUpTime: 0,
         incomingInspectionTime: 0,
         cleaningTime: 0,
         assemblyTime: 0,
-        partLoading: 0,
-        partUnloading: 0,
+        partLoadingTime: 0,
+        partUnloadingTime: 0,
         finalInspectionTime: 0,
         packingDispatchTime: 0,
         setupCharges: 0,
@@ -234,6 +256,7 @@ export default function QuoteDetails({
         consumables: 0,
         materialCost: 0,
         fillerCost: 0,
+        overheadCharges: 0,
       }));
     } catch (error) {
       console.error("Error Adding Quote Details", error);
@@ -244,6 +267,11 @@ export default function QuoteDetails({
   const calculateTotalValues = (updatedData) => {
     const totalWeldLength = updatedData.reduce(
       (acc, curr) => acc + parseFloat(curr.Weld_Length || 0),
+      0
+    );
+
+    const totalWeldSpeed = updatedData.reduce(
+      (acc, curr) => acc + parseInt(curr.Weld_Speed || 0),
       0
     );
 
@@ -335,27 +363,6 @@ export default function QuoteDetails({
       totalWeldTime +
       totalFinalInspectionTime;
 
-    const sum =
-      parseFloat(totalWeldLength) +
-      parseInt(totalWeldTime) +
-      parseInt(totalSetupTime) +
-      parseInt(totalInspectionTime) +
-      parseInt(totalCleaningTime) +
-      parseInt(totalAssemblyTime) +
-      parseInt(totalPartLoading) +
-      parseInt(totalPartUnloading) +
-      parseInt(totalFinalInspectionTime) +
-      parseInt(totalPackingDispatchTime) +
-      parseFloat(totalSetupCharges) +
-      parseFloat(totalInspectionCharges) +
-      parseFloat(totalOutSourcingCharges) +
-      parseFloat(totalConsumables) +
-      parseFloat(totalMaterialCost) +
-      parseFloat(totalFillerCost);
-
-    const unitPrice =
-      parseFloat(sum).toFixed(2) / parseFloat(formData.batchQty);
-
     const overheadCharges = updatedData.reduce(
       (acc, curr) => acc + parseFloat(curr.Overhead_Charges || 0),
       0
@@ -365,6 +372,7 @@ export default function QuoteDetails({
       ...prevFormData,
       totalWeldLength: totalWeldLength.toFixed(2),
       totalWeldTime: totalWeldTime,
+      totalWeldSpeed: totalWeldSpeed.toFixed(2),
       totalSetupTime: totalSetupTime,
       totalInspectionTime: totalInspectionTime,
       totalCleaningTime: totalCleaningTime,
@@ -384,6 +392,7 @@ export default function QuoteDetails({
 
     return {
       totalWeldLength: totalWeldLength.toFixed(2),
+      totalWeldSpeed: totalWeldSpeed.toFixed(2),
       totalWeldTime: totalWeldTime,
       totalSetupTime: totalSetupTime,
       totalInspectionTime: totalInspectionTime,
@@ -400,8 +409,8 @@ export default function QuoteDetails({
       totalMaterialCost: totalMaterialCost.toFixed(2),
       totalFillerCost: totalFillerCost.toFixed(2),
       labourTime: labourTime,
-      unitPrice: unitPrice,
-      revisedUnitPrice: unitPrice,
+      unitPrice: 0,
+      revisedUnitPrice: 0,
       machineTime: machineTime,
       overheadCharges: overheadCharges.toFixed(2),
     };
@@ -421,7 +430,7 @@ export default function QuoteDetails({
         );
 
         const recalculatedValues = calculateTotalValues(updatedTableData);
-        console.log("recalculatedValues", recalculatedValues);
+        // console.log("recalculatedValues", recalculatedValues);
 
         Axios.post(apipoints.updateQuoteDetailsAfterDelete, {
           recalculatedValues: recalculatedValues,
@@ -452,17 +461,203 @@ export default function QuoteDetails({
   const handleBlur = (e) => {
     const { name, value } = e.target;
 
-    if (name === "overheadCharges") {
-      const percentage = parseFloat(value);
+    // if (name === "overheadCharges") {
+    const percentage = parseFloat(value);
 
-      if (!isNaN(percentage)) {
-        const totalOverheadCharges =
-          (percentage / 100) * formData.revisedUnitPrice;
-        setFormData((prevData) => ({
-          ...prevData,
-          overheadCharges: totalOverheadCharges.toFixed(2),
-        }));
+    if (!isNaN(percentage)) {
+      const totalOverheadCharges = (percentage / 100) * formData.totalCost;
+
+      setFormData((prevData) => ({
+        ...prevData,
+        overheadCharges: totalOverheadCharges.toFixed(2),
+      }));
+    }
+    // }
+  };
+
+  const calculateTotalTestCost = () => {
+    const total_cost = formData.testTableData.reduce(
+      (total, item) => total + parseFloat(item.Test_Cost || 0),
+      0
+    );
+
+    setFormData((prevData) => ({
+      ...prevData,
+      testingCharges: total_cost,
+    }));
+  };
+
+  useEffect(() => {
+    calculateTotalTestCost();
+  }, [formData.testTableData]);
+
+  const calculateLabMacTotalCost = () => {
+    const totalLabourCost =
+      formData.labourTime * (formData.manPowerCost / 3600);
+    const totalMachineCost =
+      formData.machineTime * (formData.perhrMacCost / 3600);
+
+    console.log("totalLabourCost", totalLabourCost);
+    console.log("totalMachineCost", totalMachineCost);
+
+    setFormData((prevData) => ({
+      ...prevData,
+      labourCost: parseFloat(totalLabourCost.toFixed(2)),
+      machineCost: parseFloat(totalMachineCost.toFixed(2)),
+    }));
+  };
+
+  useEffect(() => {
+    calculateLabMacTotalCost();
+  }, [
+    formData.labourTime,
+    formData.machineTime,
+    formData.manPowerCost,
+    formData.labourCost,
+    formData.perhrMacCost,
+    formData.quoteDetailsTableData,
+  ]);
+
+  const calculateOutputPerHour = () => {
+    const totalOutputPerHour = 3600 / formData.machineTime;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      outPutPerHour: parseFloat(totalOutputPerHour.toFixed(2)),
+    }));
+  };
+
+  useEffect(() => {
+    calculateOutputPerHour();
+  }, [formData.machineTime, formData.quoteDetailsTableData]);
+
+  const calculateTotalCost = () => {
+    const totalCost = formData.labourCost + formData.machineCost;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      totalCost: parseFloat(totalCost).toFixed(2),
+    }));
+  };
+
+  useEffect(() => {
+    calculateTotalCost();
+  }, [
+    formData.labourCost,
+    formData.machineCost,
+    formData.quoteDetailsTableData,
+  ]);
+
+  const calculateUnitPrice = () => {
+    const totalUnitPrice =
+      parseFloat(formData.totalCost) + parseFloat(formData.overheadCharges);
+
+    setFormData((prevData) => ({
+      ...prevData,
+      unitPrice: parseFloat(totalUnitPrice).toFixed(2),
+      // revisedUnitPrice: parseFloat(totalUnitPrice).toFixed(2),
+    }));
+  };
+
+  useEffect(() => {
+    calculateUnitPrice();
+  }, [
+    formData.totalCost,
+    formData.overheadCharges,
+    formData.quoteDetailsTableData,
+  ]);
+
+  const handleQuoteDetailsChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.quoteDetailsTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
       }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      quoteDetailsTableData: updatedItems,
+    }));
+  };
+
+  const handleQuoteBlur = async (
+    index,
+    quoteId,
+    weldLength,
+    weldSpeed,
+    weldingTime,
+    setUpTime,
+    incomingInspectionTime,
+    cleaningTime,
+    assemblyTime,
+    partLoadingTime,
+    partUnloadingTime,
+    finalInspectionTime,
+    packingDispatchTime,
+    setupCharges,
+    inspectionCharges,
+    outSourcingCharges,
+    consumables,
+    materialCost,
+    fillerCost
+  ) => {
+    try {
+      const updateData = {
+        qtnID: formData.qtnID,
+        quoteId: quoteId,
+        weldLength,
+        weldSpeed,
+        weldingTime,
+        setUpTime,
+        incomingInspectionTime,
+        cleaningTime,
+        assemblyTime,
+        partLoadingTime,
+        partUnloadingTime,
+        finalInspectionTime,
+        packingDispatchTime,
+        setupCharges,
+        inspectionCharges,
+        outSourcingCharges,
+        consumables,
+        materialCost,
+        fillerCost,
+      };
+
+      await Axios.post(apipoints.updateQuoteDetails, updateData);
+
+      const updatedQuote = [...formData.quoteDetailsTableData];
+      updatedQuote[index] = {
+        ...updatedQuote[index],
+        weldLength,
+        weldSpeed,
+        weldingTime,
+        setUpTime,
+        incomingInspectionTime,
+        cleaningTime,
+        assemblyTime,
+        partLoadingTime,
+        partUnloadingTime,
+        finalInspectionTime,
+        packingDispatchTime,
+        setupCharges,
+        inspectionCharges,
+        outSourcingCharges,
+        consumables,
+        materialCost,
+        fillerCost,
+      };
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        quoteDetailsTableData: updatedQuote,
+      }));
+
+      // toast.success("Material details updated successfully");
+    } catch (error) {
+      console.error("Error updating Quote details", error);
     }
   };
 
@@ -504,6 +699,64 @@ export default function QuoteDetails({
             </div>
           </div>
         </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Man Power Cost</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="text"
+                name="manPowerCost"
+                value={formData.manPowerCost}
+                onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">
+                Welding Setting Cost Per Hour
+              </label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="text"
+                name="weldingSettingCost"
+                value={formData.weldingSettingCost}
+                onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row mt-1">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Per Hour Machine Cost</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="text"
+                name="perhrMacCost"
+                value={formData.perhrMacCost}
+                onChange={handleInputChange}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div
@@ -519,7 +772,7 @@ export default function QuoteDetails({
               <div className="col-6 mt-2">
                 {/* <input className="input-field" type="text" /> */}
                 <input
-                  className="in-field "
+                  className="in-field"
                   type="text"
                   name="jointNo"
                   value={formData.jointNo}
@@ -536,13 +789,31 @@ export default function QuoteDetails({
                 <label className="form-label">Weld Length (MM)</label>
               </div>
               <div className="col-6 mt-2">
-                {/* <input className="input-field" type="text" /> */}
                 <input
                   className="in-field"
                   type="number"
                   name="weldLength"
                   min={0}
                   value={formData.weldLength}
+                  onChange={handleInputChange}
+                  onKeyDown={blockInvalidChar}
+                  disabled={!formData.tabsEnable}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col-md-2 col-sm-6">
+            <div className="d-flex">
+              <div className="col-6">
+                <label className="form-label">Weld Speed</label>
+              </div>
+              <div className="col-6 mt-2">
+                <input
+                  className="in-field"
+                  type="number"
+                  name="weldSpeed"
+                  min={0}
+                  value={formData.weldSpeed}
                   onChange={handleInputChange}
                   onKeyDown={blockInvalidChar}
                   disabled={!formData.tabsEnable}
@@ -565,7 +836,7 @@ export default function QuoteDetails({
                   min={0}
                   value={formData.weldingTime}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
@@ -586,7 +857,7 @@ export default function QuoteDetails({
                   value={formData.setUpTime}
                   min={0}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
@@ -609,13 +880,15 @@ export default function QuoteDetails({
                   value={formData.incomingInspectionTime}
                   min={0}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
             </div>
           </div>
+        </div>
 
+        <div className="row">
           <div className="col-md-2 col-sm-6">
             <div className="d-flex">
               <div className="col-6">
@@ -629,15 +902,12 @@ export default function QuoteDetails({
                   value={formData.cleaningTime}
                   min={0}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="row">
           <div className="col-md-2 col-sm-6">
             <div className="d-flex">
               <div className="col-6">
@@ -652,7 +922,7 @@ export default function QuoteDetails({
                   value={formData.assemblyTime}
                   min={0}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
@@ -669,11 +939,11 @@ export default function QuoteDetails({
                 <input
                   className="in-field"
                   type="number"
-                  name="partLoading"
-                  value={formData.partLoading}
+                  name="partLoadingTime"
+                  value={formData.partLoadingTime}
                   min={0}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
@@ -690,11 +960,11 @@ export default function QuoteDetails({
                 <input
                   className="in-field"
                   type="number"
-                  name="partUnloading"
-                  value={formData.partUnloading}
+                  name="partUnloadingTime"
+                  value={formData.partUnloadingTime}
                   min={0}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
@@ -717,7 +987,7 @@ export default function QuoteDetails({
                   value={formData.finalInspectionTime}
                   min={0}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
@@ -740,7 +1010,7 @@ export default function QuoteDetails({
                   value={formData.packingDispatchTime}
                   min={0}
                   onChange={handleInputChange}
-                  onKeyDown={blockInvalidChar}
+                  onKeyDown={blockInvalidPointChar}
                   disabled={!formData.tabsEnable}
                 />
               </div>
@@ -912,7 +1182,7 @@ export default function QuoteDetails({
           <div className="mt-1">
             <div
               style={{
-                height: "150px",
+                height: "180px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}
@@ -926,10 +1196,11 @@ export default function QuoteDetails({
                     top: "-1px",
                   }}
                 >
-                  <tr style={{ whiteSpace: "nowrap" }} className="table-header">
+                  <tr className="table-header">
                     <th>SL No</th>
                     <th>Joint No</th>
                     <th>Weld Length(MM)</th>
+                    <th>Weld Speed</th>
                     <th>Welding Time(Sec)</th>
                     <th>Set Up Time(Sec)</th>
                     <th>Incoming Inspection Time(Sec)</th>
@@ -961,34 +1232,742 @@ export default function QuoteDetails({
                     >
                       <td>{index + 1}</td>
                       <td>{item.Joint_No}</td>
-                      <td>{item.Weld_Length}</td>
-                      <td>{item.Weld_Time}</td>
-                      <td>{item.Setup_Time}</td>
-                      <td>{item.Inspection_Time}</td>
-                      <td>{item.Cleaning_Time}</td>
-                      <td>{item.Assembly_Time}</td>
+                      {/* <td>{item.Weld_Length}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Weld_Length}
+                          name="Weld_Length"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Weld_Speed}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Weld_Speed}
+                          name="Weld_Speed"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Weld_Time}</td> */}
+                      <td>
+                        <input
+                          type="text"
+                          value={item.Weld_Time}
+                          name="Weld_Time"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Setup_Time}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Setup_Time}
+                          name="Setup_Time"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Inspection_Time}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Inspection_Time}
+                          name="Inspection_Time"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Cleaning_Time}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Cleaning_Time}
+                          name="Cleaning_Time"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Assembly_Time}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Assembly_Time}
+                          name="Assembly_Time"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
 
-                      <td>{item.Part_Loading}</td>
-                      <td>{item.Part_Unloading}</td>
+                      {/* <td>{item.Part_Loading}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Part_Loading}
+                          name="Part_Loading"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
 
-                      <td>{item.FinalInspection_Time}</td>
-                      <td>{item.Packing_Dispatch_Time}</td>
+                      {/* <td>{item.Part_Unloading}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Part_Unloading}
+                          name="Part_Unloading"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
 
-                      <td>{item.SetUp_Charges}</td>
-                      <td>{item.Inspection_Charges}</td>
+                      <td>
+                        {/* <td>{item.FinalInspection_Time}</td> */}
+                        <input
+                          type="number"
+                          value={item.FinalInspection_Time}
+                          name="FinalInspection_Time"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Packing_Dispatch_Time}</td> */}
 
-                      <td>{item.OutSoucring_Charges}</td>
-                      <td>{item.Consumables}</td>
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Packing_Dispatch_Time}
+                          name="Packing_Dispatch_Time"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidPointChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
 
-                      <td>{item.Material_Cost}</td>
-                      <td>{item.Filler_Cost}</td>
+                      {/* <td>{item.SetUp_Charges}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.SetUp_Charges}
+                          name="SetUp_Charges"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Inspection_Charges}</td> */}
+
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Inspection_Charges}
+                          name="Inspection_Charges"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+
+                      {/* <td>{item.OutSoucring_Charges}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.OutSoucring_Charges}
+                          min={0}
+                          onKeyDown={blockInvalidChar}
+                          disabled={!formData.tabsEnable}
+                          name="OutSoucring_Charges"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+
+                      {/* <td>{item.Consumables}</td> */}
+
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Consumables}
+                          name="Consumables"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+
+                      {/* <td>{item.Material_Cost}</td> */}
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Material_Cost}
+                          name="Material_Cost"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+
+                      {/* <td>{item.Filler_Cost}</td> */}
+
+                      <td>
+                        <input
+                          type="number"
+                          value={item.Filler_Cost}
+                          name="Filler_Cost"
+                          onChange={(e) => handleQuoteDetailsChange(e, index)}
+                          min={0}
+                          onKeyDown={blockInvalidChar}
+                          disabled={!formData.tabsEnable}
+                          onBlur={() =>
+                            handleQuoteBlur(
+                              index,
+                              item.ID,
+                              item.Weld_Length,
+                              item.Weld_Speed,
+                              item.Weld_Time,
+                              item.Setup_Time,
+                              item.Inspection_Time,
+                              item.Cleaning_Time,
+                              item.Assembly_Time,
+                              item.Part_Loading,
+                              item.Part_Unloading,
+                              item.FinalInspection_Time,
+                              item.Packing_Dispatch_Time,
+                              item.SetUp_Charges,
+                              item.Inspection_Charges,
+                              item.OutSoucring_Charges,
+                              item.Consumables,
+                              item.Material_Cost,
+                              item.Filler_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
                     </tr>
                   ))}
 
                   <tr style={{ fontWeight: "bold" }}>
                     <td colSpan="2">Total</td>
                     <td>{calculateTotal("Weld_Length")}</td>
+                    <td>{calculateTotal("Weld_Speed")}</td>
+
                     <td>{parseInt(calculateTotal("Weld_Time"))}</td>
+
                     <td>{parseInt(calculateTotal("Setup_Time"))}</td>
                     <td>{parseInt(calculateTotal("Inspection_Time"))}</td>
                     <td>{parseInt(calculateTotal("Cleaning_Time"))}</td>
@@ -1063,17 +2042,17 @@ export default function QuoteDetails({
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Testing Charges</label>
+              <label className="form-label">Out Put Per Hour</label>
             </div>
             <div className="col-8">
               <input
                 className="input-field"
                 type="number"
-                name="testingCharges"
-                value={formData.testingCharges}
+                name="outPutPerHour"
+                value={formData.outPutPerHour}
                 min={0}
-                onChange={handleInputChange}
-                onKeyDown={blockInvalidChar}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
                 disabled={!formData.tabsEnable}
               />
             </div>
@@ -1083,17 +2062,17 @@ export default function QuoteDetails({
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Fixture Charges</label>
+              <label className="form-label">Labour Cost</label>
             </div>
             <div className="col-8">
               <input
                 className="input-field"
                 type="number"
-                name="fixtureCharges"
-                value={formData.fixtureCharges}
+                name="labourCost"
+                value={formData.labourCost}
                 min={0}
-                onChange={handleInputChange}
-                onKeyDown={blockInvalidChar}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
                 disabled={!formData.tabsEnable}
               />
             </div>
@@ -1101,7 +2080,26 @@ export default function QuoteDetails({
         </div>
       </div>
 
-      <div className="row mt-1 mb-4">
+      <div className="row mt-1">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Machine Cost</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="machineCost"
+                value={formData.machineCost}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
@@ -1124,22 +2122,20 @@ export default function QuoteDetails({
             </div>
           </div>
         </div>
-
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Unit Price</label>
+              <label className="form-label">Fixture Charges</label>
             </div>
             <div className="col-8">
-              {/* Total / 418 */}
               <input
                 className="input-field"
                 type="number"
-                name="unitPrice"
-                value={formData.unitPrice}
+                name="fixtureCharges"
+                value={formData.fixtureCharges}
                 min={0}
-                // onChange={handleInputChange}
-                // onKeyDown={blockInvalidChar}
+                onChange={handleInputChange}
+                onKeyDown={blockInvalidChar}
                 disabled={!formData.tabsEnable}
               />
             </div>
@@ -1149,16 +2145,40 @@ export default function QuoteDetails({
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Revised Unit Price</label>
+              <label className="form-label">Testing Charges</label>
             </div>
             <div className="col-8">
               <input
                 className="input-field"
                 type="number"
-                name="revisedUnitPrice"
-                value={formData.revisedUnitPrice}
+                name="testingCharges"
+                value={formData.testingCharges}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+                // disabled={!formData.tabsEnable}
+                disabled
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row mt-1 mb-4">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Percentage(%)</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="percentage"
+                value={formData.percentage}
                 min={0}
                 onChange={handleInputChange}
+                onBlur={handleBlur}
                 onKeyDown={blockInvalidChar}
                 disabled={!formData.tabsEnable}
               />
@@ -1178,8 +2198,47 @@ export default function QuoteDetails({
                 name="overheadCharges"
                 value={formData.overheadCharges}
                 min={0}
+                // onChange={handleInputChange}
+                // onBlur={handleBlur}
+                // onKeyDown={blockInvalidChar}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Total Price Per Part</label>
+            </div>
+            <div className="col-8">
+              {/* Total / 418 */}
+              <input
+                className="input-field"
+                type="number"
+                name="unitPrice"
+                value={formData.unitPrice}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Revised Unit Price</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="revisedUnitPrice"
+                value={formData.revisedUnitPrice}
+                min={0}
                 onChange={handleInputChange}
-                onBlur={handleBlur}
                 onKeyDown={blockInvalidChar}
                 disabled={!formData.tabsEnable}
               />
