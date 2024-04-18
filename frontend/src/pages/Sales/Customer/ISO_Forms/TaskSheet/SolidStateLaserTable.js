@@ -12,7 +12,7 @@ export default function SolidStateLaserTable({ formData, setFormData }) {
     { desc: "Feed rate in mm/min", details: "" },
     { desc: "RPM", details: "" },
     { desc: "Gas purity in %", details: "" },
-    { desc: "Gas range in mm", details: "" },
+    { desc: "Gap range in mm", details: "" },
     { desc: "Gas flow Orientation in deg", details: "" },
   ]);
 
@@ -26,7 +26,7 @@ export default function SolidStateLaserTable({ formData, setFormData }) {
     "Feed rate in mm/min": "ssfeedRate",
     RPM: "ssrpm",
     "Gas purity in %": "ssgasPurity",
-    "Gas range in mm": "ssgasRange",
+    "Gap range in mm": "ssgapRange",
     "Gas flow Orientation in deg": "ssgasFlowOrientation",
   };
 
@@ -48,7 +48,7 @@ export default function SolidStateLaserTable({ formData, setFormData }) {
 
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
-  console.log("formData", formData);
+  // console.log("formData", formData);
 
   return (
     <div className="mt-3">
@@ -58,8 +58,8 @@ export default function SolidStateLaserTable({ formData, setFormData }) {
       <Table striped size="sm">
         <thead>
           <tr>
-            <th></th>
-            <th></th>
+            <th>Description</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
@@ -75,7 +75,8 @@ export default function SolidStateLaserTable({ formData, setFormData }) {
                   min={0}
                   onKeyDown={blockInvalidChar}
                   style={{ borderRadius: "4px", border: "none" }}
-                  value={row.details}
+                  // value={row.details}
+                  value={formData[formDataKeysMapping[row.desc]]}
                   onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               </td>

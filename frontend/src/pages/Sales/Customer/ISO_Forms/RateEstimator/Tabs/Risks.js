@@ -58,6 +58,48 @@ const Risks = ({
     }
   };
 
+  const handleRiskDetailsChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.riskTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
+      }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      riskTableData: updatedItems,
+    }));
+  };
+
+  const handleBlur = async (index, riskId, risk) => {
+    try {
+      const updateData = {
+        qtnID: formData.qtnID,
+        riskId: riskId,
+        risk,
+      };
+
+      await Axios.post(apipoints.updateRiskDetails, updateData);
+
+      const updatedCost = [...formData.riskTableData];
+      updatedCost[index] = {
+        ...updatedCost[index],
+        risk,
+      };
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        riskTableData: updatedCost,
+      }));
+
+      // toast.success("Material details updated successfully");
+    } catch (error) {
+      console.error("Error updating Risk details", error);
+    }
+  };
+
   return (
     <div className="">
       <div className="row col-md-12">
@@ -97,7 +139,25 @@ const Risks = ({
                       }
                     >
                       <td>{index + 1}</td>
-                      <td>{item.Risks}</td>
+                      {/* <td>{item.Risks}</td> */}
+                      <td>
+                        <input
+                          type="text"
+                          value={item.Risks}
+                          name="Risks"
+                          onChange={(e) => handleRiskDetailsChange(e, index)}
+                          onBlur={() =>
+                            handleBlur(index, item.Risk_ID, item.Risks)
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -115,10 +175,10 @@ const Risks = ({
           }}
         >
           <div className="d-flex">
-            <div className="col-3">
+            {/* <div className="col-3">
               <label className="form-label">Risks</label>
-            </div>
-            <div className="col-8 mt-2">
+            </div> */}
+            {/* <div className="col-8 mt-2">
               <input
                 type="text"
                 className="in-field"
@@ -127,22 +187,23 @@ const Risks = ({
                 onChange={handleInputChange}
                 disabled={!formData.tabsEnable}
               />
+            </div> */}
+            <div className="col-2">
+              <label className="form-label">Risks</label>
+            </div>
+            <div className="col-10 mt-2">
+              <textarea
+                className=" form-control sticky-top"
+                name="risk"
+                rows="2"
+                id=""
+                value={formData.risk}
+                onChange={handleInputChange}
+                style={{ fontSize: "12px" }}
+                disabled={!formData.tabsEnable}
+              ></textarea>
             </div>
           </div>
-
-          {/* <div className="d-flex mt-2">
-            <div className="">
-              <button className="button-style" variant="primary">
-                Add
-              </button>
-            </div>
-
-            <div className="">
-              <button className="button-style" variant="primary">
-                Delete
-              </button>
-            </div>
-          </div> */}
 
           <div className="d-flex mt-2">
             <div className="col-4">
@@ -150,7 +211,6 @@ const Risks = ({
             </div>
             <div className="col-auto">
               <button
-                // className="button-style"
                 className={
                   formData.tabsEnable ? "button-style" : "button-disabled"
                 }
@@ -163,7 +223,6 @@ const Risks = ({
             </div>
             <div className="col-auto">
               <button
-                // className="button-style"
                 className={
                   formData.tabsEnable ? "button-style" : "button-disabled"
                 }

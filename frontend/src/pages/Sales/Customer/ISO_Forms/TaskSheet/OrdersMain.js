@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function OrdersMain() {
-  const [ScheduleDetailsId, setScheduleDetailsId] = useState(1869007);
+  const [NcId, SetNcId] = useState(424017);
   const navigate = useNavigate();
   const handleOpenClick = () => {
     navigate("/Customer/TaskSheet", {
-      state: { ScheduleDetailsId },
+      state: { NcId },
     });
   };
   return (

@@ -10,6 +10,8 @@ function Testing({
   handleInputChange,
   handleRowSelect,
 }) {
+  const [selectedTestNames, setSelectedTestNames] = useState([]);
+
   useEffect(() => {
     Axios.get(apipoints.getTestType)
       .then((response) => {
@@ -24,19 +26,16 @@ function Testing({
       });
   }, []);
 
-  // const handleTestTypeSelect = (selectedTestType) => {
-  //   console.log("selectedTestType", selectedTestType);
-  //   Axios.post(apipoints.getTestList, { testTypeID: selectedTestType })
-  //     .then((response) => {
-  //       setFormData((prevData) => ({
-  //         ...prevData,
-  //         testListData: response.data,
-  //       }));
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching test names", error);
-  //     });
-  // };
+  useEffect(() => {
+    Axios.post(apipoints.getSelectedTestNames, { qtnID: formData.qtnID })
+      .then((response) => {
+        const testNames = response.data.map((item) => item.Test_Name);
+        setSelectedTestNames(testNames);
+      })
+      .catch((error) => {
+        console.error("Error fetching selected test names", error);
+      });
+  }, [formData.qtnID]);
 
   const handleTestTypeSelect = (selectedTestType) => {
     Axios.post(apipoints.getTestList, { testTypeID: selectedTestType })
@@ -72,12 +71,19 @@ function Testing({
       toast.error("Select Test Name");
       return;
     }
+
+    if (selectedTestNames.includes(formData.testName)) {
+      toast.error("Test is already selected");
+      return;
+    }
+
     try {
       const newTest = {
         qtnID: formData.qtnID,
         testTypeName: formData.testTypeName,
         testName: formData.testName,
         testDetails: formData.testDetails,
+        testCost: formData.testCost,
       };
 
       const response = await Axios.post(apipoints.insertTestDetails, newTest);
@@ -89,7 +95,9 @@ function Testing({
         testType: "",
         testName: "",
         testDetails: "",
+        testCost: 0,
       }));
+      setSelectedTestNames([...selectedTestNames, formData.testName]);
     } catch (error) {
       console.error("Error Adding Test", error);
       toast.error("Error Adding Test");
@@ -102,6 +110,10 @@ function Testing({
         toast.error("Select a row before deleting");
         return;
       }
+
+      const deletedTest = formData.testTableData.find(
+        (item) => item.Test_ID === testId
+      );
       await Axios.post(apipoints.deleteTestDetails, { testId });
 
       setFormData((prevData) => ({
@@ -112,6 +124,10 @@ function Testing({
         selectedRow2: null,
       }));
 
+      setSelectedTestNames((prevNames) =>
+        prevNames.filter((name) => name !== deletedTest.Test_Name)
+      );
+
       toast.success("Test deleted successfully");
     } catch (error) {
       console.error("Error Deleting Test", error);
@@ -119,7 +135,52 @@ function Testing({
     }
   };
 
-  // console.log("testTableData", formData.testTableData);
+  const handleTestDetailsChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.testTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
+      }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      testTableData: updatedItems,
+    }));
+  };
+
+  const handleBlur = async (index, testId, testDetails, testCost) => {
+    try {
+      const updateData = {
+        qtnID: formData.qtnID,
+        testId: testId,
+        testDetails: testDetails,
+        testCost,
+      };
+
+      await Axios.post(apipoints.updateTestDetails, updateData);
+
+      const updatedCost = [...formData.testTableData];
+      updatedCost[index] = {
+        ...updatedCost[index],
+        testCost,
+        testDetails,
+      };
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        testTableData: updatedCost,
+      }));
+
+      // toast.success("Material details updated successfully");
+    } catch (error) {
+      console.error("Error updating Test details", error);
+    }
+  };
+
+  const blockInvalidChar = (e) =>
+    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
 
   return (
     <>
@@ -128,7 +189,7 @@ function Testing({
           <div className="mt-3">
             <div
               style={{
-                height: "190px",
+                height: "220px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}
@@ -147,6 +208,7 @@ function Testing({
                     <th>Test Type</th>
                     <th>Test Name</th>
                     <th>Details</th>
+                    <th>Cost</th>
                   </tr>
                 </thead>
 
@@ -164,7 +226,54 @@ function Testing({
                       <td>{index + 1}</td>
                       <td>{item.Test_Type}</td>
                       <td>{item.Test_Name}</td>
-                      <td>{item.Test_Details}</td>
+                      {/* <td>{item.Test_Details}</td> */}
+                      <td>
+                        <input
+                          type="text"
+                          value={item.Test_Details}
+                          name="Test_Details"
+                          onChange={(e) => handleTestDetailsChange(e, index)}
+                          onBlur={() =>
+                            handleBlur(
+                              index,
+                              item.Test_ID,
+                              item.Test_Details,
+                              item.Test_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
+                      {/* <td>{item.Test_Cost}</td> */}
+                      <td>
+                        <input
+                          type="text"
+                          value={item.Test_Cost}
+                          name="Test_Cost"
+                          onChange={(e) => handleTestDetailsChange(e, index)}
+                          onBlur={() =>
+                            handleBlur(
+                              index,
+                              item.Test_ID,
+                              item.Test_Details,
+                              item.Test_Cost
+                            )
+                          }
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            textAlign: "center",
+                          }}
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -177,7 +286,7 @@ function Testing({
           style={{
             backgroundColor: "#f0f0f0",
             padding: "10px",
-            height: "200px",
+            height: "230px",
           }}
         >
           <div className="d-flex">
@@ -237,16 +346,7 @@ function Testing({
             <div className="col-3">
               <label className="form-label">Details</label>
             </div>
-            {/* <div className="col-8">
-              <input
-                type="text"
-                name="testDetails"
-                className="in-field"
-                value={formData.testDetails}
-                onChange={handleInputChange}
-                disabled={!formData.tabsEnable}
-              />
-            </div> */}
+
             <div className="col-8 mt-1">
               <textarea
                 className="form-control sticky-top mt-1 input-field"
@@ -258,6 +358,24 @@ function Testing({
                 style={{ fontSize: "12px" }}
                 disabled={!formData.tabsEnable}
               ></textarea>
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-3">
+              <label className="form-label">Cost</label>
+            </div>
+            <div className="col-8 mt-2">
+              <input
+                type="number"
+                name="testCost"
+                value={formData.testCost}
+                min={0}
+                onChange={handleInputChange}
+                className="in-field"
+                onKeyDown={blockInvalidChar}
+                disabled={!formData.tabsEnable}
+              />
             </div>
           </div>
 

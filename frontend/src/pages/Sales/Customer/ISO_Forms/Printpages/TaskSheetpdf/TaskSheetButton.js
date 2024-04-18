@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TaskSheetModel from "./TaskSheetModel";
+import TaskSheetModal from "./TaskSheetModal";
 
 export default function TaskSheetButton() {
   const [openPrintModal, setOpenPrintModal] = useState("");
@@ -11,7 +11,7 @@ export default function TaskSheetButton() {
   return (
     <div>
       <div className="col-md-2">
-        <TaskSheetModel
+        <TaskSheetModal
           openPrintModal={openPrintModal}
           setOpenPrintModal={setOpenPrintModal}
         />

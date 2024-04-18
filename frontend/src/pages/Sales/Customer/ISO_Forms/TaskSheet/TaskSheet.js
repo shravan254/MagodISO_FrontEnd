@@ -8,21 +8,27 @@ import { apipoints } from "../../../../api/isoForms/taskSheet";
 import SolidStateLaserTable from "./SolidStateLaserTable";
 import CoTable from "./CoTable";
 import moment from "moment";
+import TaskSheetModal from "../Printpages/TaskSheetpdf/TaskSheetModal";
 
 export default function TaskSheet() {
   const location = useLocation();
-  const ScheduleDetailsId = location.state?.ScheduleDetailsId || "";
+  const NcId = location.state?.NcId || 0;
   const navigate = useNavigate();
 
+  console.log("NcId", NcId);
+
   const [formData, setFormData] = useState({
-    scheduleDetailsId: ScheduleDetailsId,
-    taskNo: "",
-    // taskDate: "",
+    ncid: NcId,
+    taskNo: 0,
+    // taskDate: 0,
+    hasBom: 0,
+    qty: 0,
+    ncTaskId: 0,
     taskDate: moment().format("DD/MM/YYYY"),
-    assemblyNo: "", // DwgName
+    assemblyNo: 0, // DwgName
     anyDeffects: null,
-    machineNo: "",
-    programNo: "",
+    machineNo: 0,
+    programNo: 0,
     fixtureRequirement: null,
     lensDistance: 0.0,
     mtrlThickness: 0.0,
@@ -30,15 +36,15 @@ export default function TaskSheet() {
     fillerMaterial: "",
     batchNo: "",
     machinePeakPower: 0,
-    laserEquipment: "",
+    laserEquipment: 0,
     reweldPermitted: null,
-    fixtureNo: "",
-    controlPlanNo: "",
-    wpsNo: "",
-    pfdNo: "",
-    wiNo: "",
-    pqrNo: "",
-    standardOfRef: "",
+    fixtureNo: 0,
+    controlPlanNo: 0,
+    wpsNo: 0,
+    pfdNo: 0,
+    wiNo: 0,
+    pqrNo: 0,
+    standardOfRef: 0,
     partInspectionQC: 0,
     partInspectionWeldEngineer: 0,
     partInspectionIncharge: 0,
@@ -51,17 +57,21 @@ export default function TaskSheet() {
     subAssy: "",
     qtyReceived: 0,
     subAssyTableData: [],
+    partsTable: [],
     selectedRow1: null,
     selectedRowData1: {},
 
     preFlowGas: 0.0,
     postFlowGas: 0.0,
     designType: "",
+    designTypeData: [],
+
     weldSide: "",
+    weldSideData: [],
     gasType: "",
     backing: null,
     tackWeld: null,
-    note: "",
+    note: 0,
 
     // Welding Parameters - solid state
     sspoweratfocus: 0,
@@ -73,7 +83,7 @@ export default function TaskSheet() {
     ssfeedRate: 0,
     ssrpm: 0,
     ssgasPurity: 0,
-    ssgasRange: 0,
+    ssgapRange: 0,
     ssgasFlowOrientation: 0,
 
     // Welding Parameters - co2
@@ -87,33 +97,60 @@ export default function TaskSheet() {
     cofeedRate: 0,
     corpm: 0,
     cogasPurity: 0,
-    cogasRange: 0,
+    cogapRange: 0,
     cogasFlowOrientation: 0,
   });
+
+  const [openPrintModal, setOpenPrintModal] = useState(false);
 
   const formattedDate = (date) => {
     return moment(date, "DD/MM/YYYY").format("YYYY-MM-DD");
   };
 
-  console.log("scheduleDetailsId", formData.scheduleDetailsId);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await Axios.get(apipoints.getData, {
-          // scheduleDetailsId: formData.scheduleDetailsId,
+          // ncid: formData.ncid,
           params: {
-            scheduleDetailsId: formData.scheduleDetailsId,
+            ncid: formData.ncid,
           },
         });
 
-        if (response.data && response.data.length > 0) {
+        const responseData = response.data;
+
+        if (
+          responseData &&
+          responseData.data1 &&
+          responseData.data2 &&
+          responseData.data3
+        ) {
+          const { data1, data2, data3 } = responseData;
+
+          const {
+            Ncid,
+            TaskNo,
+            Machine,
+            NCProgramNo,
+            HasBOM,
+            QtyAllotted,
+            NcTaskId,
+          } = data1[0];
+          const { Dwg_Code } = data2[0];
+
+          console.log("data3", data3);
+
           setFormData((prevData) => ({
             ...prevData,
-
-            scheduleDetailsId: response.data[0].SchDetailsID,
-            taskNo: response.data[0].TaskNo,
-            assemblyNo: response.data[0].DwgName,
+            ncid: Ncid,
+            taskNo: TaskNo,
+            machineNo: Machine,
+            programNo: NCProgramNo,
+            assemblyNo: Dwg_Code,
+            hasBom: HasBOM,
+            qty: QtyAllotted,
+            ncTaskId: NcTaskId,
+            partsTable: data3,
           }));
         } else {
           console.error("Response data is empty.");
@@ -124,7 +161,33 @@ export default function TaskSheet() {
     };
 
     fetchData();
-  }, [formData.scheduleDetailsId]);
+  }, [formData.ncid]);
+
+  useEffect(() => {
+    Axios.get(apipoints.getJointType)
+      .then((response) => {
+        setFormData((prevData) => ({
+          ...prevData,
+          designTypeData: response.data,
+        }));
+      })
+      .catch((error) => {});
+  }, []);
+
+  useEffect(() => {
+    Axios.get(apipoints.getWeldSide)
+      .then((response) => {
+        setFormData((prevData) => ({
+          ...prevData,
+          weldSideData: response.data,
+        }));
+      })
+      .catch((error) => {});
+  }, []);
+
+  const openPdf = () => {
+    setOpenPrintModal(true);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -158,7 +221,7 @@ export default function TaskSheet() {
   const handleSave = async () => {
     try {
       const taskSheetRegister = {
-        scheduleDetailsId: formData.scheduleDetailsId,
+        ncid: formData.ncid,
         anyDeffects: formData.anyDeffects,
         taskDate: formattedDate(formData.taskDate),
         machineNo: formData.machineNo,
@@ -198,7 +261,7 @@ export default function TaskSheet() {
       };
 
       const solidStateParameters = {
-        scheduleDetailsId: formData.scheduleDetailsId,
+        ncid: formData.ncid,
         sspoweratfocus: formData.sspoweratfocus,
         ssfocusDia: formData.ssfocusDia,
         sspulseDuration: formData.sspulseDuration,
@@ -208,12 +271,12 @@ export default function TaskSheet() {
         ssfeedRate: formData.ssfeedRate,
         ssrpm: formData.ssrpm,
         ssgasPurity: formData.ssgasPurity,
-        ssgasRange: formData.ssgasRange,
+        ssgapRange: formData.ssgapRange,
         ssgasFlowOrientation: formData.ssgasFlowOrientation,
       };
 
       const co2Parameters = {
-        scheduleDetailsId: formData.scheduleDetailsId,
+        ncid: formData.ncid,
         copowerTransmissionEfficiency: formData.copowerTransmissionEfficiency,
         copower: formData.copower,
         cofrequency: formData.cofrequency,
@@ -223,7 +286,7 @@ export default function TaskSheet() {
         cofeedRate: formData.cofeedRate,
         corpm: formData.corpm,
         cogasPurity: formData.cogasPurity,
-        cogasRange: formData.cogasRange,
+        cogapRange: formData.cogapRange,
         cogasFlowOrientation: formData.cogasFlowOrientation,
       };
 
@@ -243,12 +306,12 @@ export default function TaskSheet() {
 
   const handleAddSubAssy = async () => {
     try {
-      if (formData.subAssy === "") {
+      if (formData.subAssy === 0) {
         toast.error("Enter Sub Assy");
         return;
       }
       const newSubAssy = {
-        scheduleDetailsId: formData.scheduleDetailsId,
+        ncid: formData.ncid,
         subAssy: formData.subAssy,
         qtyReceived: formData.qtyReceived,
       };
@@ -294,8 +357,227 @@ export default function TaskSheet() {
     }
   };
 
+  useEffect(() => {
+    const fetchQtnData = async () => {
+      try {
+        const response = await Axios.post(apipoints.allTaskData, {
+          ncid: formData.ncid,
+        });
+
+        const {
+          taskSheet_register,
+          solidState_Parameters,
+          co2_laser_parameters,
+          taskSheet_details,
+        } = response.data;
+
+        setFormData((prevData) => ({
+          ...prevData,
+
+          anyDeffects: taskSheet_register.length
+            ? taskSheet_register[0].Defects
+            : "",
+
+          fixtureRequirement: taskSheet_register.length
+            ? taskSheet_register[0].Fixture_Requirement
+            : "",
+
+          lensDistance: taskSheet_register.length
+            ? taskSheet_register[0].Lens_Distance
+            : 0,
+
+          mtrlThickness: taskSheet_register.length
+            ? taskSheet_register[0].Material_Thickness
+            : 0,
+
+          withFiller: taskSheet_register.length
+            ? taskSheet_register[0].With_Filler
+            : "",
+
+          fillerMaterial: taskSheet_register.length
+            ? taskSheet_register[0].Filler
+            : "",
+
+          batchNo: taskSheet_register.length
+            ? taskSheet_register[0].Batch_No
+            : "",
+
+          machinePeakPower: taskSheet_register.length
+            ? taskSheet_register[0].Machine_Peak_Power
+            : 0,
+
+          laserEquipment: taskSheet_register.length
+            ? taskSheet_register[0].Laser_Type
+            : "",
+
+          reweldPermitted: taskSheet_register.length
+            ? taskSheet_register[0].Reweld_Permitted
+            : "",
+
+          fixtureNo: taskSheet_register.length
+            ? taskSheet_register[0].Fixture_No
+            : "",
+
+          controlPlanNo: taskSheet_register.length
+            ? taskSheet_register[0].Control_Plan_No
+            : "",
+
+          wpsNo: taskSheet_register.length ? taskSheet_register[0].WPS_No : "",
+
+          pfdNo: taskSheet_register.length ? taskSheet_register[0].PFD_No : "",
+
+          wiNo: taskSheet_register.length ? taskSheet_register[0].WI_No : "",
+
+          pqrNo: taskSheet_register.length ? taskSheet_register[0].PQR_No : "",
+
+          standardOfRef: taskSheet_register.length
+            ? taskSheet_register[0].Standard_Parameter_Ref
+            : "",
+
+          partInspectionQC: taskSheet_register.length
+            ? taskSheet_register[0].PartInspection_QC
+            : 0,
+
+          partInspectionWeldEngineer: taskSheet_register.length
+            ? taskSheet_register[0].PartInspection_WeldEngineer
+            : 0,
+
+          partInspectionIncharge: taskSheet_register.length
+            ? taskSheet_register[0].PartInspection_Incharge
+            : 0,
+
+          partInspectionProjectManager: taskSheet_register.length
+            ? taskSheet_register[0].PartInspection_Project_Manager
+            : 0,
+
+          weldSettingQC: taskSheet_register.length
+            ? taskSheet_register[0].WeldSetting_QC
+            : 0,
+
+          weldSettingWeldEngineer: taskSheet_register.length
+            ? taskSheet_register[0].WeldSetting_WeldEngineer
+            : 0,
+
+          weldSettingIncharge: taskSheet_register.length
+            ? taskSheet_register[0].WeldSetting_Incharge
+            : 0,
+
+          preFlowGas: taskSheet_register.length
+            ? taskSheet_register[0].Pre_Flow_Gas
+            : 0,
+
+          postFlowGas: taskSheet_register.length
+            ? taskSheet_register[0].Post_Flow_Gas
+            : 0,
+
+          designType: taskSheet_register.length
+            ? taskSheet_register[0].Design_Type
+            : "",
+
+          weldSide: taskSheet_register.length
+            ? taskSheet_register[0].Weld_Side
+            : "",
+
+          gasType: taskSheet_register.length
+            ? taskSheet_register[0].Gas_Type
+            : "",
+
+          backing: taskSheet_register.length
+            ? taskSheet_register[0].Backing
+            : "",
+
+          tackWeld: taskSheet_register.length
+            ? taskSheet_register[0].Tack_Weld
+            : "",
+
+          note: taskSheet_register.length ? taskSheet_register[0].Note : "",
+
+          subAssyTableData: taskSheet_details.length ? taskSheet_details : [],
+
+          sspoweratfocus: solidState_Parameters.length
+            ? solidState_Parameters[0].Power_at_focus
+            : 0,
+          ssfocusDia: solidState_Parameters.length
+            ? solidState_Parameters[0].Focus_Dia
+            : 0,
+          sspulseDuration: solidState_Parameters.length
+            ? solidState_Parameters[0].Pulse_Duration
+            : 0,
+          sspulseFrequency: solidState_Parameters.length
+            ? solidState_Parameters[0].Pulse_Frequency
+            : 0,
+          sspulseShapeNo: solidState_Parameters.length
+            ? solidState_Parameters[0].Pulse_Shape_No
+            : 0,
+          ssgasPressure: solidState_Parameters.length
+            ? solidState_Parameters[0].Gas_Pressure
+            : 0,
+          ssfeedRate: solidState_Parameters.length
+            ? solidState_Parameters[0].Feed_Rate
+            : 0,
+          ssrpm: solidState_Parameters.length
+            ? solidState_Parameters[0].RPM
+            : 0,
+          ssgasPurity: solidState_Parameters.length
+            ? solidState_Parameters[0].Gas_Purity
+            : 0,
+          ssgapRange: solidState_Parameters.length
+            ? solidState_Parameters[0].Gap_Range
+            : 0,
+          ssgasFlowOrientation: solidState_Parameters.length
+            ? solidState_Parameters[0].Gas_Flow_Orientation
+            : 0,
+
+          copowerTransmissionEfficiency: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Power_Transmission_Efficiency
+            : 0,
+          copower: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Power
+            : 0,
+          cofrequency: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Frequency
+            : 0,
+          cobeamDia: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Beam_Dia
+            : 0,
+          cofocus: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Focus
+            : 0,
+          cogasPressure: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Gas_Pressure
+            : 0,
+          cofeedRate: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Feed_Rate
+            : 0,
+          corpm: co2_laser_parameters.length ? co2_laser_parameters[0].RPM : 0,
+          cogasPurity: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Gas_Purity
+            : 0,
+          cogapRange: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Gap_Range
+            : 0,
+          cogasFlowOrientation: co2_laser_parameters.length
+            ? co2_laser_parameters[0].Gas_Flow_Orientation
+            : 0,
+        }));
+      } catch (error) {
+        console.error("Error fetching data from API", error);
+      }
+    };
+    fetchQtnData();
+  }, []);
+
+  const handleClose = () => {
+    navigate("/customer");
+  };
+
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
+
+  // console.log("HasBom", formData.hasBom);
+  // console.log("Qty", formData.qty);
+  // console.log("NcTaskId", formData.ncTaskId);
+  console.log("data3", formData.partsTable);
 
   return (
     <>
@@ -365,13 +647,27 @@ export default function TaskSheet() {
           </div>
 
           <div className="col-md-2">
-            <button className="button-style" variant="primary">
+            <TaskSheetModal
+              openPrintModal={openPrintModal}
+              formData={formData}
+              setOpenPrintModal={setOpenPrintModal}
+            />
+            <button
+              className="button-style"
+              variant="primary"
+              onClick={openPdf}
+            >
               Print
             </button>
           </div>
 
           <div className="col-md-2">
-            <button type="submit" className="button-style" variant="primary">
+            <button
+              type="submit"
+              className="button-style"
+              variant="primary"
+              onClick={handleClose}
+            >
               Close
             </button>
           </div>
@@ -393,11 +689,12 @@ export default function TaskSheet() {
                 onChange={handleInputChange}
                 style={{ marginTop: "8px" }}
               >
-                <option value={null} selected disabled hidden>
+                <option value="" selected disabled hidden>
                   Select Defects
                 </option>
                 <option value={1}>Yes</option>
                 <option value={0}>No</option>
+                <option value={2}>No</option>
               </select>
             </div>
           </div>
@@ -451,11 +748,12 @@ export default function TaskSheet() {
                 onChange={handleInputChange}
                 style={{ marginTop: "8px" }}
               >
-                <option value={null} selected disabled hidden>
+                <option value="" selected disabled hidden>
                   Select Fixture Requirement
                 </option>
                 <option value={1}>Yes</option>
                 <option value={0}>No</option>
+                <option value={2}>NA</option>
               </select>
             </div>
           </div>
@@ -515,11 +813,12 @@ export default function TaskSheet() {
                 onChange={handleInputChange}
                 style={{ marginTop: "8px" }}
               >
-                <option value={null} selected disabled hidden>
+                <option value="" selected disabled hidden>
                   Select Filler
                 </option>
                 <option value={1}>Yes</option>
                 <option value={0}>No</option>
+                <option value={2}>NA</option>
               </select>
             </div>
           </div>
@@ -611,11 +910,12 @@ export default function TaskSheet() {
                 onChange={handleInputChange}
                 style={{ marginTop: "8px" }}
               >
-                <option value={null} selected disabled hidden>
+                <option value="" selected disabled hidden>
                   Select Reweld Permitted
                 </option>
                 <option value={1}>Yes</option>
                 <option value={0}>No</option>
+                <option value={2}>No</option>
               </select>
             </div>
           </div>
@@ -928,13 +1228,13 @@ export default function TaskSheet() {
                 </tr>
               </thead>
 
-              <tbody style={{ textAlign: "center" }}>
+              {/* <tbody style={{ textAlign: "center" }}>
                 {formData.subAssyTableData.map((item, index) => (
                   <tr
                     key={index}
                     onClick={() => handleRowSelect(item.ID)}
                     className={
-                      formData.selectedRow1 === item.ID ? "selectedRowClr" : ""
+                      formData.selectedRow1 === item.ID ? "selectedRowClr" : 0
                     }
                   >
                     <td>{index + 1}</td>
@@ -942,6 +1242,40 @@ export default function TaskSheet() {
                     <td>{item.Qty_Received}</td>
                   </tr>
                 ))}
+              </tbody> */}
+
+              <tbody style={{ textAlign: "center" }}>
+                {formData.partsTable && formData.partsTable.length > 0
+                  ? formData.partsTable.map((item, index) => (
+                      <tr
+                        key={index}
+                        // onClick={() => handleRowSelect(item.ID)}
+                        // className={
+                        //   formData.selectedRow1 === item.ID
+                        //     ? "selectedRowClr"
+                        //     : ""
+                        // }
+                      >
+                        <td>{index + 1}</td>
+                        <td>{item.PartId}</td>
+                        <td>{item.QtyPerAssy * formData.qty}</td>
+                      </tr>
+                    ))
+                  : formData.subAssyTableData.map((item, index) => (
+                      <tr
+                        key={index}
+                        onClick={() => handleRowSelect(item.ID)}
+                        className={
+                          formData.selectedRow1 === item.ID
+                            ? "selectedRowClr"
+                            : ""
+                        }
+                      >
+                        <td>{index + 1}</td>
+                        <td>{item.Sub_Assy_Part_Name}</td>
+                        <td>{item.Qty_Received}</td>
+                      </tr>
+                    ))}
               </tbody>
             </Table>
           </div>
@@ -951,7 +1285,7 @@ export default function TaskSheet() {
           className="col-md-4"
           style={{ backgroundColor: "#f0f0f0", borderRadius: "10px" }}
         >
-          <div className="">
+          <div>
             <label className="form-label">Sub-assy Part Name/No</label>
             <input
               type="text"
@@ -960,10 +1294,11 @@ export default function TaskSheet() {
               value={formData.subAssy}
               onChange={handleInputChange}
               style={{ margin: "0px", borderRadius: "5px" }}
+              disabled={formData.partsTable.length > 0}
             />
           </div>
 
-          <div className="">
+          <div classNam>
             <label className="form-label">Qty Received</label>
             <input
               type="number"
@@ -974,15 +1309,22 @@ export default function TaskSheet() {
               onKeyDown={blockInvalidChar}
               onChange={handleInputChange}
               style={{ margin: "0px", borderRadius: "5px" }}
+              disabled={formData.partsTable.length > 0}
             />
           </div>
 
           <div className="d-flex justify-content-center mt-1">
             <div className="mx-2">
               <button
-                className="button-style"
+                // className="button-style"
+                className={
+                  formData.partsTable.length > 0
+                    ? "button-disabled"
+                    : "button-style"
+                }
                 variant="primary"
                 onClick={handleAddSubAssy}
+                disabled={formData.partsTable.length > 0}
               >
                 Add
               </button>
@@ -990,9 +1332,15 @@ export default function TaskSheet() {
 
             <div className="mx-2">
               <button
-                className="button-style"
+                // className="button-style"
+                className={
+                  formData.partsTable.length > 0
+                    ? "button-disabled"
+                    : "button-style"
+                }
                 variant="primary"
                 onClick={() => handleDeleteSubAssy(formData.selectedRow1)}
+                disabled={formData.partsTable.length > 0}
               >
                 Delete
               </button>
@@ -1015,7 +1363,7 @@ export default function TaskSheet() {
         </div>
 
         <div className="col-md-4">
-          <div className="">
+          <div className="col-md-12 col-sm-6">
             <label className="form-label">Pre flow Gas in lpm</label>
             <input
               type="text"
@@ -1028,7 +1376,7 @@ export default function TaskSheet() {
             />
           </div>
 
-          <div className="">
+          <div className="col-md-12 col-sm-6">
             <label className="form-label">Post flow Gas in lpm</label>
             <input
               type="text"
@@ -1041,7 +1389,7 @@ export default function TaskSheet() {
             />
           </div>
 
-          <div className="">
+          <div className="col-md-12 col-sm-6">
             <label className="form-label">Design Type</label>
             <select
               className="ip-select"
@@ -1054,15 +1402,15 @@ export default function TaskSheet() {
                 Select Design Type
               </option>
 
-              {/* {formData.jointTypeData?.map((joint, index) => (
-                  <option key={index} value={joint.Joint_Type}>
-                    {joint.Joint_Type}
-                  </option>
-                ))} */}
+              {formData.designTypeData?.map((joint, index) => (
+                <option key={index} value={joint.Joint_Type}>
+                  {joint.Joint_Type}
+                </option>
+              ))}
             </select>
           </div>
 
-          <div className="">
+          <div className="col-md-12 col-sm-6">
             <label className="form-label">Weld Side</label>
             <select
               className="ip-select"
@@ -1074,12 +1422,17 @@ export default function TaskSheet() {
               <option value="" selected disabled hidden>
                 Select Welding Side
               </option>
-              <option value="Single">Single</option>
-              <option value="Double">Double</option>
+              {/* <option value="Single">Single</option>
+              <option value="Double">Double</option> */}
+              {formData.weldSideData?.map((weld, index) => (
+                <option key={index} value={weld.Weld_Side}>
+                  {weld.Weld_Side}
+                </option>
+              ))}
             </select>
           </div>
 
-          <div className="">
+          <div className="col-md-12 col-sm-6">
             <label className="form-label">Gas Type</label>
             <input
               type="text"
@@ -1091,7 +1444,7 @@ export default function TaskSheet() {
             />
           </div>
 
-          <div className="">
+          <div className="col-md-12 col-sm-6">
             <label className="form-label">Backing</label>
             <select
               className="ip-select"
@@ -1100,15 +1453,16 @@ export default function TaskSheet() {
               onChange={handleInputChange}
               style={{ marginTop: "1px" }}
             >
-              <option value={null} selected disabled hidden>
+              <option value="" selected disabled hidden>
                 Select Backing
               </option>
               <option value={1}>Yes</option>
               <option value={0}>No</option>
+              <option value={2}>NA</option>
             </select>
           </div>
 
-          <div className="">
+          <div className="col-md-12 col-sm-6">
             <label className="form-label">Tack Weld</label>
             <select
               className="ip-select"
@@ -1117,15 +1471,16 @@ export default function TaskSheet() {
               onChange={handleInputChange}
               style={{ marginTop: "1px" }}
             >
-              <option value={null} selected disabled hidden>
+              <option value="" selected disabled hidden>
                 Select Tack Weld
               </option>
               <option value={1}>Yes</option>
               <option value={0}>No</option>
+              <option value={2}>NA</option>
             </select>
           </div>
 
-          <div className="">
+          <div className="col-md-12 col-sm-6">
             <label className="form-label">Note</label>
             <input
               type="text"

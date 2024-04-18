@@ -11,20 +11,23 @@ import {
 import Modal from "react-bootstrap/Modal";
 import TaskSheetPdf from "./TaskSheetPdf";
 
-export default function TaskSheetModel(props) {
-
-    const handleClose = () => props.setOpenPrintModal(false);
+export default function TaskSheetModal({
+  openPrintModal,
+  formData,
+  setOpenPrintModal,
+}) {
+  const handleClose = () => setOpenPrintModal(false);
 
   return (
     <div>
-      <Modal fullscreen show={props.openPrintModal} onHide={handleClose}>
+      <Modal fullscreen show={openPrintModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Task Sheet Form</Modal.Title>
         </Modal.Header>
         <Modal.Body className="m-0 p-1">
           <Fragment>
             <PDFViewer width="1200" height="600" filename="TaskSheet.pdf">
-              <TaskSheetPdf/>
+              <TaskSheetPdf formData={formData} />
             </PDFViewer>
           </Fragment>
         </Modal.Body>

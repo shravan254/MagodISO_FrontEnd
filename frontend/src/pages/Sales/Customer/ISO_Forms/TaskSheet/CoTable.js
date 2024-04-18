@@ -12,7 +12,7 @@ export default function CoTable({ formData, setFormData }) {
     { desc: "Feed rate in mm/min", details: "" },
     { desc: "RPM", details: "" },
     { desc: "Gas purity in %", details: "" },
-    { desc: "Gas range in mm", details: "" },
+    { desc: "Gap range in mm", details: "" },
     { desc: "Gas flow Orientation in deg", details: "" },
   ]);
 
@@ -21,12 +21,12 @@ export default function CoTable({ formData, setFormData }) {
     "Power in Watts": "copower",
     "Frequency in Hz": "cofrequency",
     "Beam dia in mm": "cobeamDia",
-    "Focus in mm": "cofocusDia",
+    "Focus in mm": "cofocus",
     "Gas Pressure in lpm(Avg)": "cogasPressure",
     "Feed rate in mm/min": "cofeedRate",
     RPM: "corpm",
     "Gas purity in %": "cogasPurity",
-    "Gas range in mm": "cogasRange",
+    "Gap range in mm": "cogapRange",
     "Gas flow Orientation in deg": "cogasFlowOrientation",
   };
 
@@ -70,7 +70,8 @@ export default function CoTable({ formData, setFormData }) {
                   min={0}
                   onKeyDown={blockInvalidChar}
                   style={{ borderRadius: "4px", border: "none" }}
-                  value={row.details}
+                  // value={row.details}
+                  value={formData[formDataKeysMapping[row.desc]]}
                   onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               </td>

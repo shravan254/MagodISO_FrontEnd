@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SolidStatePdf = () => {
+const SolidStatePdf = ({ formData }) => {
   const numCopies = 3; // Number of copies you want
 
   const copiesData = [{ title: "Original For Buyer" }];
@@ -471,41 +471,11 @@ const SolidStatePdf = () => {
                         </View>
                       </View>
                     </View>
-
-                    <View style={styles.smalltable}>
-                      <View style={styles.row}>
-                        <View style={styles.row}>
-                          <View style={styles.sideheading}>
-                            <Text
-                              style={[
-                                styles.globalfontwithbold,
-                                { paddingLeft: 5 },
-                              ]}
-                            >
-                              Operator
-                            </Text>
-                          </View>
-                        </View>
-
-                        <View style={styles.row}>
-                          <View style={styles.sideheadingdata}>
-                            <Text
-                              style={[
-                                styles.globalfontwithoutbold,
-                                { paddingLeft: 5 },
-                              ]}
-                            >
-                              {" "}
-                            </Text>
-                          </View>
-                        </View>
-                      </View>
-                    </View>
                   </View>
 
                   <View style={styles.tableContainer1}>
                     <View style={styles.column}>
-                      <View style={styles.smalltable}>
+                      {/* <View style={styles.smalltable}>
                         <View style={styles.row}>
                           <View style={styles.row}>
                             <View style={styles.sideheading}>
@@ -533,9 +503,9 @@ const SolidStatePdf = () => {
                             </View>
                           </View>
                         </View>
-                      </View>
+                      </View> */}
 
-                      <View style={styles.smalltable}>
+                      {/* <View style={styles.smalltable}>
                         <View style={styles.row}>
                           <View style={styles.row}>
                             <View style={styles.sideheading}>
@@ -563,7 +533,7 @@ const SolidStatePdf = () => {
                             </View>
                           </View>
                         </View>
-                      </View>
+                      </View> */}
 
                       <View style={styles.smalltable}>
                         <View style={styles.row}>
@@ -594,11 +564,41 @@ const SolidStatePdf = () => {
                           </View>
                         </View>
                       </View>
+
+                      <View style={styles.smalltable}>
+                        <View style={styles.row}>
+                          <View style={styles.row}>
+                            <View style={styles.sideheading}>
+                              <Text
+                                style={[
+                                  styles.globalfontwithbold,
+                                  { paddingLeft: 5 },
+                                ]}
+                              >
+                                Joint Type
+                              </Text>
+                            </View>
+                          </View>
+
+                          <View style={styles.row}>
+                            <View style={styles.sideheadingdata}>
+                              <Text
+                                style={[
+                                  styles.globalfontwithoutbold,
+                                  { paddingLeft: 5 },
+                                ]}
+                              >
+                                {" "}
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
                     </View>
                   </View>
 
                   <View style={styles.tableContainer1}>
-                    <View style={styles.smalltable}>
+                    {/* <View style={styles.smalltable}>
                       <View style={styles.row}>
                         <View style={styles.row}>
                           <View style={styles.sideheading}>
@@ -626,7 +626,37 @@ const SolidStatePdf = () => {
                           </View>
                         </View>
                       </View>
-                    </View>
+                    </View> */}
+
+                    {/* <View style={styles.smalltable}>
+                      <View style={styles.row}>
+                        <View style={styles.row}>
+                          <View style={styles.sideheading}>
+                            <Text
+                              style={[
+                                styles.globalfontwithbold,
+                                { paddingLeft: 5 },
+                              ]}
+                            >
+                              Thk2
+                            </Text>
+                          </View>
+                        </View>
+
+                        <View style={styles.row}>
+                          <View style={styles.sideheadingdata}>
+                            <Text
+                              style={[
+                                styles.globalfontwithoutbold,
+                                { paddingLeft: 5 },
+                              ]}
+                            >
+                              {" "}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View> */}
 
                     <View style={styles.smalltable}>
                       <View style={styles.row}>
@@ -638,7 +668,7 @@ const SolidStatePdf = () => {
                                 { paddingLeft: 5 },
                               ]}
                             >
-                              Thk2
+                              Dia
                             </Text>
                           </View>
                         </View>
@@ -668,7 +698,7 @@ const SolidStatePdf = () => {
                                 { paddingLeft: 5 },
                               ]}
                             >
-                              Dia
+                              Machine
                             </Text>
                           </View>
                         </View>
@@ -731,37 +761,7 @@ const SolidStatePdf = () => {
                                   { paddingLeft: 5 },
                                 ]}
                               >
-                                Joint Type
-                              </Text>
-                            </View>
-                          </View>
-
-                          <View style={styles.row}>
-                            <View style={styles.sideheadingdata}>
-                              <Text
-                                style={[
-                                  styles.globalfontwithoutbold,
-                                  { paddingLeft: 5 },
-                                ]}
-                              >
-                                {" "}
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-
-                      <View style={styles.smalltable}>
-                        <View style={styles.row}>
-                          <View style={styles.row}>
-                            <View style={styles.sideheading}>
-                              <Text
-                                style={[
-                                  styles.globalfontwithbold,
-                                  { paddingLeft: 5 },
-                                ]}
-                              >
-                                Machine
+                                Operator
                               </Text>
                             </View>
                           </View>
