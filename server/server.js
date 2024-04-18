@@ -37,6 +37,8 @@ const accountsRouter = require("./routes/accounts");
 // ISO Forms
 const rateEstimator = require("./routes/rateEstimator");
 const taskSheet = require("./routes/taskSheet");
+const solidState = require("./routes/solidState");
+const co2 = require("./routes/co2");
 
 const fileRouter = require("./routes/files");
 const { logger } = require("./helpers/logger");
@@ -83,6 +85,8 @@ app.use("/accounts", accountsRouter);
 app.use("/file", fileRouter);
 app.use("/rateEstimator", rateEstimator);
 app.use("/taskSheet", taskSheet);
+app.use("/solidState", solidState);
+app.use("/co2", co2);
 
 //PAKINGINVOICE Inspection
 

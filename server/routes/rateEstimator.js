@@ -271,11 +271,13 @@ rateEstimator.post("/saveWeldingDetails", async (req, res, next) => {
     ? `'${req.body.expectedDelivery}'`
     : "NULL";
 
-  // console.log("Save", req.body);
-  // console.log("expectedDelivery ", typeof req.body.expectedDelivery);
-  // console.log("expectedDeliveryValue", typeof expectedDeliveryValue);
+  const fixtureReqValue = fixtureReq !== "" ? fixtureReq : "NULL";
+  const drawingAvailableValue =
+    drawingAvailable !== "" ? drawingAvailable : "NULL";
+  const hermaticJointValue = hermaticJoint !== "" ? hermaticJoint : "NULL";
+  const batchQtyValue = batchQty !== "" ? batchQty : null;
+  const yearQtyValue = yearQty !== "" ? yearQty : null;
 
-  // console.log("expectedDeliveryValue", expectedDeliveryValue);
   try {
     qtnQueryMod(
       `SELECT COUNT(*) AS count FROM magodqtn.welding_register where QtnID = ${qtnID}`,
@@ -288,18 +290,9 @@ rateEstimator.post("/saveWeldingDetails", async (req, res, next) => {
 
         if (count === 0) {
           qtnQueryMod(
-            // `INSERT INTO magodqtn.welding_register (QtnID, Allowable_Combination, Statutory_Regulatory_Req, Joint_Type, Batch_Qty, Year_Qty, Depth_of_Penetration, Fixture_Requirement, Fixture_Remarks, Strength, Hermatic_Joint, Allowable_Defects, DrawingAvailable, Inspection_Name, Tool_Path, MtrlSource, Delivery, Expected_Delivery) VALUES (${qtnID}, '${allowComb}', '${srRequirements}', '${jointType}', ${batchQty}, ${yearQty}, '${depthOfPen}', ${fixtureReq}, '${fixtureRemarks}', '${strength}', ${hermaticJoint}, '${allowableDeffects}', ${drawingAvailable}, '${inspection}', '${toolPath}', '${materialSource}', '${shippingDelivery}', ${expectedDeliveryValue})`,
-            `INSERT INTO magodqtn.welding_register (QtnID, Allowable_Combination, Statutory_Regulatory_Req, Joint_Type, Batch_Qty, Year_Qty, Depth_of_Penetration, Fixture_Requirement, Fixture_Remarks, Strength, Hermatic_Joint, Allowable_Defects, DrawingAvailable, Inspection_Name, Tool_Path, MtrlSource, Delivery, Expected_Delivery) VALUES (${qtnID}, ${
-              allowComb ? `'${allowComb}'` : "NULL"
-            }, ${srRequirements ? `'${srRequirements}'` : "NULL"}, ${
+            `INSERT INTO magodqtn.welding_register (QtnID, Allowable_Combination, Statutory_Regulatory_Req, Joint_Type, Batch_Qty, Year_Qty, Depth_of_Penetration, Fixture_Requirement, Fixture_Remarks, Strength, Hermatic_Joint, Allowable_Defects, DrawingAvailable, Inspection_Name, Tool_Path, MtrlSource, Delivery, Expected_Delivery) VALUES (${qtnID}, '${allowComb}', '${srRequirements}', ${
               jointType ? `'${jointType}'` : "NULL"
-            }, ${batchQty}, ${yearQty}, ${
-              depthOfPen ? `'${depthOfPen}'` : "NULL"
-            }, ${fixtureReq ? `'${fixtureReq}'` : "NULL"}, ${
-              fixtureRemarks ? `'${fixtureRemarks}'` : "NULL"
-            }, ${strength ? `'${strength}'` : "NULL"}, ${hermaticJoint}, ${
-              allowableDeffects ? `'${allowableDeffects}'` : "NULL"
-            }, ${drawingAvailable ? `'${drawingAvailable}'` : "NULL"}, ${
+            }, ${batchQtyValue}, ${yearQtyValue}, '${depthOfPen}', ${fixtureReqValue}, '${fixtureRemarks}', '${strength}', ${hermaticJointValue}, '${allowableDeffects}', ${drawingAvailableValue}, ${
               inspection ? `'${inspection}'` : "NULL"
             }, ${toolPath ? `'${toolPath}'` : "NULL"}, ${
               materialSource ? `'${materialSource}'` : "NULL"
@@ -318,7 +311,7 @@ rateEstimator.post("/saveWeldingDetails", async (req, res, next) => {
           );
         } else {
           qtnQueryMod(
-            `UPDATE magodqtn.welding_register SET Allowable_Combination = '${allowComb}', Statutory_Regulatory_Req = '${srRequirements}', Joint_Type = '${jointType}', Batch_Qty = '${batchQty}', Year_Qty = '${yearQty}', Depth_of_Penetration = '${depthOfPen}', Fixture_Requirement = ${fixtureReq}, Fixture_Remarks = '${fixtureRemarks}', Strength = '${strength}', Hermatic_Joint = ${hermaticJoint}, Allowable_Defects = '${allowableDeffects}', DrawingAvailable = ${drawingAvailable}, Inspection_Name = '${inspection}', Tool_Path = '${toolPath}', MtrlSource = '${materialSource}', Delivery = '${shippingDelivery}', Expected_Delivery = ${expectedDeliveryValue} WHERE QtnID = ${qtnID}`,
+            `UPDATE magodqtn.welding_register SET Allowable_Combination = '${allowComb}', Statutory_Regulatory_Req = '${srRequirements}', Joint_Type = '${jointType}', Batch_Qty = ${batchQtyValue}, Year_Qty = ${yearQtyValue}, Depth_of_Penetration = '${depthOfPen}', Fixture_Requirement = ${fixtureReqValue}, Fixture_Remarks = '${fixtureRemarks}', Strength = '${strength}', Hermatic_Joint = ${hermaticJointValue}, Allowable_Defects = '${allowableDeffects}', DrawingAvailable = ${drawingAvailableValue}, Inspection_Name = '${inspection}', Tool_Path = '${toolPath}', MtrlSource = '${materialSource}', Delivery = '${shippingDelivery}', Expected_Delivery = ${expectedDeliveryValue} WHERE QtnID = ${qtnID}`,
             (err, result) => {
               if (err) {
                 logger.error(err);
@@ -337,9 +330,11 @@ rateEstimator.post("/saveWeldingDetails", async (req, res, next) => {
 
 rateEstimator.post("/insertMaterialDetails", async (req, res, next) => {
   const { qtnID, material, thickness } = req.body;
+
+  const thicknessValue = thickness !== "" ? thickness : null;
   try {
     qtnQueryMod(
-      `INSERT INTO magodqtn.welding_details (QtnID, Material, Thickness) VALUES (${qtnID}, '${material}', '${thickness}')`,
+      `INSERT INTO magodqtn.welding_details (QtnID, Material, Thickness) VALUES (${qtnID}, '${material}', ${thicknessValue})`,
       async (err, result) => {
         if (err) {
           logger.error(err);
@@ -366,58 +361,27 @@ rateEstimator.post("/insertMaterialDetails", async (req, res, next) => {
   }
 });
 
-// rateEstimator.post("/insertMaterialDetails", async (req, res, next) => {
-//   const { qtnID, material, thickness } = req.body;
-//   try {
-//     qtnQueryMod(
-//       `INSERT INTO magodqtn.welding_details (QtnID) VALUES (${qtnID})`,
-//       async (err, result) => {
-//         if (err) {
-//           logger.error(err);
-//           return res
-//             .status(500)
-//             .send("Error inserting data into welding_register");
-//         }
-
-//         res.send(result);
-//       }
-//     );
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 rateEstimator.post("/updateMaterialDetails", async (req, res, next) => {
-  const { material, thickness } = req.body;
-  // console.log("Field", req.body);
+  const { qtnID, materialID, material, thickness } = req.body;
 
-  // try {
-  //   qtnQueryMod(
-  //     `UPDATE magodqtn.welding_details SET Material = '${material}', Thickness = '${thickness}' where QtnID = ${qtnID}`,
-  //     async (err, result) => {
-  //       if (err) {
-  //         logger.error(err);
-  //         return res
-  //           .status(500)
-  //           .send("Error inserting data into welding_register");
-  //       }
+  const thicknessValue = thickness !== "" ? thickness : null;
+  try {
+    qtnQueryMod(
+      `Update magodqtn.welding_details SET Material = '${material}', Thickness = ${thicknessValue} where Material_ID = ${materialID}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error updating data into welding_register");
+        }
 
-  //       qtnQueryMod(
-  //         `SELECT * FROM magodqtn.welding_details where QtnID = ${qtnID}`,
-  //         async (err, data) => {
-  //           if (err) {
-  //             logger.error(err);
-  //             return res.status(500).send("Error retrieving inserted data");
-  //           }
-
-  //           res.send(data);
-  //         }
-  //       );
-  //     }
-  //   );
-  // } catch (error) {
-  //   next(error);
-  // }
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
 });
 
 rateEstimator.post("/deleteMaterialDetails", async (req, res, next) => {
@@ -491,11 +455,13 @@ rateEstimator.post("/getTestTypeName", async (req, res, next) => {
 });
 
 rateEstimator.post("/insertTestDetails", async (req, res, next) => {
-  const { qtnID, testTypeName, testName, testDetails } = req.body;
+  const { qtnID, testTypeName, testName, testDetails, testCost } = req.body;
+
+  const testCostValue = testCost !== "" ? testCost : null;
   try {
     qtnQueryMod(
-      `INSERT INTO magodqtn.testing_details (QtnID, Test_Type, Test_Name, Test_Details) VALUES 
-      (${qtnID}, '${testTypeName}', '${testName}', '${testDetails}')`,
+      `INSERT INTO magodqtn.testing_details (QtnID, Test_Type, Test_Name, Test_Details, Test_Cost) VALUES 
+      (${qtnID}, '${testTypeName}', '${testName}', '${testDetails}', ${testCostValue})`,
       async (err, result) => {
         if (err) {
           logger.error(err);
@@ -533,6 +499,50 @@ rateEstimator.post("/deleteTestDetails", async (req, res, next) => {
           return res
             .status(500)
             .send("Error deleting data from testing_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+rateEstimator.post("/getSelectedTestNames", async (req, res, next) => {
+  const { qtnID } = req.body;
+  try {
+    qtnQueryMod(
+      `Select Test_Name FROM magodqtn.testing_details where QtnID = ${qtnID}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error getting data from testing_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+rateEstimator.post("/updateTestDetails", async (req, res, next) => {
+  const { qtnID, testId, testCost, testDetails } = req.body;
+
+  const testCostValue = testCost !== "" ? testCost : null;
+  try {
+    qtnQueryMod(
+      `Update magodqtn.testing_details SET Test_Cost = ${testCostValue}, Test_Details = '${testDetails}' where Test_ID = ${testId}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error updating data into testing_details");
         }
 
         res.send(result);
@@ -631,6 +641,26 @@ rateEstimator.post("/deleteRiskDetails", async (req, res, next) => {
         if (err) {
           logger.error(err);
           return res.status(500).send("Error deleting data from risk_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+rateEstimator.post("/updateRiskDetails", async (req, res, next) => {
+  const { qtnID, riskId, risk } = req.body;
+
+  try {
+    qtnQueryMod(
+      `Update magodqtn.risk_details SET Risks = '${risk}' where Risk_ID = ${riskId}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res.status(500).send("Error updating data into risk_details");
         }
 
         res.send(result);
@@ -768,10 +798,18 @@ rateEstimator.post("/saveQuoteDetails", async (req, res, next) => {
     fixtureCharges,
     transporationCost,
     overheadCharges,
+    percentage,
     unitPrice,
     revisedUnitPrice,
+    manPowerCost,
+    weldingSettingCost,
+    perhrMacCost,
+    outPutPerHour,
+    labourCost,
+    machineCost,
   } = req.body;
   // console.log("Quote", req.body);
+
   try {
     qtnQueryMod(
       `SELECT COUNT(*) AS count FROM magodqtn.quote_register where QtnID = ${qtnID}`,
@@ -784,7 +822,7 @@ rateEstimator.post("/saveQuoteDetails", async (req, res, next) => {
 
         if (count === 0) {
           qtnQueryMod(
-            `INSERT INTO magodqtn.quote_register (QtnID, Machine, Filler, Labour_Time, Machine_Time, Testing_Charges, Fixture_Charges, Transportaion_Cost, Overhead_Charges, Unit_Price, Revised_Unit_Price) VALUES (${qtnID}, '${machine}', '${filler}', '${labourTime}', '${machineTime}', '${testingCharges}', '${fixtureCharges}', '${transporationCost}', '${overheadCharges}', '${unitPrice}', '${revisedUnitPrice}')`,
+            `INSERT INTO magodqtn.quote_register (QtnID, Machine, Filler,Man_Power_Cost,Welding_Setting_Cost, Per_hour_Man_Cost,Labour_Time, Machine_Time, Output_Per_Hour, Labour_Cost,Machine_Cost, Testing_Charges, Fixture_Charges, Transportaion_Cost, Overhead_Charges,Percentage, Unit_Price, Revised_Unit_Price) VALUES (${qtnID}, '${machine}', '${filler}', ${manPowerCost}, ${weldingSettingCost}, ${perhrMacCost}, ${labourTime}, ${machineTime}, ${outPutPerHour}, ${labourCost}, ${machineCost}, ${testingCharges}, '${fixtureCharges}', ${transporationCost}, '${overheadCharges}', ${percentage}, '${unitPrice}', '${revisedUnitPrice}')`,
             (err, result) => {
               if (err) {
                 logger.error(err);
@@ -798,7 +836,7 @@ rateEstimator.post("/saveQuoteDetails", async (req, res, next) => {
           );
         } else {
           qtnQueryMod(
-            `UPDATE magodqtn.quote_register SET Machine = '${machine}', Filler = '${filler}', Labour_Time = '${labourTime}', Machine_Time = '${machineTime}', Testing_Charges = '${testingCharges}', Fixture_Charges = '${fixtureCharges}', Transportaion_Cost = '${transporationCost}', Overhead_Charges = '${overheadCharges}', Unit_Price = '${unitPrice}', Revised_Unit_Price = '${revisedUnitPrice}' WHERE QtnID = ${qtnID}`,
+            `UPDATE magodqtn.quote_register SET Machine = '${machine}', Filler = '${filler}', Man_Power_Cost = ${manPowerCost}, Welding_Setting_Cost = ${weldingSettingCost}, Per_hour_Man_Cost = ${perhrMacCost}, Labour_Time = '${labourTime}', Machine_Time = '${machineTime}', Output_Per_Hour = ${outPutPerHour}, Labour_Cost = ${labourCost}, Machine_Cost = ${machineCost},Testing_Charges = '${testingCharges}', Fixture_Charges = '${fixtureCharges}', Transportaion_Cost = '${transporationCost}', Overhead_Charges = '${overheadCharges}', Percentage = ${percentage}, Unit_Price = '${unitPrice}', Revised_Unit_Price = '${revisedUnitPrice}' WHERE QtnID = ${qtnID}`,
             (err, result) => {
               if (err) {
                 logger.error(err);
@@ -821,13 +859,14 @@ rateEstimator.post("/insertQuoteDetails", async (req, res, next) => {
     qtnID,
     jointNo,
     weldLength,
+    weldSpeed,
     weldingTime,
     setUpTime,
     incomingInspectionTime,
     cleaningTime,
     assemblyTime,
-    partLoading,
-    partUnloading,
+    partLoadingTime,
+    partUnloadingTime,
     finalInspectionTime,
     packingDispatchTime,
     setupCharges,
@@ -837,10 +876,13 @@ rateEstimator.post("/insertQuoteDetails", async (req, res, next) => {
     materialCost,
     fillerCost,
   } = req.body;
+
+  // console.log("Quote Details Add", req.body);
+
   try {
     qtnQueryMod(
-      `INSERT INTO magodqtn.quote_details (QtnID, Joint_No, Weld_Length, Weld_Time, Setup_Time, Inspection_Time, Cleaning_Time, Assembly_Time, Part_Loading, Part_Unloading, FinalInspection_Time, Packing_Dispatch_Time, SetUp_Charges, Inspection_Charges, OutSoucring_Charges, Consumables, Material_Cost, Filler_Cost) VALUES (${qtnID}, '${jointNo}',
-      ${weldLength}, ${weldingTime},${setUpTime},${incomingInspectionTime},${cleaningTime},${assemblyTime},${partLoading},${partUnloading},${finalInspectionTime},${packingDispatchTime},${setupCharges},${inspectionCharges},${outSourcingCharges},${consumables},${materialCost},${fillerCost})`,
+      `INSERT INTO magodqtn.quote_details (QtnID, Joint_No, Weld_Length, Weld_Speed, Weld_Time, Setup_Time, Inspection_Time, Cleaning_Time, Assembly_Time, Part_Loading, Part_Unloading, FinalInspection_Time, Packing_Dispatch_Time, SetUp_Charges, Inspection_Charges, OutSoucring_Charges, Consumables, Material_Cost, Filler_Cost) VALUES (${qtnID}, '${jointNo}',
+      ${weldLength}, ${weldSpeed}, ${weldingTime},${setUpTime},${incomingInspectionTime},${cleaningTime},${assemblyTime},${partLoadingTime},${partUnloadingTime},${finalInspectionTime},${packingDispatchTime},${setupCharges},${inspectionCharges},${outSourcingCharges},${consumables},${materialCost},${fillerCost})`,
       async (err, result) => {
         if (err) {
           logger.error(err);
@@ -871,6 +913,7 @@ rateEstimator.post("/updateQuoteRegister", async (req, res, next) => {
   const {
     qtnID,
     totalWeldLength,
+    totalWeldSpeed,
     totalWeldTime,
     totalSetupTime,
     totalInspectionTime,
@@ -892,10 +935,13 @@ rateEstimator.post("/updateQuoteRegister", async (req, res, next) => {
     revisedUnitPrice,
   } = req.body;
 
+  // console.log("Update quote", req.body);
+
   try {
     qtnQueryMod(
       `UPDATE magodqtn.quote_register SET
       Total_Weld_Length = ${totalWeldLength},
+      Total_Weld_Speed = ${totalWeldSpeed},
       Total_Weld_Time = ${totalWeldTime},
       Total_Setup_Time = ${totalSetupTime},
       Total_Inspection_Time = ${totalInspectionTime},
@@ -932,6 +978,77 @@ rateEstimator.post("/updateQuoteRegister", async (req, res, next) => {
   }
 });
 
+rateEstimator.post("/updateQuoteDetails", async (req, res, next) => {
+  const {
+    qtnID,
+    jointNo,
+    quoteId,
+    weldLength,
+    weldSpeed,
+    weldingTime,
+    setUpTime,
+    incomingInspectionTime,
+    cleaningTime,
+    assemblyTime,
+    partLoadingTime,
+    partUnloadingTime,
+    finalInspectionTime,
+    packingDispatchTime,
+    setupCharges,
+    inspectionCharges,
+    outSourcingCharges,
+    consumables,
+    materialCost,
+    fillerCost,
+  } = req.body;
+
+  console.log("Quote Details Add", req.body);
+
+  const weldLengthValue = weldLength !== "" ? weldLength : null;
+  const weldSpeedValue = weldSpeed !== "" ? weldSpeed : null;
+  const weldingTimeValue = weldingTime !== "" ? weldingTime : null;
+  const setUpTimeValue = setUpTime !== "" ? setUpTime : null;
+  const incomingInspectionTimeValue =
+    incomingInspectionTime !== "" ? incomingInspectionTime : null;
+  const cleaningTimeValue = cleaningTime !== "" ? cleaningTime : null;
+  const assemblyTimeTimeValue = assemblyTime !== "" ? assemblyTime : null;
+  const partLoadingTimeValue = partLoadingTime !== "" ? partLoadingTime : null;
+  const partUnloadingTimeValue =
+    partUnloadingTime !== "" ? partUnloadingTime : null;
+  const finalInspectionTimeValue =
+    finalInspectionTime !== "" ? finalInspectionTime : null;
+  const packingDispatchTimeValue =
+    packingDispatchTime !== "" ? packingDispatchTime : null;
+  const setupChargesValue = setupCharges !== "" ? setupCharges : null;
+  const inspectionChargesValue =
+    inspectionCharges !== "" ? inspectionCharges : null;
+  const outSourcingChargesValue =
+    outSourcingCharges !== "" ? outSourcingCharges : null;
+  const consumablesValue = consumables !== "" ? consumables : null;
+  const materialCostValue = materialCost !== "" ? materialCost : null;
+  const fillerCostValue = fillerCost !== "" ? fillerCost : null;
+
+  try {
+    qtnQueryMod(
+      `UPDATE magodqtn.quote_details SET Weld_Length = ${weldLengthValue}, Weld_Speed = ${weldSpeedValue}, Weld_Time = ${weldingTimeValue}, Setup_Time = ${setUpTimeValue}, 
+      Inspection_Time =${incomingInspectionTimeValue}, Cleaning_Time = ${cleaningTimeValue}, Assembly_Time = ${assemblyTimeTimeValue}, Part_Loading = ${partLoadingTimeValue}, 
+      Part_Unloading = ${partUnloadingTimeValue}, FinalInspection_Time = ${finalInspectionTimeValue}, Packing_Dispatch_Time = ${packingDispatchTimeValue}, 
+      SetUp_Charges = ${setupChargesValue}, Inspection_Charges = ${inspectionChargesValue}, OutSoucring_Charges = ${outSourcingChargesValue}, 
+      Consumables = ${consumablesValue}, Material_Cost = ${materialCostValue}, Filler_Cost = ${fillerCostValue} where ID = ${quoteId}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res.status(500).send("Error updating data in quote_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
 rateEstimator.post("/deleteQuoteDetails", async (req, res, next) => {
   const { id } = req.body;
   try {
@@ -957,12 +1074,13 @@ rateEstimator.post("/updateQuoteDetailsAfterDelete", async (req, res, next) => {
   const recalculatedValues = req.body.recalculatedValues;
   const qtnID = req.body.qtnID;
 
-  console.log("recalculatedValues", recalculatedValues);
+  // console.log("recalculatedValues", recalculatedValues);
   // console.log("qtnID", qtnID);
   try {
     qtnQueryMod(
       `UPDATE magodqtn.quote_register SET
       Total_Weld_Length = ${recalculatedValues.totalWeldLength},
+      Total_Weld_Speed = ${recalculatedValues.totalWeldSpeed},
       Total_Weld_Time = ${recalculatedValues.totalWeldTime},
       Total_Setup_Time = ${recalculatedValues.totalSetupTime},
       Total_Inspection_Time = ${recalculatedValues.totalInspectionTime},
