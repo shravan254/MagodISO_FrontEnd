@@ -19,7 +19,6 @@ import {
   width,
 } from "@mui/system";
 
-
 const styles = StyleSheet.create({
   page: {
     fontSize: 11,
@@ -184,7 +183,14 @@ const styles = StyleSheet.create({
     marginLeft: "2px",
   },
   quantity: {
-    width: "190px",
+    width: "184px",
+    borderRight: 1,
+    padding: "1px",
+    textAlign: "center",
+    borderBottom: 1,
+  },
+  quantity01: {
+    width: "195px",
     borderRight: 1,
     padding: "1px",
     textAlign: "center",
@@ -273,6 +279,46 @@ const styles = StyleSheet.create({
     width: "570px",
     marginLeft: "10px",
   },
+  tableData01: {
+    fontSize: "8px",
+    fontFamily: "Helvetica-Bold",
+    width: "285px",
+    borderRight: 1,
+    borderBottom: 1,
+    // borderLeft: 1,
+    // marginLeft: "5px",
+    padding: 1,
+    textAlign: "center",
+  },
+  tableData03: {
+    fontSize: "8px",
+    fontFamily: "Helvetica-Bold",
+    width: "285px",
+    borderBottom: 1,
+    borderRight: 1,
+    padding: 1,
+    textAlign: "center",
+  },
+  tableInput01: {
+    fontSize: "8px",
+    width: "285px",
+    borderRight: 1,
+    borderBottom: 1,
+    // borderLeft: 1,
+    // marginLeft: "5px",
+    padding: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+  },
+  tableInput03: {
+    fontSize: "8px",
+    width: "285px",
+    borderRight: 1,
+    borderBottom: 1,
+    padding: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+  },
 });
 
 const COForm = () => {
@@ -329,7 +375,7 @@ const COForm = () => {
               <View style={styles.Material}>
                 <Text style={styles.globalfontwithbold}>Shcedule No</Text>
               </View>
-              <View style={styles.quantity}>
+              <View style={styles.quantity01}>
                 <Text style={styles.globalfontwithoutbold}>29376198</Text>
               </View>
             </View>
@@ -344,12 +390,12 @@ const COForm = () => {
               <View style={styles.Material}>
                 <Text style={styles.globalfontwithbold}>ɳT</Text>
               </View>
-              <View style={styles.quantity}>
+              <View style={styles.quantity01}>
                 <Text style={styles.globalfontwithoutbold}>293</Text>
               </View>
             </View>
 
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
               <View style={styles.drawingname}>
                 <Text style={styles.globalfontwithbold}>Material 1</Text>
               </View>
@@ -362,9 +408,9 @@ const COForm = () => {
               <View style={styles.quantity}>
                 <Text style={styles.globalfontwithoutbold}>SS301</Text>
               </View>
-            </View>
+            </View> */}
 
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
               <View style={styles.drawingname}>
                 <Text style={styles.globalfontwithbold}>Thickness</Text>
               </View>
@@ -377,7 +423,7 @@ const COForm = () => {
               <View style={styles.quantity}>
                 <Text style={styles.globalfontwithoutbold}>4</Text>
               </View>
-            </View>
+            </View> */}
 
             <View style={styles.row}>
               <View style={styles.drawingname}>
@@ -391,9 +437,19 @@ const COForm = () => {
               <View style={styles.Material}>
                 <Text style={styles.globalfontwithbold}>Operator</Text>
               </View>
-              <View style={styles.quantity}>
+              <View style={styles.quantity01}>
                 <Text style={styles.globalfontwithoutbold}></Text>
               </View>
+            </View>
+
+            <View style={styles.row}>
+              <Text style={styles.tableData01}>Material</Text>
+              <Text style={styles.tableData03}>Thickness</Text>
+            </View>
+
+            <View style={styles.row}>
+              <Text style={styles.tableInput01}>SS</Text>
+              <Text style={styles.tableInput03}>3mm</Text>
             </View>
 
             <View style={styles.row}>

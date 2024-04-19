@@ -407,14 +407,19 @@ export default function RateEstimatorPdf({ formData }) {
       borderRight: 1,
     },
     globalfontwithbold: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
     },
+    globalfontwithboldTitle: {
+      fontSize: "8px",
+      fontFamily: "Helvetica-Bold",
+      color: "red",
+    },
     globalfontwithbold1: {
-      fontSize: "9px",
+      fontSize: "8px",
     },
     tableData01: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "270px",
       borderRight: 1,
@@ -425,7 +430,7 @@ export default function RateEstimatorPdf({ formData }) {
       textAlign: "center",
     },
     tableInput01: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "270px",
       borderRight: 1,
       borderBottom: 1,
@@ -436,7 +441,7 @@ export default function RateEstimatorPdf({ formData }) {
       textAlign: "center",
     },
     tableData02: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "180px",
       borderRight: 1,
@@ -445,7 +450,7 @@ export default function RateEstimatorPdf({ formData }) {
       textAlign: "center",
     },
     tableInput02: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "180px",
       borderRight: 1,
       borderBottom: 1,
@@ -453,7 +458,7 @@ export default function RateEstimatorPdf({ formData }) {
       flexWrap: "wrap",
     },
     tableData03: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "270px",
       borderBottom: 1,
@@ -462,7 +467,7 @@ export default function RateEstimatorPdf({ formData }) {
       textAlign: "center",
     },
     tableInput03: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "270px",
       borderRight: 1,
       borderBottom: 1,
@@ -471,7 +476,7 @@ export default function RateEstimatorPdf({ formData }) {
       textAlign: "center",
     },
     tableInput: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "180px",
       borderRight: 1,
       borderBottom: 1,
@@ -499,7 +504,7 @@ export default function RateEstimatorPdf({ formData }) {
       padding: 1,
     },
     SlNo: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "50px",
       borderRight: 1,
@@ -510,7 +515,7 @@ export default function RateEstimatorPdf({ formData }) {
       textAlign: "center",
     },
     risk: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "490px",
       borderBottom: 1,
@@ -518,7 +523,7 @@ export default function RateEstimatorPdf({ formData }) {
       padding: "2px",
     },
     SlData: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "50px",
       borderRight: 1,
       borderBottom: 1,
@@ -528,12 +533,70 @@ export default function RateEstimatorPdf({ formData }) {
       textAlign: "center",
     },
     RiskData: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "490px",
       borderRight: 1,
       borderBottom: 1,
       padding: 3,
       flexWrap: "wrap",
+    },
+    testingTableData01: {
+      fontSize: "8px",
+      fontFamily: "Helvetica-Bold",
+      width: "180px",
+      borderRight: 1,
+      borderBottom: 1,
+      borderLeft: 1,
+      marginLeft: "30px",
+      padding: 1,
+      textAlign: "center",
+    },
+    testingTableData02: {
+      fontSize: "8px",
+      fontFamily: "Helvetica-Bold",
+      width: "180px",
+      borderBottom: 1,
+      borderRight: 1,
+      padding: 1,
+      textAlign: "center",
+    },
+    testingTableData03: {
+      fontSize: "8px",
+      fontFamily: "Helvetica-Bold",
+      width: "180px",
+      borderBottom: 1,
+      borderRight: 1,
+      padding: 1,
+      textAlign: "center",
+    },
+    testingTableInput01: {
+      fontSize: "8px",
+      width: "180px",
+      borderRight: 1,
+      borderBottom: 1,
+      borderLeft: 1,
+      marginLeft: "30px",
+      padding: 3,
+      flexWrap: "wrap",
+      textAlign: "center",
+    },
+    testingTableInput02: {
+      fontSize: "8px",
+      width: "180px",
+      borderRight: 1,
+      borderBottom: 1,
+      padding: 3,
+      flexWrap: "wrap",
+      textAlign: "center",
+    },
+    testingTableInput03: {
+      fontSize: "8px",
+      width: "180px",
+      borderRight: 1,
+      borderBottom: 1,
+      padding: 3,
+      flexWrap: "wrap",
+      textAlign: "center",
     },
   });
 
@@ -656,25 +719,16 @@ export default function RateEstimatorPdf({ formData }) {
         </View>
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Address
-                </Text>
-              </View>
+            <View style={styles.sideheadingdata}>
+              <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                Address
+              </Text>
             </View>
-            <View style={styles.row}>
-              <View>
-                <Text
-                  style={[
-                    styles.globalfontwithbold1,
-                    { paddingLeft: 5, flexWrap: "wrap" },
-                  ]}
-                >
-                  {/* {formData.custAddress} */}
-                  {formData.custAddress.replace(/\n/g, " ")}
-                </Text>
-              </View>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                {/* {formData.custAddress} */}
+                {formData.custAddress.replace(/\n/g, " ")}
+              </Text>
             </View>
           </View>
         </View>
@@ -750,7 +804,7 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         </View>
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithbold}>Welding Details</Text>
+          <Text style={styles.globalfontwithboldTitle}>Welding Details</Text>
         </View>
         <View style={styles.row}>
           {/* <Text style={styles.tableData01}>SL No</Text> */}
@@ -946,7 +1000,7 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         </View>
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithbold}>
+          <Text style={styles.globalfontwithboldTitle}>
             Customer requirments with respect to welding
           </Text>
         </View>
@@ -1022,7 +1076,7 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         </View>
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithbold}>Input Geometry</Text>
+          <Text style={styles.globalfontwithboldTitle}>Input Geometry</Text>
         </View>
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
@@ -1132,7 +1186,7 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         </View>
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithbold}>Testing</Text>
+          <Text style={styles.globalfontwithboldTitle}>Testing</Text>
         </View>
         {/* <View style={styles.NDT}>
           <Text style={[styles.globalfontwithbold, { marginLeft: "5px" }]}>
@@ -1157,19 +1211,23 @@ export default function RateEstimatorPdf({ formData }) {
               </Text>
             </View>
             <View style={styles.row}>
-              <Text style={styles.tableData01}>Test Name</Text>
-              <Text style={styles.tableData03}>Test Details</Text>
+              <Text style={styles.testingTableData01}>Test Name</Text>
+              <Text style={styles.testingTableData02}>Test Details</Text>
+              <Text style={styles.testingTableData03}>Cost</Text>
             </View>
             {tests.map((test, index) => (
               <View key={index} style={styles.row}>
-                <Text style={styles.tableInput01}>{test.Test_Name}</Text>
-                <Text style={styles.tableInput03}>{test.Test_Details}</Text>
+                <Text style={styles.testingTableInput01}>{test.Test_Name}</Text>
+                <Text style={styles.testingTableInput02}>
+                  {test.Test_Details}
+                </Text>
+                <Text style={styles.testingTableInput03}>{test.Test_Cost}</Text>
               </View>
             ))}
           </React.Fragment>
         ))}
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithbold}>Risks Deatils</Text>
+          <Text style={styles.globalfontwithboldTitle}>Risks Deatils</Text>
         </View>
         <View style={styles.row}>
           {/* <Text style={styles.tableData01}>SL No</Text> */}
@@ -1187,7 +1245,220 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         ))}
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithbold}>Quote Deatils</Text>
+          <Text style={styles.globalfontwithboldTitle}>Totals</Text>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Labour Time (Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Machine Time (Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Out Put Per Hour
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Labour Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Machine Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Transportation Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Fixture Charges
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Testing Charges
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Percentage(%)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Overhead Charges(%)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Total Price Per Part
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Revised Unit Price
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text
+                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
+                ></Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.WeldingDetails}>
+          <Text style={styles.globalfontwithboldTitle}>Quote Deatils</Text>
         </View>
         <View style={styles.row}>
           {/* <Text style={styles.tableData01}>SL No</Text> */}

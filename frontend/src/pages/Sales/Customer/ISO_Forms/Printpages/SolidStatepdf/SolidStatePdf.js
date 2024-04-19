@@ -339,6 +339,46 @@ const styles = StyleSheet.create({
     marginLeft: "10px",
     height: "20px",
   },
+  tableData01: {
+    fontSize: "8px",
+    fontFamily: "Helvetica-Bold",
+    width: "285px",
+    borderRight: 1,
+    borderBottom: 1,
+    borderLeft: 1,
+    marginLeft: "10px",
+    padding: 1,
+    textAlign: "center",
+  },
+  tableData03: {
+    fontSize: "8px",
+    fontFamily: "Helvetica-Bold",
+    width: "285px",
+    borderBottom: 1,
+    borderRight: 1,
+    padding: 1,
+    textAlign: "center",
+  },
+  tableInput01: {
+    fontSize: "8px",
+    width: "285px",
+    borderRight: 1,
+    borderBottom: 1,
+    borderLeft: 1,
+    marginLeft: "10px",
+    padding: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+  },
+  tableInput03: {
+    fontSize: "8px",
+    width: "285px",
+    borderRight: 1,
+    borderBottom: 1,
+    padding: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+  },
 });
 
 const SolidStatePdf = ({ formData }) => {
@@ -785,6 +825,16 @@ const SolidStatePdf = ({ formData }) => {
                 </View>
               </View>
             </View>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.tableData01}>Material</Text>
+            <Text style={styles.tableData03}>Thickness</Text>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.tableInput01}>SS</Text>
+            <Text style={styles.tableInput03}>3mm</Text>
           </View>
 
           <View style={styles.itemlist}>

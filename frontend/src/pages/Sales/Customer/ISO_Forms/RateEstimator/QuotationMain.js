@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function QuotationMain() {
-  const [QtnID, setQtnID] = useState(7109);
+  const [QtnID, setQtnID] = useState(7106);
   const navigate = useNavigate();
   const handleOpenClick = () => {
     navigate("/Customer/RateEstimator", {
