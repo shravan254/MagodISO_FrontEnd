@@ -401,14 +401,19 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       borderRight: 1,
     },
     globalfontwithbold: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
     },
+    globalfontwithboldTitle: {
+      fontSize: "8px",
+      fontFamily: "Helvetica-Bold",
+      color:'red',
+    },
     globalfontwithoutbold: {
-      fontSize: "9px",
+      fontSize: "8px",
     },
     tableData01: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "270px",
       borderRight: 1,
@@ -419,7 +424,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     tableInput01: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "270px",
       borderRight: 1,
       borderBottom: 1,
@@ -430,7 +435,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     tableData02: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "180px",
       borderRight: 1,
@@ -439,7 +444,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     tableInput02: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "180px",
       borderRight: 1,
       borderBottom: 1,
@@ -448,7 +453,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     tableData03: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "270px",
       borderBottom: 1,
@@ -457,7 +462,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     tableInput03: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "270px",
       borderRight: 1,
       borderBottom: 1,
@@ -467,7 +472,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     tableInput: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "180px",
       borderRight: 1,
       borderBottom: 1,
@@ -494,7 +499,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       padding: 1,
     },
     SlNo: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "50px",
       borderRight: 1,
@@ -505,7 +510,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     risk: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "490px",
       borderBottom: 1,
@@ -513,7 +518,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       padding: "2px",
     },
     SlData: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "50px",
       borderRight: 1,
       borderBottom: 1,
@@ -523,7 +528,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     RiskData: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "490px",
       borderRight: 1,
       borderBottom: 1,
@@ -531,7 +536,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       flexWrap: "wrap",
     },
     CheckBoxLabel01: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "30px",
       fontFamily: "Helvetica-Bold",
       borderRight: 1,
@@ -543,7 +548,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     CheckBox01: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "18px",
       borderRight: 1,
       borderBottom: 1,
@@ -552,7 +557,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     CheckBoxLabel02: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "70px",
       fontFamily: "Helvetica-Bold",
       borderBottom: 1,
@@ -562,7 +567,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     CheckBox02: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "19px",
       borderRight: 1,
       borderBottom: 1,
@@ -571,7 +576,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     CheckBoxLabel03: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "30px",
       fontFamily: "Helvetica-Bold",
       borderBottom: 1,
@@ -581,7 +586,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     CheckBox03: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "17px",
       borderRight: 1,
       borderBottom: 1,
@@ -590,7 +595,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     weld01: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "226px",
       borderRight: 1,
@@ -601,7 +606,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     first01: {
-      fontSize: "9px",
+      fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "314px",
       borderBottom: 1,
@@ -610,7 +615,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       textAlign: "center",
     },
     tableSolidLable: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "200px",
       borderRight: 1,
       borderBottom: 1,
@@ -621,7 +626,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       fontFamily: "Helvetica-Bold",
     },
     tableSolidData: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "70px",
       borderRight: 1,
       borderBottom: 1,
@@ -629,7 +634,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       flexWrap: "wrap",
     },
     tableCOLable: {
-      fontSize: "9px",
+      fontSize: "8px",
       width: "200px",
       borderBottom: 1,
       borderRight: 1,
@@ -647,7 +652,16 @@ export default function TaskSheetPdf({ formData = { formData } }) {
       marginLeft: "30px",
       flexWrap: "wrap",
       // fontFamily: "Helvetica-Bold",
-      fontSize: "9px",
+      fontSize: "8px",
+    },
+    tableInput03: {
+      fontSize: "8px",
+      width: "270px",
+      borderRight: 1,
+      borderBottom: 1,
+      padding: 3,
+      flexWrap: "wrap",
+      textAlign: "center",
     },
   });
 
@@ -716,10 +730,10 @@ export default function TaskSheetPdf({ formData = { formData } }) {
           <Text style={styles.tableData03}>Qty Received</Text>
         </View>
 
-        {/* <View style={styles.row}>
+        <View style={styles.row}>
           <Text style={styles.tableInput01}>BB-00008373</Text>
           <Text style={styles.tableInput03}>10</Text>
-        </View> */}
+        </View>
 
         {formData.subAssyTableData?.map((item, index) => (
           <View key={index} style={styles.row}>
@@ -1286,7 +1300,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
         </View>
 
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithbold}>Welding Parameters</Text>
+          <Text style={styles. globalfontwithboldTitle}>Welding Parameters</Text>
         </View>
 
         <View style={styles.row}>
