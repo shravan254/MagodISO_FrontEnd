@@ -478,11 +478,21 @@ function RateEstimator() {
             ? welding_register[0].MtrlSource
             : "",
 
-          expectedDelivery: welding_register.length
-            ? new Date(welding_register[0].Expected_Delivery)
-                .toISOString()
-                .split("T")[0]
-            : "",
+          // expectedDelivery: welding_register.length
+          //   ? new Date(welding_register[0].Expected_Delivery)
+          //       .toISOString()
+          //       .split("T")[0]
+          //   : "",
+          expectedDelivery:
+            welding_register.length > 0 &&
+            welding_register[0].Expected_Delivery &&
+            welding_register[0].Expected_Delivery !== "1970-01-01" &&
+            welding_register[0].Expected_Delivery != null &&
+            !isNaN(Date.parse(welding_register[0].Expected_Delivery))
+              ? new Date(welding_register[0].Expected_Delivery)
+                  .toISOString()
+                  .split("T")[0]
+              : "",
 
           testTableData: testing_details.length ? testing_details : [],
 

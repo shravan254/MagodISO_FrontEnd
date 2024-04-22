@@ -151,6 +151,71 @@ co2.post("/deleteMaterialDetails", async (req, res, next) => {
   }
 });
 
+co2.post("/updateMaterialDetails", async (req, res, next) => {
+  const { ncid, id, material, thickness } = req.body;
+
+  const thicknessValue = thickness !== "" ? thickness : null;
+  try {
+    misQueryMod(
+      `Update magodmis.co2_material_details SET Material = '${material}', Thickness = ${thicknessValue} where ID = ${id}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error updating data into co2_material_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+co2.post("/updateParaDetails", async (req, res, next) => {
+  const {
+    ncid,
+    id,
+    Gas_Type,
+    Bead_Dia,
+    Power,
+    Gap,
+    Flow_Pressure,
+    Focus,
+    Speed,
+    Frequency,
+    Comments,
+  } = req.body;
+
+  const beadDiaValue = Bead_Dia !== "" ? Bead_Dia : null;
+  const powerValue = Power !== "" ? Power : null;
+  const gapValue = Gap !== "" ? Gap : null;
+  const flowPressureValue = Flow_Pressure !== "" ? Flow_Pressure : null;
+  const focusValue = Focus !== "" ? Focus : null;
+  const speedValue = Speed !== "" ? Speed : null;
+  const frequencyValue = Frequency !== "" ? Frequency : null;
+
+  try {
+    misQueryMod(
+      `Update magodmis.co2_parameters SET Gas_Type = '${Gas_Type}', Bead_Dia = ${beadDiaValue}, Power = ${powerValue}, Gap = ${gapValue}, Flow_Pressure = ${flowPressureValue}, Focus = ${focusValue}, Speed = ${speedValue}, Frequency = ${frequencyValue}, Comments = '${Comments}' where ID = ${id}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error updating data into co2_parameters");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
 co2.post("/insertParaDetails", async (req, res, next) => {
   const {
     ncid,

@@ -357,6 +357,48 @@ export default function TaskSheet() {
     }
   };
 
+  const handlePartChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.subAssyTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
+      }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      subAssyTableData: updatedItems,
+    }));
+  };
+
+  const handleBlur = async (index, ID, subAssy, qtyReceived) => {
+    try {
+      const updateData = {
+        ncid: formData.ncid,
+        id: ID,
+        subAssy,
+        qtyReceived,
+      };
+
+      await Axios.post(apipoints.updateSubAssyDetails, updateData);
+
+      const updateSubAssy = [...formData.subAssyTableData];
+      updateSubAssy[index] = {
+        ...updateSubAssy[index],
+        subAssy,
+        qtyReceived,
+      };
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        subAssyTableData: updateSubAssy,
+      }));
+    } catch (error) {
+      console.error("Error updating material details", error);
+    }
+  };
+
   useEffect(() => {
     const fetchQtnData = async () => {
       try {
@@ -574,9 +616,6 @@ export default function TaskSheet() {
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
 
-  // console.log("HasBom", formData.hasBom);
-  // console.log("Qty", formData.qty);
-  // console.log("NcTaskId", formData.ncTaskId);
   console.log("data3", formData.partsTable);
 
   return (
@@ -694,7 +733,7 @@ export default function TaskSheet() {
                 </option>
                 <option value={1}>Yes</option>
                 <option value={0}>No</option>
-                <option value={2}>No</option>
+                <option value={2}>NA</option>
               </select>
             </div>
           </div>
@@ -711,7 +750,7 @@ export default function TaskSheet() {
                 type="text"
                 name="machineNo"
                 value={formData.machineNo}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
               />
             </div>
           </div>
@@ -728,7 +767,7 @@ export default function TaskSheet() {
                 type="text"
                 name="programNo"
                 value={formData.programNo}
-                onChange={handleInputChange}
+                // onChange={handleInputChange}
               />
             </div>
           </div>
@@ -1228,34 +1267,10 @@ export default function TaskSheet() {
                 </tr>
               </thead>
 
-              {/* <tbody style={{ textAlign: "center" }}>
-                {formData.subAssyTableData.map((item, index) => (
-                  <tr
-                    key={index}
-                    onClick={() => handleRowSelect(item.ID)}
-                    className={
-                      formData.selectedRow1 === item.ID ? "selectedRowClr" : 0
-                    }
-                  >
-                    <td>{index + 1}</td>
-                    <td>{item.Sub_Assy_Part_Name}</td>
-                    <td>{item.Qty_Received}</td>
-                  </tr>
-                ))}
-              </tbody> */}
-
               <tbody style={{ textAlign: "center" }}>
                 {formData.partsTable && formData.partsTable.length > 0
                   ? formData.partsTable.map((item, index) => (
-                      <tr
-                        key={index}
-                        // onClick={() => handleRowSelect(item.ID)}
-                        // className={
-                        //   formData.selectedRow1 === item.ID
-                        //     ? "selectedRowClr"
-                        //     : ""
-                        // }
-                      >
+                      <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{item.PartId}</td>
                         <td>{item.QtyPerAssy * formData.qty}</td>
@@ -1272,8 +1287,44 @@ export default function TaskSheet() {
                         }
                       >
                         <td>{index + 1}</td>
-                        <td>{item.Sub_Assy_Part_Name}</td>
-                        <td>{item.Qty_Received}</td>
+                        {/* <td>{item.Sub_Assy_Part_Name}</td> */}
+                        <td>
+                          <input
+                            type="text"
+                            className="input-style"
+                            value={item.Sub_Assy_Part_Name}
+                            name="Sub_Assy_Part_Name"
+                            onChange={(e) => handlePartChange(e, index)}
+                            onBlur={() =>
+                              handleBlur(
+                                index,
+                                item.ID,
+                                item.Sub_Assy_Part_Name,
+                                item.Qty_Received
+                              )
+                            }
+                          />
+                        </td>
+                        {/* <td>{item.Qty_Received}</td> */}
+                        <td>
+                          <input
+                            type="number"
+                            className="input-style"
+                            value={item.Qty_Received}
+                            name="Qty_Received"
+                            min={0}
+                            onChange={(e) => handlePartChange(e, index)}
+                            onKeyDown={blockInvalidChar}
+                            onBlur={() =>
+                              handleBlur(
+                                index,
+                                item.ID,
+                                item.Sub_Assy_Part_Name,
+                                item.Qty_Received
+                              )
+                            }
+                          />
+                        </td>
                       </tr>
                     ))}
               </tbody>

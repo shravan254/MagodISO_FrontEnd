@@ -9,5 +9,6 @@ export const apipoints = {
   saveCo2Parameters: `${url}/taskSheet/saveCo2Parameters`,
   insertSubAssyDetails: `${url}/taskSheet/insertSubAssyDetails`,
   deleteSubAssyDetails: `${url}/taskSheet/deleteSubAssyDetails`,
+  updateSubAssyDetails: `${url}/taskSheet/updateSubAssyDetails`,
   allTaskData: `${url}/taskSheet/allTaskData`,
 };

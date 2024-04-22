@@ -253,10 +253,12 @@ function Testing({
                       {/* <td>{item.Test_Cost}</td> */}
                       <td>
                         <input
-                          type="text"
+                          type="number"
+                          className="input-style"
                           value={item.Test_Cost}
                           name="Test_Cost"
                           onChange={(e) => handleTestDetailsChange(e, index)}
+                          min={0}
                           onBlur={() =>
                             handleBlur(
                               index,
@@ -265,13 +267,6 @@ function Testing({
                               item.Test_Cost
                             )
                           }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
                     </tr>

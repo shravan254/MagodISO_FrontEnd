@@ -154,6 +154,76 @@ solidState.post("/deleteMaterialDetails", async (req, res, next) => {
   }
 });
 
+solidState.post("/updateMaterialDetails", async (req, res, next) => {
+  const { ncid, id, material, thickness } = req.body;
+
+  const thicknessValue = thickness !== "" ? thickness : null;
+  try {
+    misQueryMod(
+      `Update magodmis.solid_state_material_details SET Material = '${material}', Thickness = ${thicknessValue} where ID = ${id}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error updating data into solid_state_material_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+solidState.post("/updateParaDetails", async (req, res, next) => {
+  const {
+    ncid,
+    id,
+    Bead_Dia,
+    Power,
+    Energy,
+    Pulse_Width,
+    Frequency,
+    Pulse_Shape,
+    Speed,
+    Gas_Flow,
+    Focus_Position,
+    Stand_Off,
+    Comments,
+  } = req.body;
+
+  const beadDiaValue = Bead_Dia !== "" ? Bead_Dia : null;
+  const powerValue = Power !== "" ? Power : null;
+  const energyValue = Energy !== "" ? Energy : null;
+  const pulseWidthValue = Pulse_Width !== "" ? Pulse_Width : null;
+  const frequencyValue = Frequency !== "" ? Frequency : null;
+  const pulseShapeValue = Pulse_Shape !== "" ? Pulse_Shape : null;
+  const speedValue = Speed !== "" ? Speed : null;
+  const gasFlowValue = Gas_Flow !== "" ? Gas_Flow : null;
+  const focusPositionValue = Focus_Position !== "" ? Focus_Position : null;
+  const standOffValue = Stand_Off !== "" ? Stand_Off : null;
+
+  try {
+    misQueryMod(
+      `Update magodmis.solid_state_parameters SET Bead_Dia = ${beadDiaValue}, Power = ${powerValue}, Energy = ${energyValue}, Pulse_Width = ${pulseWidthValue}, Frequency = ${frequencyValue}, Pulse_Shape = ${pulseShapeValue}, Speed = ${speedValue}, Gas_Flow = ${gasFlowValue}, Focus_Position = ${focusPositionValue}, Stand_Off = ${standOffValue}, Comments = '${Comments}' where ID = ${id}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error updating data into solid_state_parameters");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
 solidState.post("/insertParaDetails", async (req, res, next) => {
   const {
     ncid,
