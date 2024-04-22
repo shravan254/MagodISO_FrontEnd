@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function OrdersMain() {
-  const [NcId, SetNcId] = useState(424017);
+  const [NcId, SetNcId] = useState(168826);
   const navigate = useNavigate();
   const handleOpenClick = () => {
     navigate("/Customer/TaskSheet", {

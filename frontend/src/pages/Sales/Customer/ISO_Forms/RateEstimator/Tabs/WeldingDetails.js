@@ -231,10 +231,11 @@ function WeldingDetails({
                     }
                   >
                     <td>{index + 1}</td>
-                    {/* <td>{item.Material}</td> */}
+
                     <td>
                       <input
                         type="text"
+                        className="input-style"
                         value={item.Material}
                         name="Material"
                         onChange={(e) => handleMaterialChange(e, index)}
@@ -246,22 +247,18 @@ function WeldingDetails({
                             item.Thickness
                           )
                         }
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          backgroundColor: "transparent",
-                          border: "none",
-                          textAlign: "center",
-                        }}
                       />
                     </td>
-                    {/* <td>{item.Thickness}</td> */}
+
                     <td>
                       <input
-                        type="text"
+                        type="number"
+                        className="input-style"
                         value={item.Thickness}
                         name="Thickness"
+                        min={0}
                         onChange={(e) => handleMaterialChange(e, index)}
+                        onKeyDown={blockInvalidChar}
                         onBlur={() =>
                           handleBlur(
                             index,
@@ -270,13 +267,6 @@ function WeldingDetails({
                             item.Thickness
                           )
                         }
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          backgroundColor: "transparent",
-                          border: "none",
-                          textAlign: "center",
-                        }}
                       />
                     </td>
                   </tr>
@@ -751,7 +741,8 @@ function WeldingDetails({
                   type="date"
                   className="input-field"
                   name="expectedDelivery"
-                  value={formData.expectedDelivery}
+                  // value={formData.expectedDelivery}
+                  value={formData.expectedDelivery || ""}
                   onChange={handleInputChange}
                   min={today}
                   disabled={!formData.tabsEnable}

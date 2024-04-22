@@ -103,7 +103,12 @@ taskSheet.post("/saveTaskSheetRegister", async (req, res, next) => {
     tackWeld,
     note,
   } = req.body;
-  console.log("Task_Date", req.body.taskDate);
+  // console.log("Task_Date", req.body.taskDate);
+
+  const lensDistanceValue = lensDistance !== "" ? lensDistance : "NULL";
+  const mtrlThicknessValue = mtrlThickness !== "" ? mtrlThickness : "NULL";
+  const machinePeakPowerValue =
+    machinePeakPower !== "" ? machinePeakPower : "NULL";
 
   const backingValue = backing !== "" ? backing : "NULL";
   const anyDeffectsValue = anyDeffects !== "" ? anyDeffects : "NULL";
@@ -113,6 +118,9 @@ taskSheet.post("/saveTaskSheetRegister", async (req, res, next) => {
   const reweldPermittedValue =
     reweldPermitted !== "" ? reweldPermitted : "NULL";
   const tackWeldValue = tackWeld !== "" ? tackWeld : "NULL";
+
+  const preFlowGasValue = preFlowGas !== "" ? preFlowGas : "NULL";
+  const postFlowGasValue = postFlowGas !== "" ? postFlowGas : "NULL";
 
   try {
     misQueryMod(
@@ -131,11 +139,11 @@ taskSheet.post("/saveTaskSheetRegister", async (req, res, next) => {
               '${taskDate}',
               '${machineNo}', '${programNo}',
               ${fixtureRequirementValue},
-              ${lensDistance}, ${mtrlThickness},
+              ${lensDistanceValue}, ${mtrlThicknessValue},
               ${withFillerValue},
-              '${fillerMaterial}', '${batchNo}', ${machinePeakPower}, '${laserEquipment}',
+              '${fillerMaterial}', '${batchNo}', ${machinePeakPowerValue}, '${laserEquipment}',
               ${reweldPermittedValue},
-              '${fixtureNo}', '${controlPlanNo}', '${wpsNo}', '${pfdNo}', '${wiNo}', '${pqrNo}', '${standardOfRef}', ${partInspectionQC}, ${partInspectionWeldEngineer}, ${partInspectionIncharge}, ${partInspectionProjectManager}, ${weldSettingQC}, ${weldSettingWeldEngineer}, ${weldSettingIncharge}, ${preFlowGas}, ${postFlowGas},
+              '${fixtureNo}', '${controlPlanNo}', '${wpsNo}', '${pfdNo}', '${wiNo}', '${pqrNo}', '${standardOfRef}', ${partInspectionQC}, ${partInspectionWeldEngineer}, ${partInspectionIncharge}, ${partInspectionProjectManager}, ${weldSettingQC}, ${weldSettingWeldEngineer}, ${weldSettingIncharge}, ${preFlowGasValue}, ${postFlowGasValue},
               '${designType}','${weldSide}', '${gasType}',${backingValue},${tackWeldValue},'${note}')`,
             (err, result) => {
               if (err) {
@@ -150,17 +158,17 @@ taskSheet.post("/saveTaskSheetRegister", async (req, res, next) => {
           );
         } else {
           misQueryMod(
-            `UPDATE magodmis.taskSheet_register SET Defects = ${anyDeffects},
+            `UPDATE magodmis.taskSheet_register SET Defects = ${anyDeffectsValue},
             Task_Date = '${taskDate}',
             Machine = '${machineNo}',
             NCProgramNo = '${programNo}',
             Fixture_Requirement = ${fixtureRequirementValue},
-            Lens_Distance = ${lensDistance},
-            Material_Thickness = ${mtrlThickness},
+            Lens_Distance = ${lensDistanceValue},
+            Material_Thickness = ${mtrlThicknessValue},
             With_Filler = ${withFillerValue},
             Filler = '${fillerMaterial}',
             Batch_No = '${batchNo}',
-            Machine_Peak_Power = ${machinePeakPower},
+            Machine_Peak_Power = ${machinePeakPowerValue},
             Laser_Type = '${laserEquipment}',
             Reweld_Permitted = ${reweldPermittedValue},
             Fixture_No = '${fixtureNo}',
@@ -177,8 +185,8 @@ taskSheet.post("/saveTaskSheetRegister", async (req, res, next) => {
             WeldSetting_QC = ${weldSettingQC},
             WeldSetting_WeldEngineer = ${weldSettingWeldEngineer},
             WeldSetting_Incharge = ${weldSettingIncharge},
-            Pre_Flow_Gas = ${preFlowGas},
-            Post_Flow_Gas = ${postFlowGas},
+            Pre_Flow_Gas = ${preFlowGasValue},
+            Post_Flow_Gas = ${postFlowGasValue},
             Design_Type = '${designType}',
             Weld_Side = '${weldSide}',
             Gas_Type = '${gasType}',
@@ -220,7 +228,23 @@ taskSheet.post("/saveSolidStateParameters", async (req, res, next) => {
     ssgapRange,
     ssgasFlowOrientation,
   } = req.body;
-  // console.log("req.body Save", req.body);
+
+  const sspoweratfocusValue = sspoweratfocus !== "" ? sspoweratfocus : "NULL";
+  const ssfocusDiaValue = ssfocusDia !== "" ? ssfocusDia : "NULL";
+  const sspulseDurationValue =
+    sspulseDuration !== "" ? sspulseDuration : "NULL";
+  const sspulseFrequencyValue =
+    sspulseFrequency !== "" ? sspulseFrequency : "NULL";
+  const sspulseShapeNoValue = sspulseShapeNo !== "" ? sspulseShapeNo : "NULL";
+  const ssgasPressureValue = ssgasPressure !== "" ? ssgasPressure : "NULL";
+  const ssfeedRateValue = ssfeedRate !== "" ? ssfeedRate : "NULL";
+
+  const ssrpmValue = ssrpm !== "" ? ssrpm : "NULL";
+  const ssgasPurityValue = ssgasPurity !== "" ? ssgasPurity : "NULL";
+  const ssgapRangeValue = ssgapRange !== "" ? ssgapRange : "NULL";
+  const ssgasFlowOrientationValue =
+    ssgasFlowOrientation !== "" ? ssgasFlowOrientation : "NULL";
+
   try {
     misQueryMod(
       `SELECT COUNT(*) AS count FROM magodmis.solidState_Parameters where Ncid = ${ncid}`,
@@ -234,7 +258,7 @@ taskSheet.post("/saveSolidStateParameters", async (req, res, next) => {
         if (count === 0) {
           misQueryMod(
             `INSERT INTO magodmis.solidState_Parameters (Ncid, Power_at_focus,Focus_Dia, Pulse_Duration, Pulse_Frequency, Pulse_Shape_No, Gas_Pressure, Feed_Rate, RPM, Gas_Purity, Gap_Range, Gas_Flow_Orientation) VALUES (${ncid}, 
-              ${sspoweratfocus}, ${ssfocusDia}, ${sspulseDuration}, ${sspulseFrequency}, ${sspulseShapeNo}, ${ssgasPressure}, ${ssfeedRate}, ${ssrpm}, ${ssgasPurity}, ${ssgapRange}, ${ssgasFlowOrientation})`,
+              ${sspoweratfocusValue}, ${ssfocusDiaValue}, ${sspulseDurationValue}, ${sspulseFrequencyValue}, ${sspulseShapeNoValue}, ${ssgasPressureValue}, ${ssfeedRateValue}, ${ssrpmValue}, ${ssgasPurityValue}, ${ssgapRangeValue}, ${ssgasFlowOrientationValue})`,
             (err, result) => {
               if (err) {
                 logger.error(err);
@@ -248,17 +272,17 @@ taskSheet.post("/saveSolidStateParameters", async (req, res, next) => {
           );
         } else {
           misQueryMod(
-            `UPDATE magodmis.solidState_Parameters SET Power_at_focus = ${sspoweratfocus}, 
-            Focus_Dia = ${ssfocusDia}, 
-            Pulse_Duration = ${sspulseDuration}, 
-            Pulse_Frequency = ${sspulseFrequency}, 
-            Pulse_Shape_No = ${sspulseShapeNo}, 
-            Gas_Pressure = ${ssgasPressure}, 
-            Feed_Rate = ${ssfeedRate}, 
-            RPM = ${ssrpm}, 
-            Gas_Purity = ${ssgasPurity}, 
-            Gap_Range = ${ssgapRange}, 
-            Gas_Flow_Orientation = ${ssgasFlowOrientation}
+            `UPDATE magodmis.solidState_Parameters SET Power_at_focus = ${sspoweratfocusValue}, 
+            Focus_Dia = ${ssfocusDiaValue}, 
+            Pulse_Duration = ${sspulseDurationValue}, 
+            Pulse_Frequency = ${sspulseFrequencyValue}, 
+            Pulse_Shape_No = ${sspulseShapeNoValue}, 
+            Gas_Pressure = ${ssgasPressureValue}, 
+            Feed_Rate = ${ssfeedRateValue}, 
+            RPM = ${ssrpmValue}, 
+            Gas_Purity = ${ssgasPurityValue}, 
+            Gap_Range = ${ssgapRangeValue}, 
+            Gas_Flow_Orientation = ${ssgasFlowOrientationValue}
             WHERE Ncid = ${ncid}`,
             (err, result) => {
               if (err) {
@@ -294,7 +318,23 @@ taskSheet.post("/saveCo2Parameters", async (req, res, next) => {
     cogapRange,
     cogasFlowOrientation,
   } = req.body;
-  // console.log("req.body Save", req.body);
+
+  const copowerTransmissionEfficiencyValue =
+    copowerTransmissionEfficiency !== ""
+      ? copowerTransmissionEfficiency
+      : "NULL";
+  const copowerValue = copower !== "" ? copower : "NULL";
+  const cofrequencyValue = cofrequency !== "" ? cofrequency : "NULL";
+  const cobeamDiaValue = cobeamDia !== "" ? cobeamDia : "NULL";
+  const cofocusValue = cofocus !== "" ? cofocus : "NULL";
+  const cogasPressureValue = cogasPressure !== "" ? cogasPressure : "NULL";
+  const cofeedRateValue = cofeedRate !== "" ? cofeedRate : "NULL";
+  const corpmValue = corpm !== "" ? corpm : "NULL";
+  const cogasPurityValue = cogasPurity !== "" ? cogasPurity : "NULL";
+  const cogapRangeValue = cogapRange !== "" ? cogapRange : "NULL";
+  const cogasFlowOrientationValue =
+    cogasFlowOrientation !== "" ? cogasFlowOrientation : "NULL";
+
   try {
     misQueryMod(
       `SELECT COUNT(*) AS count FROM magodmis.co2_laser_parameters where Ncid = ${ncid}`,
@@ -308,7 +348,7 @@ taskSheet.post("/saveCo2Parameters", async (req, res, next) => {
         if (count === 0) {
           misQueryMod(
             `INSERT INTO magodmis.co2_laser_parameters (Ncid, Power_Transmission_Efficiency,Power, Frequency, Beam_Dia, Focus, Gas_Pressure, Feed_Rate, RPM, Gas_Purity, Gap_Range, Gas_Flow_Orientation) VALUES (${ncid}, 
-              ${copowerTransmissionEfficiency}, ${copower}, ${cofrequency}, ${cobeamDia}, ${cofocus}, ${cogasPressure}, ${cofeedRate}, ${corpm}, ${cogasPurity}, ${cogapRange}, ${cogasFlowOrientation})`,
+              ${copowerTransmissionEfficiencyValue}, ${copowerValue}, ${cofrequencyValue}, ${cobeamDiaValue}, ${cofocusValue}, ${cogasPressureValue}, ${cofeedRateValue}, ${corpmValue}, ${cogasPurityValue}, ${cogapRangeValue}, ${cogasFlowOrientationValue})`,
             (err, result) => {
               if (err) {
                 logger.error(err);
@@ -324,17 +364,17 @@ taskSheet.post("/saveCo2Parameters", async (req, res, next) => {
           );
         } else {
           misQueryMod(
-            `UPDATE magodmis.co2_laser_parameters SET Power_Transmission_Efficiency = ${copowerTransmissionEfficiency}, 
-            Power = ${copower}, 
-            Frequency = ${cofrequency}, 
-            Beam_Dia = ${cobeamDia}, 
-            Focus = ${cofocus}, 
-            Gas_Pressure = ${cogasPressure}, 
-            Feed_Rate = ${cofeedRate}, 
-            RPM = ${corpm},
-            Gas_Purity = ${cogasPurity}, 
-            Gap_Range = ${cogapRange}, 
-            Gas_Flow_Orientation = ${cogasFlowOrientation}
+            `UPDATE magodmis.co2_laser_parameters SET Power_Transmission_Efficiency = ${copowerTransmissionEfficiencyValue}, 
+            Power = ${copowerValue}, 
+            Frequency = ${cofrequencyValue}, 
+            Beam_Dia = ${cobeamDiaValue}, 
+            Focus = ${cofocusValue}, 
+            Gas_Pressure = ${cogasPressureValue}, 
+            Feed_Rate = ${cofeedRateValue}, 
+            RPM = ${corpmValue},
+            Gas_Purity = ${cogasPurityValue}, 
+            Gap_Range = ${cogapRangeValue}, 
+            Gas_Flow_Orientation = ${cogasFlowOrientationValue}
             WHERE Ncid = ${ncid}`,
             (err, result) => {
               if (err) {
@@ -397,6 +437,29 @@ taskSheet.post("/deleteSubAssyDetails", async (req, res, next) => {
           return res
             .status(500)
             .send("Error deleting data from taskSheet_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+taskSheet.post("/updateSubAssyDetails", async (req, res, next) => {
+  const { ncid, id, subAssy, qtyReceived } = req.body;
+
+  const qtyReceivedValue = qtyReceived !== "" ? qtyReceived : null;
+  try {
+    misQueryMod(
+      `Update magodmis.taskSheet_details SET Sub_Assy_Part_Name = '${subAssy}', Qty_Received = ${qtyReceivedValue} where ID = ${id}`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res
+            .status(500)
+            .send("Error updating data into taskSheet_details");
         }
 
         res.send(result);

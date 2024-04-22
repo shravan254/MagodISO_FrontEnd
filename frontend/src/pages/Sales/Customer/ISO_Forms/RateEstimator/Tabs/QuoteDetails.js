@@ -257,6 +257,7 @@ export default function QuoteDetails({
         materialCost: 0,
         fillerCost: 0,
         overheadCharges: 0,
+        percentage: 0,
       }));
     } catch (error) {
       console.error("Error Adding Quote Details", error);
@@ -582,82 +583,187 @@ export default function QuoteDetails({
     }));
   };
 
-  const handleQuoteBlur = async (
-    index,
-    quoteId,
-    weldLength,
-    weldSpeed,
-    weldingTime,
-    setUpTime,
-    incomingInspectionTime,
-    cleaningTime,
-    assemblyTime,
-    partLoadingTime,
-    partUnloadingTime,
-    finalInspectionTime,
-    packingDispatchTime,
-    setupCharges,
-    inspectionCharges,
-    outSourcingCharges,
-    consumables,
-    materialCost,
-    fillerCost
-  ) => {
+  const handleQuoteBlur = async (index, item) => {
     try {
       const updateData = {
         qtnID: formData.qtnID,
-        quoteId: quoteId,
-        weldLength,
-        weldSpeed,
-        weldingTime,
-        setUpTime,
-        incomingInspectionTime,
-        cleaningTime,
-        assemblyTime,
-        partLoadingTime,
-        partUnloadingTime,
-        finalInspectionTime,
-        packingDispatchTime,
-        setupCharges,
-        inspectionCharges,
-        outSourcingCharges,
-        consumables,
-        materialCost,
-        fillerCost,
+        quoteId: item.ID,
+        ...item,
       };
 
-      await Axios.post(apipoints.updateQuoteDetails, updateData);
+      const response = await Axios.post(
+        apipoints.updateQuoteDetails,
+        updateData
+      );
 
-      const updatedQuote = [...formData.quoteDetailsTableData];
-      updatedQuote[index] = {
-        ...updatedQuote[index],
-        weldLength,
-        weldSpeed,
-        weldingTime,
-        setUpTime,
-        incomingInspectionTime,
-        cleaningTime,
-        assemblyTime,
-        partLoadingTime,
-        partUnloadingTime,
-        finalInspectionTime,
-        packingDispatchTime,
-        setupCharges,
-        inspectionCharges,
-        outSourcingCharges,
-        consumables,
-        materialCost,
-        fillerCost,
-      };
+      if (response.status === 200) {
+        // Optionally update the local copy of data
+        const updatedQuotes = [...formData.quoteDetailsTableData];
+        updatedQuotes[index] = { ...item };
 
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        quoteDetailsTableData: updatedQuote,
-      }));
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          quoteDetailsTableData: updatedQuotes,
+        }));
 
-      // toast.success("Material details updated successfully");
+        const totalWeldLength = updatedQuotes.reduce(
+          (acc, curr) => acc + parseFloat(curr.Weld_Length || 0),
+          0
+        );
+
+        const totalWeldSpeed = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Weld_Speed || 0),
+          0
+        );
+
+        const totalWeldTime = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Weld_Time || 0),
+          0
+        );
+
+        const totalSetupTime = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Setup_Time || 0),
+          0
+        );
+
+        const totalInspectionTime = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Inspection_Time || 0),
+          0
+        );
+
+        const totalCleaningTime = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Cleaning_Time || 0),
+          0
+        );
+
+        const totalAssemblyTime = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Assembly_Time || 0),
+          0
+        );
+
+        const totalPartLoading = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Part_Loading || 0),
+          0
+        );
+
+        const totalPartUnloading = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Part_Unloading || 0),
+          0
+        );
+
+        const totalFinalInspectionTime = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.FinalInspection_Time || 0),
+          0
+        );
+
+        const totalPackingDispatchTime = updatedQuotes.reduce(
+          (acc, curr) => acc + parseInt(curr.Packing_Dispatch_Time || 0),
+          0
+        );
+
+        const totalSetupCharges = updatedQuotes.reduce(
+          (acc, curr) => acc + parseFloat(curr.SetUp_Charges || 0),
+          0
+        );
+
+        const totalInspectionCharges = updatedQuotes.reduce(
+          (acc, curr) => acc + parseFloat(curr.Inspection_Charges || 0),
+          0
+        );
+
+        const totalOutSourcingCharges = updatedQuotes.reduce(
+          (acc, curr) => acc + parseFloat(curr.OutSoucring_Charges || 0),
+          0
+        );
+
+        const totalConsumables = updatedQuotes.reduce(
+          (acc, curr) => acc + parseFloat(curr.Consumables || 0),
+          0
+        );
+
+        const totalMaterialCost = updatedQuotes.reduce(
+          (acc, curr) => acc + parseFloat(curr.Material_Cost || 0),
+          0
+        );
+
+        const totalFillerCost = updatedQuotes.reduce(
+          (acc, curr) => acc + parseFloat(curr.Filler_Cost || 0),
+          0
+        );
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          totalWeldLength: totalWeldLength.toFixed(2),
+          totalWeldTime: totalWeldTime,
+          totalWeldSpeed: totalWeldSpeed.toFixed(2),
+          totalSetupTime: totalSetupTime,
+          totalInspectionTime: totalInspectionTime,
+          totalCleaningTime: totalCleaningTime,
+          totalAssemblyTime: totalAssemblyTime,
+          totalPartLoading: totalPartLoading,
+          totalPartUnloading: totalPartUnloading,
+          totalFinalInspectionTime: totalFinalInspectionTime,
+          totalPackingDispatchTime: totalPackingDispatchTime,
+          totalSetupCharges: totalSetupCharges.toFixed(2),
+          totalInspectionCharges: totalInspectionCharges.toFixed(2),
+          totalOutSourcingCharges: totalOutSourcingCharges.toFixed(2),
+          totalConsumables: totalConsumables.toFixed(2),
+          totalMaterialCost: totalMaterialCost.toFixed(2),
+          totalFillerCost: totalFillerCost.toFixed(2),
+        }));
+
+        const labourTime =
+          totalInspectionTime +
+          totalCleaningTime +
+          totalAssemblyTime +
+          totalPackingDispatchTime;
+
+        const machineTime =
+          totalPartLoading +
+          totalPartUnloading +
+          totalWeldTime +
+          totalFinalInspectionTime;
+
+        const updatedFormData = {
+          qtnID: formData.qtnID,
+          totalWeldLength: totalWeldLength.toFixed(2),
+          totalWeldSpeed: totalWeldSpeed.toFixed(2),
+          totalWeldTime: totalWeldTime,
+          totalSetupTime: totalSetupTime,
+          totalInspectionTime: totalInspectionTime,
+          totalCleaningTime: totalCleaningTime,
+          totalAssemblyTime: totalAssemblyTime,
+          totalPartLoading: totalPartLoading,
+          totalPartUnloading: totalPartUnloading,
+          totalFinalInspectionTime: totalFinalInspectionTime,
+          totalPackingDispatchTime: totalPackingDispatchTime,
+          totalSetupCharges: totalSetupCharges.toFixed(2),
+          totalInspectionCharges: totalInspectionCharges.toFixed(2),
+          totalOutSourcingCharges: totalOutSourcingCharges.toFixed(2),
+          totalConsumables: totalConsumables.toFixed(2),
+          totalMaterialCost: totalMaterialCost.toFixed(2),
+          totalFillerCost: totalFillerCost.toFixed(2),
+          labourTime: labourTime,
+          unitPrice: formData.unitPrice,
+          revisedUnitPrice: formData.revisedUnitPrice,
+          machineTime: machineTime,
+        };
+
+        await Axios.post(apipoints.updateQuoteRegister, updatedFormData);
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          ...updatedFormData,
+          percentage: 0,
+          overheadCharges: 0,
+          revisedUnitPrice: 0,
+        }));
+      } else {
+        throw new Error("Update failed");
+      }
     } catch (error) {
       console.error("Error updating Quote details", error);
+      // toast.error("Error updating Quote details");
     }
   };
 
@@ -1232,730 +1338,208 @@ export default function QuoteDetails({
                     >
                       <td>{index + 1}</td>
                       <td>{item.Joint_No}</td>
-                      {/* <td>{item.Weld_Length}</td> */}
+
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Weld_Length}
                           name="Weld_Length"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-                      {/* <td>{item.Weld_Speed}</td> */}
+
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Weld_Speed}
                           name="Weld_Speed"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-                      {/* <td>{item.Weld_Time}</td> */}
+
                       <td>
                         <input
                           type="text"
+                          className="input-style"
                           value={item.Weld_Time}
                           name="Weld_Time"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-                      {/* <td>{item.Setup_Time}</td> */}
+
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Setup_Time}
                           name="Setup_Time"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-                      {/* <td>{item.Inspection_Time}</td> */}
+
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Inspection_Time}
                           name="Inspection_Time"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-                      {/* <td>{item.Cleaning_Time}</td> */}
+
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Cleaning_Time}
                           name="Cleaning_Time"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-                      {/* <td>{item.Assembly_Time}</td> */}
+
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Assembly_Time}
                           name="Assembly_Time"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
 
-                      {/* <td>{item.Part_Loading}</td> */}
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Part_Loading}
                           name="Part_Loading"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
 
-                      {/* <td>{item.Part_Unloading}</td> */}
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Part_Unloading}
                           name="Part_Unloading"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
 
                       <td>
-                        {/* <td>{item.FinalInspection_Time}</td> */}
                         <input
                           type="number"
+                          className="input-style"
                           value={item.FinalInspection_Time}
                           name="FinalInspection_Time"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-                      {/* <td>{item.Packing_Dispatch_Time}</td> */}
 
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Packing_Dispatch_Time}
                           name="Packing_Dispatch_Time"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidPointChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
 
-                      {/* <td>{item.SetUp_Charges}</td> */}
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.SetUp_Charges}
                           name="SetUp_Charges"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-                      {/* <td>{item.Inspection_Charges}</td> */}
 
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Inspection_Charges}
                           name="Inspection_Charges"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
 
-                      {/* <td>{item.OutSoucring_Charges}</td> */}
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.OutSoucring_Charges}
-                          min={0}
-                          onKeyDown={blockInvalidChar}
-                          disabled={!formData.tabsEnable}
                           name="OutSoucring_Charges"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
+                          onBlur={() => handleQuoteBlur(index, item)}
+                          disabled={!formData.tabsEnable}
                         />
                       </td>
-
-                      {/* <td>{item.Consumables}</td> */}
 
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Consumables}
                           name="Consumables"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
 
-                      {/* <td>{item.Material_Cost}</td> */}
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Material_Cost}
                           name="Material_Cost"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
-
-                      {/* <td>{item.Filler_Cost}</td> */}
 
                       <td>
                         <input
                           type="number"
+                          className="input-style"
                           value={item.Filler_Cost}
                           name="Filler_Cost"
                           onChange={(e) => handleQuoteDetailsChange(e, index)}
-                          min={0}
-                          onKeyDown={blockInvalidChar}
+                          onBlur={() => handleQuoteBlur(index, item)}
                           disabled={!formData.tabsEnable}
-                          onBlur={() =>
-                            handleQuoteBlur(
-                              index,
-                              item.ID,
-                              item.Weld_Length,
-                              item.Weld_Speed,
-                              item.Weld_Time,
-                              item.Setup_Time,
-                              item.Inspection_Time,
-                              item.Cleaning_Time,
-                              item.Assembly_Time,
-                              item.Part_Loading,
-                              item.Part_Unloading,
-                              item.FinalInspection_Time,
-                              item.Packing_Dispatch_Time,
-                              item.SetUp_Charges,
-                              item.Inspection_Charges,
-                              item.OutSoucring_Charges,
-                              item.Consumables,
-                              item.Material_Cost,
-                              item.Filler_Cost
-                            )
-                          }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
                     </tr>
@@ -1965,16 +1549,13 @@ export default function QuoteDetails({
                     <td colSpan="2">Total</td>
                     <td>{calculateTotal("Weld_Length")}</td>
                     <td>{calculateTotal("Weld_Speed")}</td>
-
                     <td>{parseInt(calculateTotal("Weld_Time"))}</td>
-
                     <td>{parseInt(calculateTotal("Setup_Time"))}</td>
                     <td>{parseInt(calculateTotal("Inspection_Time"))}</td>
                     <td>{parseInt(calculateTotal("Cleaning_Time"))}</td>
                     <td>{parseInt(calculateTotal("Assembly_Time"))}</td>
                     <td>{parseInt(calculateTotal("Part_Loading"))}</td>
                     <td>{parseInt(calculateTotal("Part_Unloading"))}</td>
-
                     <td>{parseInt(calculateTotal("FinalInspection_Time"))}</td>
                     <td>{parseInt(calculateTotal("Packing_Dispatch_Time"))}</td>
                     <td>{calculateTotal("SetUp_Charges")}</td>

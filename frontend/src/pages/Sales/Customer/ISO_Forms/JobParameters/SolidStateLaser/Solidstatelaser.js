@@ -252,6 +252,92 @@ export default function Solidstatelaser() {
     }
   };
 
+  const handleMaterialChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.materialTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
+      }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      materialTableData: updatedItems,
+    }));
+  };
+
+  const handleBlur = async (index, ID, material, thickness) => {
+    try {
+      const updateData = {
+        ncid: formData.ncid,
+        id: ID,
+        material,
+        thickness,
+      };
+
+      await Axios.post(apipoints.updateMaterialDetails, updateData);
+
+      const updateMtrlDetails = [...formData.materialTableData];
+      updateMtrlDetails[index] = {
+        ...updateMtrlDetails[index],
+        material,
+        thickness,
+      };
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        materialTableData: updateMtrlDetails,
+      }));
+    } catch (error) {
+      console.error("Error updating material details", error);
+    }
+  };
+
+  const handleParaChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.parametersTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
+      }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      parametersTableData: updatedItems,
+    }));
+  };
+
+  const handleParaBlur = async (index, item) => {
+    try {
+      const updateData = {
+        ncid: formData.ncid,
+        id: item.ID,
+        ...item,
+      };
+
+      const response = await Axios.post(
+        apipoints.updateParaDetails,
+        updateData
+      );
+
+      if (response.status === 200) {
+        const updateParaDetails = [...formData.parametersTableData];
+        updateParaDetails[index] = { ...item };
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          parametersTableData: updateParaDetails,
+        }));
+      } else {
+        throw new Error("Update failed");
+      }
+    } catch (error) {
+      console.error("Error updating Parameter details", error);
+    }
+  };
+
   useEffect(() => {
     const fetchQtnData = async () => {
       try {
@@ -518,8 +604,44 @@ export default function Solidstatelaser() {
                     }
                   >
                     <td>{index + 1}</td>
-                    <td>{item.Material}</td>
-                    <td>{item.Thickness}</td>
+                    {/* <td>{item.Material}</td> */}
+                    <td>
+                      <input
+                        type="text"
+                        className="input-style"
+                        value={item.Material}
+                        name="Material"
+                        onChange={(e) => handleMaterialChange(e, index)}
+                        onBlur={() =>
+                          handleBlur(
+                            index,
+                            item.ID,
+                            item.Material,
+                            item.Thickness
+                          )
+                        }
+                      />
+                    </td>
+                    {/* <td>{item.Thickness}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Thickness}
+                        name="Thickness"
+                        min={0}
+                        onChange={(e) => handleMaterialChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() =>
+                          handleBlur(
+                            index,
+                            item.ID,
+                            item.Material,
+                            item.Thickness
+                          )
+                        }
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -638,17 +760,151 @@ export default function Solidstatelaser() {
                     }
                   >
                     <td>{index + 1}</td>
-                    <td>{item.Bead_Dia}</td>
-                    <td>{item.Power}</td>
-                    <td>{item.Energy}</td>
-                    <td>{item.Pulse_Width}</td>
-                    <td>{item.Frequency}</td>
-                    <td>{item.Pulse_Shape}</td>
-                    <td>{item.Speed}</td>
-                    <td>{item.Gas_Flow}</td>
-                    <td>{item.Focus_Position}</td>
-                    <td>{item.Stand_Off}</td>
-                    <td>{item.Comments}</td>
+                    {/* <td>{item.Bead_Dia}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Bead_Dia}
+                        name="Bead_Dia"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Power}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Power}
+                        name="Power"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Energy}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Energy}
+                        name="Energy"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+
+                    {/* <td>{item.Pulse_Width}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Pulse_Width}
+                        name="Pulse_Width"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+
+                    {/* <td>{item.Frequency}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Frequency}
+                        name="Frequency"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+
+                    {/* <td>{item.Pulse_Shape}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Pulse_Shape}
+                        name="Pulse_Shape"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Speed}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Speed}
+                        name="Speed"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+
+                    {/* <td>{item.Gas_Flow}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Gas_Flow}
+                        name="Gas_Flow"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Focus_Position}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Focus_Position}
+                        name="Focus_Position"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Stand_Off}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Stand_Off}
+                        name="Stand_Off"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Comments}</td> */}
+                    <td>
+                      <input
+                        type="text"
+                        className="input-style"
+                        value={item.Comments}
+                        name="Comments"
+                        onChange={(e) => handleParaChange(e, index)}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>

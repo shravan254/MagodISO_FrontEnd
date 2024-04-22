@@ -243,6 +243,92 @@ export default function Co2Form() {
     }
   };
 
+  const handleMaterialChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.materialTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
+      }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      materialTableData: updatedItems,
+    }));
+  };
+
+  const handleBlur = async (index, ID, material, thickness) => {
+    try {
+      const updateData = {
+        ncid: formData.ncid,
+        id: ID,
+        material,
+        thickness,
+      };
+
+      await Axios.post(apipoints.updateMaterialDetails, updateData);
+
+      const updateMtrlDetails = [...formData.materialTableData];
+      updateMtrlDetails[index] = {
+        ...updateMtrlDetails[index],
+        material,
+        thickness,
+      };
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        materialTableData: updateMtrlDetails,
+      }));
+    } catch (error) {
+      console.error("Error updating material details", error);
+    }
+  };
+
+  const handleParaChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedItems = formData.parametersTableData.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, [name]: value };
+      }
+      return item;
+    });
+
+    setFormData((prevData) => ({
+      ...prevData,
+      parametersTableData: updatedItems,
+    }));
+  };
+
+  const handleParaBlur = async (index, item) => {
+    try {
+      const updateData = {
+        ncid: formData.ncid,
+        id: item.ID,
+        ...item,
+      };
+
+      const response = await Axios.post(
+        apipoints.updateParaDetails,
+        updateData
+      );
+
+      if (response.status === 200) {
+        const updateParaDetails = [...formData.parametersTableData];
+        updateParaDetails[index] = { ...item };
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          parametersTableData: updateParaDetails,
+        }));
+      } else {
+        throw new Error("Update failed");
+      }
+    } catch (error) {
+      console.error("Error updating Parameter details", error);
+    }
+  };
+
   useEffect(() => {
     const fetchQtnData = async () => {
       try {
@@ -412,14 +498,6 @@ export default function Co2Form() {
               <label className="form-label">Joint</label>
             </div>
             <div className="col-8">
-              {/* <input
-                className="input-field"
-                type="text"
-                name="joint"
-                value={formData.joint}
-                onChange={handleInputChange}
-              /> */}
-
               <select
                 className="ip-select"
                 name="joint"
@@ -479,8 +557,44 @@ export default function Co2Form() {
                     }
                   >
                     <td>{index + 1}</td>
-                    <td>{item.Material}</td>
-                    <td>{item.Thickness}</td>
+                    {/* <td>{item.Material}</td> */}
+                    <td>
+                      <input
+                        type="text"
+                        className="input-style"
+                        value={item.Material}
+                        name="Material"
+                        onChange={(e) => handleMaterialChange(e, index)}
+                        onBlur={() =>
+                          handleBlur(
+                            index,
+                            item.ID,
+                            item.Material,
+                            item.Thickness
+                          )
+                        }
+                      />
+                    </td>
+                    {/* <td>{item.Thickness}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Thickness}
+                        name="Thickness"
+                        min={0}
+                        onChange={(e) => handleMaterialChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() =>
+                          handleBlur(
+                            index,
+                            item.ID,
+                            item.Material,
+                            item.Thickness
+                          )
+                        }
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -597,15 +711,119 @@ export default function Co2Form() {
                     }
                   >
                     <td>{index + 1}</td>
-                    <td>{item.Gas_Type}</td>
-                    <td>{item.Bead_Dia}</td>
-                    <td>{item.Power}</td>
-                    <td>{item.Gap}</td>
-                    <td>{item.Flow_Pressure}</td>
-                    <td>{item.Focus}</td>
-                    <td>{item.Speed}</td>
-                    <td>{item.Frequency}</td>
-                    <td>{item.Comments}</td>
+                    {/* <td>{item.Gas_Type}</td> */}
+                    <td>
+                      <input
+                        type="text"
+                        className="input-style"
+                        value={item.Gas_Type}
+                        name="Gas_Type"
+                        onChange={(e) => handleParaChange(e, index)}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Bead_Dia}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Bead_Dia}
+                        name="Bead_Dia"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Power}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Power}
+                        name="Power"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Gap}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Gap}
+                        name="Gap"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Flow_Pressure}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Flow_Pressure}
+                        name="Flow_Pressure"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Focus}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Focus}
+                        name="Focus"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Speed}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Speed}
+                        name="Speed"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Frequency}</td> */}
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Frequency}
+                        name="Frequency"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+                    {/* <td>{item.Comments}</td> */}
+                    <td>
+                      <input
+                        type="text"
+                        className="input-style"
+                        value={item.Comments}
+                        name="Comments"
+                        onChange={(e) => handleParaChange(e, index)}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>

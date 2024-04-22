@@ -524,3 +524,11 @@ input::-webkit-inner-spin-button {
 li.nav-item {
   margin-left: 5px !important;
 }
+
+.input-style {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none !important;
+  text-align: center;
+}

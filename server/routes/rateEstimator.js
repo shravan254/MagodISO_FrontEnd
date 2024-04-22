@@ -267,8 +267,8 @@ rateEstimator.post("/saveWeldingDetails", async (req, res, next) => {
     expectedDelivery,
   } = req.body;
 
-  const expectedDeliveryValue = req.body.expectedDelivery
-    ? `'${req.body.expectedDelivery}'`
+  const expectedDeliveryValue = expectedDelivery
+    ? `'${expectedDelivery}'`
     : "NULL";
 
   const fixtureReqValue = fixtureReq !== "" ? fixtureReq : "NULL";
@@ -981,52 +981,50 @@ rateEstimator.post("/updateQuoteRegister", async (req, res, next) => {
 rateEstimator.post("/updateQuoteDetails", async (req, res, next) => {
   const {
     qtnID,
-    jointNo,
     quoteId,
-    weldLength,
-    weldSpeed,
-    weldingTime,
-    setUpTime,
-    incomingInspectionTime,
-    cleaningTime,
-    assemblyTime,
-    partLoadingTime,
-    partUnloadingTime,
-    finalInspectionTime,
-    packingDispatchTime,
-    setupCharges,
-    inspectionCharges,
-    outSourcingCharges,
-    consumables,
-    materialCost,
-    fillerCost,
+    Weld_Length,
+    Weld_Speed,
+    Weld_Time,
+    Setup_Time,
+    Inspection_Time,
+    Cleaning_Time,
+    Assembly_Time,
+    Part_Loading,
+    Part_Unloading,
+    FinalInspection_Time,
+    Packing_Dispatch_Time,
+    SetUp_Charges,
+    Inspection_Charges,
+    OutSoucring_Charges,
+    Consumables,
+    Material_Cost,
+    Filler_Cost,
   } = req.body;
 
-  console.log("Quote Details Add", req.body);
+  // console.log("Quote Details", req.body);
 
-  const weldLengthValue = weldLength !== "" ? weldLength : null;
-  const weldSpeedValue = weldSpeed !== "" ? weldSpeed : null;
-  const weldingTimeValue = weldingTime !== "" ? weldingTime : null;
-  const setUpTimeValue = setUpTime !== "" ? setUpTime : null;
+  const weldLengthValue = Weld_Length !== "" ? Weld_Length : null;
+  const weldSpeedValue = Weld_Speed !== "" ? Weld_Speed : null;
+  const weldingTimeValue = Weld_Time !== "" ? Weld_Time : null;
+  const setUpTimeValue = Setup_Time !== "" ? Setup_Time : null;
   const incomingInspectionTimeValue =
-    incomingInspectionTime !== "" ? incomingInspectionTime : null;
-  const cleaningTimeValue = cleaningTime !== "" ? cleaningTime : null;
-  const assemblyTimeTimeValue = assemblyTime !== "" ? assemblyTime : null;
-  const partLoadingTimeValue = partLoadingTime !== "" ? partLoadingTime : null;
-  const partUnloadingTimeValue =
-    partUnloadingTime !== "" ? partUnloadingTime : null;
+    Inspection_Time !== "" ? Inspection_Time : null;
+  const cleaningTimeValue = Cleaning_Time !== "" ? Cleaning_Time : null;
+  const assemblyTimeTimeValue = Assembly_Time !== "" ? Assembly_Time : null;
+  const partLoadingTimeValue = Part_Loading !== "" ? Part_Loading : null;
+  const partUnloadingTimeValue = Part_Unloading !== "" ? Part_Unloading : null;
   const finalInspectionTimeValue =
-    finalInspectionTime !== "" ? finalInspectionTime : null;
+    FinalInspection_Time !== "" ? FinalInspection_Time : null;
   const packingDispatchTimeValue =
-    packingDispatchTime !== "" ? packingDispatchTime : null;
-  const setupChargesValue = setupCharges !== "" ? setupCharges : null;
+    Packing_Dispatch_Time !== "" ? Packing_Dispatch_Time : null;
+  const setupChargesValue = SetUp_Charges !== "" ? SetUp_Charges : null;
   const inspectionChargesValue =
-    inspectionCharges !== "" ? inspectionCharges : null;
+    Inspection_Charges !== "" ? Inspection_Charges : null;
   const outSourcingChargesValue =
-    outSourcingCharges !== "" ? outSourcingCharges : null;
-  const consumablesValue = consumables !== "" ? consumables : null;
-  const materialCostValue = materialCost !== "" ? materialCost : null;
-  const fillerCostValue = fillerCost !== "" ? fillerCost : null;
+    OutSoucring_Charges !== "" ? OutSoucring_Charges : null;
+  const consumablesValue = Consumables !== "" ? Consumables : null;
+  const materialCostValue = Material_Cost !== "" ? Material_Cost : null;
+  const fillerCostValue = Filler_Cost !== "" ? Filler_Cost : null;
 
   try {
     qtnQueryMod(
