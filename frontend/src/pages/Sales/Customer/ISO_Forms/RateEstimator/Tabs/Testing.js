@@ -37,6 +37,22 @@ function Testing({
       });
   }, [formData.qtnID]);
 
+  useEffect(() => {
+    Axios.post(apipoints.getJointName, { qtnID: formData.qtnID })
+      .then((response) => {
+        const joints = response.data.map((item) => item.Joint_No);
+        setFormData((prevData) => ({
+          ...prevData,
+          jointNames: joints,
+        }));
+      })
+      .catch((error) => {
+        console.error("Error fetching selected test names", error);
+      });
+  }, [formData.qtnID, formData.quoteDetailsTableData]);
+
+  // console.log("JointNames", formData.jointNames);
+
   const handleTestTypeSelect = (selectedTestType) => {
     Axios.post(apipoints.getTestList, { testTypeID: selectedTestType })
       .then((response) => {
@@ -62,6 +78,11 @@ function Testing({
   };
 
   const handleAddTest = async () => {
+    if (formData.jointName === "") {
+      toast.error("Select a Joint");
+      return;
+    }
+
     if (formData.testType === "") {
       toast.error("Select Test Type");
       return;
@@ -72,14 +93,21 @@ function Testing({
       return;
     }
 
-    if (selectedTestNames.includes(formData.testName)) {
-      toast.error("Test is already selected");
+    const testExistsForJoint = formData.testTableData.some(
+      (item) =>
+        item.Joint_No === formData.jointName &&
+        item.Test_Name === formData.testName
+    );
+
+    if (testExistsForJoint) {
+      toast.error("Test already selected for this joint");
       return;
     }
 
     try {
       const newTest = {
         qtnID: formData.qtnID,
+        jointName: formData.jointName,
         testTypeName: formData.testTypeName,
         testName: formData.testName,
         testDetails: formData.testDetails,
@@ -92,6 +120,7 @@ function Testing({
         ...prevFormData,
 
         testTableData: response.data,
+        jointName: "",
         testType: "",
         testName: "",
         testDetails: "",
@@ -189,7 +218,7 @@ function Testing({
           <div className="mt-3">
             <div
               style={{
-                height: "220px",
+                height: "250px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}
@@ -205,6 +234,7 @@ function Testing({
                 >
                   <tr className="table-header">
                     <th>SL No</th>
+                    <th>Joint No</th>
                     <th>Test Type</th>
                     <th>Test Name</th>
                     <th>Details</th>
@@ -224,12 +254,14 @@ function Testing({
                       }
                     >
                       <td>{index + 1}</td>
+                      <td>{item.Joint_No}</td>
                       <td>{item.Test_Type}</td>
                       <td>{item.Test_Name}</td>
                       {/* <td>{item.Test_Details}</td> */}
                       <td>
                         <input
                           type="text"
+                          className="input-style"
                           value={item.Test_Details}
                           name="Test_Details"
                           onChange={(e) => handleTestDetailsChange(e, index)}
@@ -241,13 +273,6 @@ function Testing({
                               item.Test_Cost
                             )
                           }
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            textAlign: "center",
-                          }}
                         />
                       </td>
                       {/* <td>{item.Test_Cost}</td> */}
@@ -281,9 +306,36 @@ function Testing({
           style={{
             backgroundColor: "#f0f0f0",
             padding: "10px",
-            height: "230px",
+            height: "260px",
           }}
         >
+          <div className="d-flex">
+            <div className="col-3 mt-1">
+              <label className="form-label">Joint</label>
+            </div>
+            <div className="col-8">
+              <select
+                className="ip-select dropdown-field mt-3"
+                name="jointName"
+                value={formData.jointName}
+                // onChange={handleInputChange}
+                onChange={(e) => {
+                  handleInputChange(e);
+                  // handleTestTypeSelect(e.target.value);
+                }}
+                disabled={!formData.tabsEnable}
+              >
+                <option value="" selected disabled hidden>
+                  Select Joint
+                </option>
+                {formData.jointNames?.map((joint, index) => (
+                  <option key={index} value={joint}>
+                    {joint}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
           <div className="d-flex">
             <div className="col-3 mt-1">
               <label className="form-label">Test Type</label>

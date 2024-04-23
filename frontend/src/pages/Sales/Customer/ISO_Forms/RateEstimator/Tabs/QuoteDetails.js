@@ -417,12 +417,58 @@ export default function QuoteDetails({
     };
   };
 
+  // const handleDeleteQuote = async (id) => {
+  //   try {
+  //     if (!formData.selectedRow4) {
+  //       toast.error("Select a row before deleting");
+  //       return;
+  //     }
+  //     await Axios.post(apipoints.deleteQuoteDetails, { id });
+
+  //     setFormData((prevData) => {
+  //       const updatedTableData = prevData.quoteDetailsTableData.filter(
+  //         (item) => item.ID !== id
+  //       );
+
+  //       const recalculatedValues = calculateTotalValues(updatedTableData);
+
+  //       Axios.post(apipoints.updateQuoteDetailsAfterDelete, {
+  //         recalculatedValues: recalculatedValues,
+  //         qtnID: prevData.qtnID,
+  //       })
+  //         .then(() => {
+  //           // toast.success("Quote Deleted successfully");
+  //         })
+  //         .catch((error) => {
+  //           console.error("Error updating quote details after delete", error);
+  //           toast.error("Error updating quote details after delete");
+  //         });
+
+  //       return {
+  //         ...prevData,
+  //         quoteDetailsTableData: updatedTableData,
+  //         selectedRow4: null,
+  //         ...recalculatedValues,
+  //       };
+  //     });
+  //     toast.success("Quote Deleted successfully");
+  //   } catch (error) {
+  //     console.error("Error Deleting Quote", error);
+  //     toast.error("Error Deleting Quote");
+  //   }
+  // };
+
   const handleDeleteQuote = async (id) => {
     try {
       if (!formData.selectedRow4) {
         toast.error("Select a row before deleting");
         return;
       }
+
+      const jointNoToDelete = formData.quoteDetailsTableData.find(
+        (item) => item.ID === id
+      ).Joint_No;
+
       await Axios.post(apipoints.deleteQuoteDetails, { id });
 
       setFormData((prevData) => {
@@ -431,14 +477,28 @@ export default function QuoteDetails({
         );
 
         const recalculatedValues = calculateTotalValues(updatedTableData);
-        // console.log("recalculatedValues", recalculatedValues);
 
         Axios.post(apipoints.updateQuoteDetailsAfterDelete, {
           recalculatedValues: recalculatedValues,
           qtnID: prevData.qtnID,
         })
           .then(() => {
-            // toast.success("Quote Deleted successfully");
+            Axios.post(apipoints.deleteTestJoint, {
+              jointNo: jointNoToDelete,
+            })
+              .then(() => {
+                const updatedTestTableData = prevData.testTableData.filter(
+                  (item) => item.Joint_No !== jointNoToDelete
+                );
+
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  testTableData: updatedTestTableData,
+                }));
+              })
+              .catch((error) => {
+                console.error("Error deleting test joint", error);
+              });
           })
           .catch((error) => {
             console.error("Error updating quote details after delete", error);

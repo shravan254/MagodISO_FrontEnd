@@ -1245,7 +1245,7 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         ))}
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithboldTitle}>Totals</Text>
+          <Text style={styles.globalfontwithboldTitle}>Total</Text>
         </View>
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
@@ -1258,9 +1258,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.labourTime}
+                </Text>
               </View>
             </View>
           </View>
@@ -1275,9 +1275,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.machineTime}
+                </Text>
               </View>
             </View>
           </View>
@@ -1293,9 +1293,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.outPutPerHour}
+                </Text>
               </View>
             </View>
           </View>
@@ -1310,9 +1310,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.labourCost}
+                </Text>
               </View>
             </View>
           </View>
@@ -1328,9 +1328,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.machineCost}
+                </Text>
               </View>
             </View>
           </View>
@@ -1345,9 +1345,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.transporationCost}
+                </Text>
               </View>
             </View>
           </View>
@@ -1363,9 +1363,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.fixtureCharges}
+                </Text>
               </View>
             </View>
           </View>
@@ -1380,9 +1380,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.testingCharges}
+                </Text>
               </View>
             </View>
           </View>
@@ -1398,9 +1398,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.percentage}
+                </Text>
               </View>
             </View>
           </View>
@@ -1415,9 +1415,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.overheadCharges}
+                </Text>
               </View>
             </View>
           </View>
@@ -1433,9 +1433,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.unitPrice}
+                </Text>
               </View>
             </View>
           </View>
@@ -1450,9 +1450,9 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
-                <Text
-                  style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}
-                ></Text>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.revisedUnitPrice}
+                </Text>
               </View>
             </View>
           </View>

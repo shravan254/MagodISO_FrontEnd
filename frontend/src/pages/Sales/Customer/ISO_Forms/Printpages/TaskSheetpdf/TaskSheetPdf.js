@@ -407,7 +407,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
     globalfontwithboldTitle: {
       fontSize: "8px",
       fontFamily: "Helvetica-Bold",
-      color:'red',
+      color: "red",
     },
     globalfontwithoutbold: {
       fontSize: "8px",
@@ -728,11 +728,6 @@ export default function TaskSheetPdf({ formData = { formData } }) {
         <View style={styles.row}>
           <Text style={styles.tableData01}>Sub-assy Part Name/No</Text>
           <Text style={styles.tableData03}>Qty Received</Text>
-        </View>
-
-        <View style={styles.row}>
-          <Text style={styles.tableInput01}>BB-00008373</Text>
-          <Text style={styles.tableInput03}>10</Text>
         </View>
 
         {formData.subAssyTableData?.map((item, index) => (
@@ -1300,7 +1295,7 @@ export default function TaskSheetPdf({ formData = { formData } }) {
         </View>
 
         <View style={styles.WeldingDetails}>
-          <Text style={styles. globalfontwithboldTitle}>Welding Parameters</Text>
+          <Text style={styles.globalfontwithboldTitle}>Welding Parameters</Text>
         </View>
 
         <View style={styles.row}>

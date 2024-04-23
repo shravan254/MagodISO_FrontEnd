@@ -169,6 +169,8 @@ const styles = StyleSheet.create({
     borderLeft: 1,
   },
   comments: {
+    marginLeft: "5px",
+    marginTop: "5px",
     height: "250px",
   },
 
@@ -462,7 +464,7 @@ const SolidStatePdf = ({ formData }) => {
                                 { paddingLeft: 5 },
                               ]}
                             >
-                              Shcedule No:
+                              Schedule No
                             </Text>
                           </View>
                         </View>
@@ -475,7 +477,7 @@ const SolidStatePdf = ({ formData }) => {
                                 { paddingLeft: 5 },
                               ]}
                             >
-                              {" "}
+                              {formData.taskNo}
                             </Text>
                           </View>
                         </View>
@@ -505,7 +507,7 @@ const SolidStatePdf = ({ formData }) => {
                                 { paddingLeft: 5 },
                               ]}
                             >
-                              {" "}
+                              {formData.taskDate}
                             </Text>
                           </View>
                         </View>
@@ -598,7 +600,7 @@ const SolidStatePdf = ({ formData }) => {
                                   { paddingLeft: 5 },
                                 ]}
                               >
-                                {" "}
+                                {formData.filler}
                               </Text>
                             </View>
                           </View>
@@ -628,7 +630,7 @@ const SolidStatePdf = ({ formData }) => {
                                   { paddingLeft: 5 },
                                 ]}
                               >
-                                {" "}
+                                {formData.jointType}
                               </Text>
                             </View>
                           </View>
@@ -720,9 +722,7 @@ const SolidStatePdf = ({ formData }) => {
                                 styles.globalfontwithoutbold,
                                 { paddingLeft: 5 },
                               ]}
-                            >
-                              {" "}
-                            </Text>
+                            ></Text>
                           </View>
                         </View>
                       </View>
@@ -751,7 +751,7 @@ const SolidStatePdf = ({ formData }) => {
                                 { paddingLeft: 5 },
                               ]}
                             >
-                              {" "}
+                              {formData.machine}
                             </Text>
                           </View>
                         </View>
@@ -784,7 +784,7 @@ const SolidStatePdf = ({ formData }) => {
                                   { paddingLeft: 5 },
                                 ]}
                               >
-                                {" "}
+                                {formData.gasType}
                               </Text>
                             </View>
                           </View>
@@ -814,7 +814,7 @@ const SolidStatePdf = ({ formData }) => {
                                   { paddingLeft: 5 },
                                 ]}
                               >
-                                {" "}
+                                {formData.operator}
                               </Text>
                             </View>
                           </View>
@@ -832,305 +832,165 @@ const SolidStatePdf = ({ formData }) => {
             <Text style={styles.tableData03}>Thickness</Text>
           </View>
 
-          <View style={styles.row}>
-            <Text style={styles.tableInput01}>SS</Text>
-            <Text style={styles.tableInput03}>3mm</Text>
-          </View>
+          {formData.materialTableData?.map((item, index) => (
+            <View key={index} style={styles.row}>
+              {/* <Text style={styles.tableInput02}>{index + 1}</Text> */}
+              <Text style={styles.tableInput01}>{item.Material}</Text>
+              <Text style={styles.tableInput03}>{item.Thickness}</Text>
+            </View>
+          ))}
 
           <View style={styles.itemlist}>
             <Text style={styles.globalfontwithbold}> </Text>
           </View>
 
-          <View style={styles.tableDisplay}>
-            <View style={styles.row}>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}> No </Text>
-              </View>
+          <View>
+            {formData.parametersTableData.map((rowData, index) => (
+              <React.Fragment key={index}>
+                {/* Table Heading */}
+                <View style={styles.tableDisplay}>
+                  <View style={styles.row}>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}> No </Text>
+                    </View>
 
-              <View style={styles.beadDia}>
-                <Text style={styles.globalfontwithbold}>Bead Dia</Text>
-              </View>
+                    <View style={styles.beadDia}>
+                      <Text style={styles.globalfontwithbold}>
+                        Bead Dia(mm)
+                      </Text>
+                    </View>
 
-              <View style={styles.power}>
-                <Text style={styles.globalfontwithbold}>Power</Text>
-              </View>
+                    <View style={styles.power}>
+                      <Text style={styles.globalfontwithbold}>Power(W)</Text>
+                    </View>
 
-              <View style={styles.energy}>
-                <Text style={styles.globalfontwithbold}>Energy </Text>
-              </View>
+                    <View style={styles.energy}>
+                      <Text style={styles.globalfontwithbold}>Energy(J)</Text>
+                    </View>
 
-              <View style={styles.pulseWidth}>
-                <Text style={styles.globalfontwithbold}>Pulse Width</Text>
-              </View>
-              <View style={styles.frequency}>
-                <Text style={styles.globalfontwithbold}>Frequency</Text>
-              </View>
+                    <View style={styles.pulseWidth}>
+                      <Text style={styles.globalfontwithbold}>
+                        Pulse Width(ms)
+                      </Text>
+                    </View>
+                    <View style={styles.frequency}>
+                      <Text style={styles.globalfontwithbold}>
+                        Frequency(Hz)
+                      </Text>
+                    </View>
 
-              <View style={styles.pulseShape}>
-                <Text style={styles.globalfontwithbold}>Pulse Shape</Text>
-              </View>
+                    <View style={styles.pulseShape}>
+                      <Text style={styles.globalfontwithbold}>Pulse Shape</Text>
+                    </View>
 
-              <View style={styles.speed}>
-                <Text style={styles.globalfontwithbold}>Speed</Text>
-              </View>
-              <View style={styles.gasFlow}>
-                <Text style={styles.globalfontwithbold}>Gas Flow</Text>
-              </View>
-              <View style={styles.stepover}>
-                <Text style={styles.globalfontwithbold}>Step Over</Text>
-              </View>
-              <View style={styles.standOff}>
-                <Text style={styles.globalfontwithbold}>Stand Off</Text>
-              </View>
+                    <View style={styles.speed}>
+                      <Text style={styles.globalfontwithbold}>
+                        Speed(mm/min)
+                      </Text>
+                    </View>
+                    <View style={styles.gasFlow}>
+                      <Text style={styles.globalfontwithbold}>
+                        Gas Flow(LPM)
+                      </Text>
+                    </View>
+                    <View style={styles.stepover}>
+                      <Text style={styles.globalfontwithbold}>
+                        Step Over(mm)
+                      </Text>
+                    </View>
+                    <View style={styles.standOff}>
+                      <Text style={styles.globalfontwithbold}>
+                        Stand Off(mm)
+                      </Text>
+                    </View>
 
-              <View style={styles.layerThk}>
-                <Text style={styles.globalfontwithbold}>Layer Thk</Text>
-              </View>
-            </View>
-          </View>
+                    <View style={styles.layerThk}>
+                      <Text style={styles.globalfontwithbold}>
+                        Layer Thk(mm)
+                      </Text>
+                    </View>
+                  </View>
+                </View>
 
-          <View style={styles.tableDisplay}>
-            <View style={styles.row}>
-              <View style={styles.drawingname01}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
+                <View style={styles.tableDataView}>
+                  <View style={styles.row}>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {index + 1}
+                      </Text>
+                    </View>
 
-              <View style={styles.beadDia}>
-                <Text style={styles.globalfontwithbold}>(mm)</Text>
-              </View>
+                    <View style={styles.beadDia}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Bead_Dia}
+                      </Text>
+                    </View>
 
-              <View style={styles.power}>
-                <Text style={styles.globalfontwithbold}>(W)</Text>
-              </View>
+                    <View style={styles.power}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Power}
+                      </Text>
+                    </View>
 
-              <View style={styles.energy}>
-                <Text style={styles.globalfontwithbold}>(J) </Text>
-              </View>
+                    <View style={styles.energy}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Energy}
+                      </Text>
+                    </View>
 
-              <View style={styles.pulseWidth}>
-                <Text style={styles.globalfontwithbold}>(ms)</Text>
-              </View>
-              <View style={styles.frequency}>
-                <Text style={styles.globalfontwithbold}>(Hz)</Text>
-              </View>
+                    <View style={styles.pulseWidth}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Pulse_Width}
+                      </Text>
+                    </View>
+                    <View style={styles.frequency}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Frequency}
+                      </Text>
+                    </View>
 
-              <View style={styles.pulseShape}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
+                    <View style={styles.pulseShape}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Pulse_Shape}
+                      </Text>
+                    </View>
 
-              <View style={styles.speed}>
-                <Text style={styles.globalfontwithbold}>(mm/min)</Text>
-              </View>
-              <View style={styles.gasFlow}>
-                <Text style={styles.globalfontwithbold}>(LPM)</Text>
-              </View>
-              <View style={styles.stepover}>
-                <Text style={styles.globalfontwithbold}>(mm)</Text>
-              </View>
-              <View style={styles.standOff}>
-                <Text style={styles.globalfontwithbold}>(mm)</Text>
-              </View>
+                    <View style={styles.speed}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Speed}
+                      </Text>
+                    </View>
+                    <View style={styles.gasFlow}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Gas_Flow}
+                      </Text>
+                    </View>
+                    <View style={styles.stepover}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Focus_Position}
+                      </Text>
+                    </View>
+                    <View style={styles.standOff}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Stand_Off}
+                      </Text>
+                    </View>
 
-              <View style={styles.layerThk}>
-                <Text style={styles.globalfontwithbold}>(mm)</Text>
-              </View>
-            </View>
-          </View>
+                    <View style={styles.layerThk}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {/* {rowData.layerThk} */}
+                      </Text>
+                    </View>
+                  </View>
 
-          <View style={styles.tableDataView}>
-            <View style={styles.row}>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithoutbold}>1</Text>
-              </View>
-
-              <View style={styles.beadDia}>
-                <Text style={styles.globalfontwithoutbold}>330-FRON</Text>
-              </View>
-
-              <View style={styles.power}>
-                <Text style={styles.globalfontwithoutbold}>Sheet </Text>
-              </View>
-
-              <View style={styles.energy}>
-                <Text style={styles.globalfontwithoutbold}>Pkng1 </Text>
-              </View>
-
-              <View style={styles.pulseWidth}>
-                <Text style={styles.globalfontwithoutbold}>Insp3</Text>
-              </View>
-              <View style={styles.frequency}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-
-              <View style={styles.pulseShape}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.speed}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.gasFlow}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.stepover}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.standOff}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.layerThk}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-            </View>
-
-            <View>
-              <Text style={styles.comments}>comments:</Text>
-            </View>
-          </View>
-
-          <View style={styles.tableDisplay2}>
-            <View style={styles.row}>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}> No </Text>
-              </View>
-
-              <View style={styles.beadDia}>
-                <Text style={styles.globalfontwithbold}>Bead Dia</Text>
-              </View>
-
-              <View style={styles.power}>
-                <Text style={styles.globalfontwithbold}>Power</Text>
-              </View>
-
-              <View style={styles.energy}>
-                <Text style={styles.globalfontwithbold}>Energy </Text>
-              </View>
-
-              <View style={styles.pulseWidth}>
-                <Text style={styles.globalfontwithbold}>Pulse Width</Text>
-              </View>
-              <View style={styles.frequency}>
-                <Text style={styles.globalfontwithbold}>Frequency</Text>
-              </View>
-
-              <View style={styles.pulseShape}>
-                <Text style={styles.globalfontwithbold}>Pulse Shape</Text>
-              </View>
-
-              <View style={styles.speed}>
-                <Text style={styles.globalfontwithbold}>Speed</Text>
-              </View>
-              <View style={styles.gasFlow}>
-                <Text style={styles.globalfontwithbold}>Gas Flow</Text>
-              </View>
-              <View style={styles.stepover}>
-                <Text style={styles.globalfontwithbold}>Step Over</Text>
-              </View>
-              <View style={styles.standOff}>
-                <Text style={styles.globalfontwithbold}>Stand Off</Text>
-              </View>
-
-              <View style={styles.layerThk}>
-                <Text style={styles.globalfontwithbold}>Layer Thk</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.tableDisplay2}>
-            <View style={styles.row}>
-              <View style={styles.drawingname01}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
-
-              <View style={styles.beadDia}>
-                <Text style={styles.globalfontwithbold}>(mm)</Text>
-              </View>
-
-              <View style={styles.power}>
-                <Text style={styles.globalfontwithbold}>(W)</Text>
-              </View>
-
-              <View style={styles.energy}>
-                <Text style={styles.globalfontwithbold}>(J) </Text>
-              </View>
-
-              <View style={styles.pulseWidth}>
-                <Text style={styles.globalfontwithbold}>(ms)</Text>
-              </View>
-              <View style={styles.frequency}>
-                <Text style={styles.globalfontwithbold}>(Hz)</Text>
-              </View>
-
-              <View style={styles.pulseShape}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
-
-              <View style={styles.speed}>
-                <Text style={styles.globalfontwithbold}>(mm/min)</Text>
-              </View>
-              <View style={styles.gasFlow}>
-                <Text style={styles.globalfontwithbold}>(LPM)</Text>
-              </View>
-              <View style={styles.stepover}>
-                <Text style={styles.globalfontwithbold}>(mm)</Text>
-              </View>
-              <View style={styles.standOff}>
-                <Text style={styles.globalfontwithbold}>(mm)</Text>
-              </View>
-
-              <View style={styles.layerThk}>
-                <Text style={styles.globalfontwithbold}>(mm)</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.tableDataView2}>
-            <View style={styles.row}>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithoutbold}>1</Text>
-              </View>
-
-              <View style={styles.beadDia}>
-                <Text style={styles.globalfontwithoutbold}>330-FRON</Text>
-              </View>
-
-              <View style={styles.power}>
-                <Text style={styles.globalfontwithoutbold}>Sheet </Text>
-              </View>
-
-              <View style={styles.energy}>
-                <Text style={styles.globalfontwithoutbold}>Pkng1 </Text>
-              </View>
-
-              <View style={styles.pulseWidth}>
-                <Text style={styles.globalfontwithoutbold}>Insp3</Text>
-              </View>
-              <View style={styles.frequency}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-
-              <View style={styles.pulseShape}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.speed}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.gasFlow}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.stepover}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.standOff}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.layerThk}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-            </View>
-
-            <View>
-              <Text>comments:</Text>
-            </View>
+                  <View>
+                    <Text style={styles.comments}>
+                      Comments: {rowData.Comments}
+                    </Text>
+                  </View>
+                </View>
+              </React.Fragment>
+            ))}
           </View>
         </View>
         <View>
