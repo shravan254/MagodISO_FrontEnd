@@ -101,9 +101,11 @@ co2.post("/saveCo2Parameters", async (req, res, next) => {
 
 co2.post("/insertMaterialDetails", async (req, res, next) => {
   const { ncid, material, thickness } = req.body;
+
+  const thicknessValue = thickness !== "" ? thickness : null;
   try {
     misQueryMod(
-      `INSERT INTO magodmis.co2_material_details (Ncid, Material, Thickness) VALUES (${ncid}, '${material}', ${thickness})`,
+      `INSERT INTO magodmis.co2_material_details (Ncid, Material, Thickness) VALUES (${ncid}, '${material}', ${thicknessValue})`,
       async (err, result) => {
         if (err) {
           logger.error(err);
@@ -229,9 +231,18 @@ co2.post("/insertParaDetails", async (req, res, next) => {
     frequency,
     comments,
   } = req.body;
+
+  const beadDiaValue = beadDia !== "" ? beadDia : null;
+  const powerValue = power !== "" ? power : null;
+  const gapValue = gap !== "" ? gap : null;
+  const flowPressureValue = flowPressure !== "" ? flowPressure : null;
+  const focusValue = focus !== "" ? focus : null;
+  const speedValue = speed !== "" ? speed : null;
+  const frequencyValue = frequency !== "" ? frequency : null;
+
   try {
     misQueryMod(
-      `INSERT INTO magodmis.co2_parameters (Ncid, Gas_Type, Bead_Dia, Power, Gap, Flow_Pressure, Focus, Speed, Frequency, Comments) VALUES (${ncid}, '${gasType}', ${beadDia}, ${power}, ${gap}, ${flowPressure}, ${focus}, ${speed}, ${frequency}, '${comments}')`,
+      `INSERT INTO magodmis.co2_parameters (Ncid, Gas_Type, Bead_Dia, Power, Gap, Flow_Pressure, Focus, Speed, Frequency, Comments) VALUES (${ncid}, '${gasType}', ${beadDiaValue}, ${powerValue}, ${gapValue}, ${flowPressureValue}, ${focusValue}, ${speedValue}, ${frequencyValue}, '${comments}')`,
       async (err, result) => {
         if (err) {
           logger.error(err);

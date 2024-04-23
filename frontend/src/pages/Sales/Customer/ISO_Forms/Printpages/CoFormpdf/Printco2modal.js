@@ -11,13 +11,17 @@ import {
 import Modal from "react-bootstrap/Modal";
 import COForm from "./COForm";
 
-export default function Printco2modal(props) {
+export default function Printco2modal({
+  openPrintModal,
+  setOpenPrintModal,
+  formData,
+}) {
   const [fullscreen, setFullscreen] = useState(true);
-  const handleClose = () => props.setOpenPrintModal(false);
+  const handleClose = () => setOpenPrintModal(false);
 
   return (
     <div>
-      <Modal fullscreen show={props.openPrintModal} onHide={handleClose}>
+      <Modal fullscreen show={openPrintModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Parameter Sheet - CO2 Laser</Modal.Title>
         </Modal.Header>
@@ -28,7 +32,7 @@ export default function Printco2modal(props) {
               height="600"
               filename="ParameterSheetCO2form.pdf"
             >
-              <COForm />
+              <COForm formData={formData} />
             </PDFViewer>
           </Fragment>
         </Modal.Body>

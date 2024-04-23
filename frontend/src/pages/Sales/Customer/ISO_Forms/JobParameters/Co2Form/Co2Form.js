@@ -437,6 +437,7 @@ export default function Co2Form() {
             <Printco2modal
               openPrintModal={openPrintModal}
               setOpenPrintModal={setOpenPrintModal}
+              formData={formData}
             />
             <button
               className="button-style"

@@ -181,6 +181,8 @@ const styles = StyleSheet.create({
     borderBottom: 1,
     borderRight: 1,
     marginLeft: "2px",
+    fontSize: "9px",
+    marginTop: "5px",
   },
   quantity: {
     width: "184px",
@@ -321,7 +323,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const COForm = () => {
+const COForm = ({ formData }) => {
   const renderContent = () => {
     return (
       <Page size="A4" style={styles.page}>
@@ -345,16 +347,6 @@ const COForm = () => {
                   Magod Laser Machining Pvt Ltd
                 </Text>
               </View>
-              {/* <View style={styles.row}>
-                <Text
-                  style={[
-                    styles.globalfontwithoutbold,
-                    { marginLeft: "110px", textDecoration: "underline" },
-                  ]}
-                >
-                  Returnable Material Receipt Voucher
-                </Text>
-              </View> */}
             </View>
           </View>
         </View>
@@ -370,13 +362,17 @@ const COForm = () => {
                 <Text style={styles.globalfontwithbold}>Date </Text>
               </View>
               <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}>27/02/2024</Text>
+                <Text style={styles.globalfontwithoutbold}>
+                  {formData.taskDate}
+                </Text>
               </View>
               <View style={styles.Material}>
-                <Text style={styles.globalfontwithbold}>Shcedule No</Text>
+                <Text style={styles.globalfontwithbold}>Schedule No</Text>
               </View>
               <View style={styles.quantity01}>
-                <Text style={styles.globalfontwithoutbold}>29376198</Text>
+                <Text style={styles.globalfontwithoutbold}>
+                  {formData.taskNo}
+                </Text>
               </View>
             </View>
 
@@ -385,45 +381,17 @@ const COForm = () => {
                 <Text style={styles.globalfontwithbold}>Machine</Text>
               </View>
               <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}>SS301</Text>
+                <Text style={styles.globalfontwithoutbold}>
+                  {formData.machine}
+                </Text>
               </View>
               <View style={styles.Material}>
-                <Text style={styles.globalfontwithbold}>ɳT</Text>
+                <Text style={styles.globalfontwithbold}>nT</Text>
               </View>
               <View style={styles.quantity01}>
-                <Text style={styles.globalfontwithoutbold}>293</Text>
+                <Text style={styles.globalfontwithoutbold}>{formData.nt}</Text>
               </View>
             </View>
-
-            {/* <View style={styles.row}>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Material 1</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}>SS301</Text>
-              </View>
-              <View style={styles.Material}>
-                <Text style={styles.globalfontwithbold}>Material 2</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}>SS301</Text>
-              </View>
-            </View> */}
-
-            {/* <View style={styles.row}>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Thickness</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}>2</Text>
-              </View>
-              <View style={styles.Material}>
-                <Text style={styles.globalfontwithbold}>Thickness</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}>4</Text>
-              </View>
-            </View> */}
 
             <View style={styles.row}>
               <View style={styles.drawingname}>
@@ -431,14 +399,16 @@ const COForm = () => {
               </View>
               <View style={styles.quantity}>
                 <Text style={styles.globalfontwithoutbold}>
-                  Lap/ButtT/Other
+                  {formData.joint}
                 </Text>
               </View>
               <View style={styles.Material}>
                 <Text style={styles.globalfontwithbold}>Operator</Text>
               </View>
               <View style={styles.quantity01}>
-                <Text style={styles.globalfontwithoutbold}></Text>
+                <Text style={styles.globalfontwithoutbold}>
+                  {formData.operator}
+                </Text>
               </View>
             </View>
 
@@ -447,166 +417,130 @@ const COForm = () => {
               <Text style={styles.tableData03}>Thickness</Text>
             </View>
 
-            <View style={styles.row}>
-              <Text style={styles.tableInput01}>SS</Text>
-              <Text style={styles.tableInput03}>3mm</Text>
-            </View>
+            {formData.materialTableData?.map((item, index) => (
+              <View key={index} style={styles.row}>
+                <Text style={styles.tableInput01}>{item.Material}</Text>
+                <Text style={styles.tableInput03}>{item.Thickness}</Text>
+              </View>
+            ))}
 
-            <View style={styles.row}>
-              <View style={styles.drawingname01}>
-                <Text style={styles.globalfontwithbold}>Sr No</Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Gas Type</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Flow/Pressure</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-            </View>
+            <View>
+              {formData.parametersTableData.map((rowData, index) => (
+                <React.Fragment key={index}>
+                  {/* Table Row */}
+                  <View style={styles.row}>
+                    <View style={styles.drawingname01}>
+                      <Text style={styles.globalfontwithbold}>Sr No</Text>
+                    </View>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}>Gas Type</Text>
+                    </View>
+                    <View style={styles.quantity}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Gas_Type}
+                      </Text>
+                    </View>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}>
+                        Flow/Pressure
+                      </Text>
+                    </View>
+                    <View style={styles.quantity}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Flow_Pressure}
+                      </Text>
+                    </View>
+                  </View>
 
-            <View style={styles.row}>
-              <View style={styles.drawingname01}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Beam Dia(mm)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Focus</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-            </View>
+                  {/* Beam Dia and Focus */}
+                  <View style={styles.row}>
+                    <View style={styles.drawingname01}>
+                      <Text style={styles.globalfontwithbold}>{index + 1}</Text>
+                    </View>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}>
+                        Beam Dia(mm)
+                      </Text>
+                    </View>
+                    <View style={styles.quantity}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Bead_Dia}
+                      </Text>
+                    </View>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}>Focus</Text>
+                    </View>
+                    <View style={styles.quantity}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Focus}
+                      </Text>
+                    </View>
+                  </View>
 
-            <View style={styles.row}>
-              <View style={styles.drawingname01}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Power(W)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Speed(mm/min)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-            </View>
+                  {/* Power and Speed */}
+                  <View style={styles.row}>
+                    <View style={styles.drawingname01}>
+                      <Text style={styles.globalfontwithbold}></Text>
+                    </View>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}>Power(W)</Text>
+                    </View>
+                    <View style={styles.quantity}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Power}
+                      </Text>
+                    </View>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}>
+                        Speed(mm/min)
+                      </Text>
+                    </View>
+                    <View style={styles.quantity}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Speed}
+                      </Text>
+                    </View>
+                  </View>
 
-            <View style={styles.row}>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Gap(mm)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Frequency(Hz)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-            </View>
+                  {/* Gap and Frequency */}
+                  <View style={styles.row}>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}></Text>
+                    </View>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}>Gap(mm)</Text>
+                    </View>
+                    <View style={styles.quantity}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Gap}
+                      </Text>
+                    </View>
+                    <View style={styles.drawingname}>
+                      <Text style={styles.globalfontwithbold}>
+                        Frequency(Hz)
+                      </Text>
+                    </View>
+                    <View style={styles.quantity}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Frequency}
+                      </Text>
+                    </View>
+                  </View>
 
-            <View style={styles.row}>
-              <View style={styles.comments}>
-                <Text style={styles.globalfontwithbold}>Comments:</Text>
-              </View>
-            </View>
-
-            {/* material 2 parameters */}
-            <View style={styles.row}>
-              <View style={styles.drawingname01}>
-                <Text style={styles.globalfontwithbold}>Sr No</Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Gas Type</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Flow/Pressure</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.drawingname01}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Beam Dia(mm)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Focus</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.drawingname01}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Power(W)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Speed(mm/min)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Gap(mm)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-              <View style={styles.drawingname}>
-                <Text style={styles.globalfontwithbold}>Frequency(Hz)</Text>
-              </View>
-              <View style={styles.quantity}>
-                <Text style={styles.globalfontwithoutbold}></Text>
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.comments}>
-                <Text style={styles.globalfontwithbold}>Comments:</Text>
-              </View>
+                  {/* Comments */}
+                  <View style={styles.row}>
+                    {/* <View style={styles.comments}>
+                      <Text style={styles.globalfontwithbold}>Comments:</Text>
+                    </View>
+                    */}
+                    <View>
+                      <Text style={styles.comments}>
+                        Comments: {rowData.Comments}
+                      </Text>
+                    </View>
+                  </View>
+                </React.Fragment>
+              ))}
             </View>
           </View>
         </View>

@@ -454,14 +454,31 @@ rateEstimator.post("/getTestTypeName", async (req, res, next) => {
   }
 });
 
+rateEstimator.post("/getJointName", async (req, res, next) => {
+  const { qtnID } = req.body;
+  try {
+    qtnQueryMod(
+      `SELECT * FROM magodqtn.quote_details where QtnID = ${qtnID}`,
+      (err, data) => {
+        if (err) logger.error(err);
+        // console.log(data);
+        res.send(data);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
 rateEstimator.post("/insertTestDetails", async (req, res, next) => {
-  const { qtnID, testTypeName, testName, testDetails, testCost } = req.body;
+  const { qtnID, jointName, testTypeName, testName, testDetails, testCost } =
+    req.body;
 
   const testCostValue = testCost !== "" ? testCost : null;
   try {
     qtnQueryMod(
-      `INSERT INTO magodqtn.testing_details (QtnID, Test_Type, Test_Name, Test_Details, Test_Cost) VALUES 
-      (${qtnID}, '${testTypeName}', '${testName}', '${testDetails}', ${testCostValue})`,
+      `INSERT INTO magodqtn.testing_details (QtnID, Joint_No, Test_Type, Test_Name, Test_Details, Test_Cost) VALUES 
+      (${qtnID}, '${jointName}', '${testTypeName}', '${testName}', '${testDetails}', ${testCostValue})`,
       async (err, result) => {
         if (err) {
           logger.error(err);
@@ -543,6 +560,26 @@ rateEstimator.post("/updateTestDetails", async (req, res, next) => {
           return res
             .status(500)
             .send("Error updating data into testing_details");
+        }
+
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+rateEstimator.post("/deleteTestJoint", async (req, res, next) => {
+  const { qtnID, jointNo } = req.body;
+
+  try {
+    qtnQueryMod(
+      `Delete from magodqtn.testing_details where Joint_No = '${jointNo}'`,
+      async (err, result) => {
+        if (err) {
+          logger.error(err);
+          return res.status(500).send("Error deleting data in testing_details");
         }
 
         res.send(result);

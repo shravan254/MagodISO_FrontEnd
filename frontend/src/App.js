@@ -25,7 +25,7 @@ import TaskSheet from "./pages/Sales/Customer/ISO_Forms/TaskSheet/TaskSheet";
 import Solidstatelaser from "./pages/Sales/Customer/ISO_Forms/JobParameters/SolidStateLaser/Solidstatelaser";
 import Co2Form from "./pages/Sales/Customer/ISO_Forms/JobParameters/Co2Form/Co2Form";
 import JobParameter from "./pages/Sales/Customer/ISO_Forms/JobParameters/JobParameter";
-import Buttonpdf from "./pages/Sales/Customer/ISO_Forms/Printpages/Rateestimator/Buttonpdf";
+// import Buttonpdf from "./pages/Sales/Customer/ISO_Forms/Printpages/Rateestimator/Buttonpdf";
 
 function App() {
   return (
@@ -45,7 +45,7 @@ function App() {
             <Route path="JobParameters" element={<JobParameter />} />
             <Route path="SolidStateForm" element={<Solidstatelaser />} />
             <Route path="CO2Form" element={<Co2Form />} />
-            <Route path="pdf" element={<Buttonpdf />} />
+            {/* <Route path="pdf" element={<Buttonpdf />} /> */}
           </Route>
 
           <Route path="/admin" element={<Parentroute />}>

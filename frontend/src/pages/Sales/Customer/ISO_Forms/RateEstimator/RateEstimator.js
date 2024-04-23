@@ -78,6 +78,8 @@ function RateEstimator() {
     testTypeData: [],
     testListData: [],
     testTableData: [],
+    jointName: "",
+    jointNames: [],
     totalTestCost: 0,
 
     // Risks

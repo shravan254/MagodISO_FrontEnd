@@ -104,9 +104,10 @@ solidState.post("/saveSolidStateParameters", async (req, res, next) => {
 
 solidState.post("/insertMaterialDetails", async (req, res, next) => {
   const { ncid, material, thickness } = req.body;
+  const thicknessValue = thickness !== "" ? thickness : null;
   try {
     misQueryMod(
-      `INSERT INTO magodmis.solid_state_material_details (Ncid, Material, Thickness) VALUES (${ncid}, '${material}', ${thickness})`,
+      `INSERT INTO magodmis.solid_state_material_details (Ncid, Material, Thickness) VALUES (${ncid}, '${material}', ${thicknessValue})`,
       async (err, result) => {
         if (err) {
           logger.error(err);
@@ -239,9 +240,20 @@ solidState.post("/insertParaDetails", async (req, res, next) => {
     standOff,
     comments,
   } = req.body;
+
+  const beadDiaValue = beadDia !== "" ? beadDia : null;
+  const powerValue = power !== "" ? power : null;
+  const energyValue = energy !== "" ? energy : null;
+  const pulseWidthValue = pulseWidth !== "" ? pulseWidth : null;
+  const frequencyValue = frequency !== "" ? frequency : null;
+  const pulseShapeValue = pulseShape !== "" ? pulseShape : null;
+  const speedValue = speed !== "" ? speed : null;
+  const gasFlowValue = gasFlow !== "" ? gasFlow : null;
+  const focusPositionValue = focusPosition !== "" ? focusPosition : null;
+  const standOffValue = standOff !== "" ? standOff : null;
   try {
     misQueryMod(
-      `INSERT INTO magodmis.solid_state_parameters (Ncid, Bead_Dia, Power, Energy, Pulse_Width, Frequency, Pulse_Shape, Speed, Gas_Flow, Focus_Position, Stand_Off, Comments) VALUES (${ncid}, ${beadDia}, ${power}, ${energy}, ${pulseWidth}, ${frequency}, ${pulseShape}, ${speed}, ${gasFlow}, ${focusPosition}, ${standOff}, '${comments}')`,
+      `INSERT INTO magodmis.solid_state_parameters (Ncid, Bead_Dia, Power, Energy, Pulse_Width, Frequency, Pulse_Shape, Speed, Gas_Flow, Focus_Position, Stand_Off, Comments) VALUES (${ncid}, ${beadDiaValue}, ${powerValue}, ${energyValue}, ${pulseWidthValue}, ${frequencyValue}, ${pulseShapeValue}, ${speedValue}, ${gasFlowValue}, ${focusPositionValue}, ${standOffValue}, '${comments}')`,
       async (err, result) => {
         if (err) {
           logger.error(err);
