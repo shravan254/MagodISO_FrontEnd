@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   comments: {
     marginLeft: "5px",
     marginTop: "5px",
-    height: "250px",
+    height: "100px",
   },
 
   drawingname: {
@@ -883,14 +883,20 @@ const SolidStatePdf = ({ formData }) => {
                       <Text style={styles.globalfontwithbold}>Pulse Shape</Text>
                     </View>
 
-                    <View style={styles.speed}>
+                    <View style={styles.frequency}>
                       <Text style={styles.globalfontwithbold}>
-                        Speed(mm/min)
+                        Speed (mm/min)
                       </Text>
                     </View>
                     <View style={styles.gasFlow}>
                       <Text style={styles.globalfontwithbold}>
                         Gas Flow(LPM)
+                      </Text>
+                    </View>
+
+                    <View style={styles.gasFlow}>
+                      <Text style={styles.globalfontwithbold}>
+                        Focus_Position
                       </Text>
                     </View>
                     <View style={styles.stepover}>
@@ -970,6 +976,12 @@ const SolidStatePdf = ({ formData }) => {
                         {rowData.Focus_Position}
                       </Text>
                     </View>
+
+                    <View style={styles.stepover}>
+                      <Text style={styles.globalfontwithoutbold}>
+                        {rowData.Step_Over}
+                      </Text>
+                    </View>
                     <View style={styles.standOff}>
                       <Text style={styles.globalfontwithoutbold}>
                         {rowData.Stand_Off}
@@ -978,7 +990,7 @@ const SolidStatePdf = ({ formData }) => {
 
                     <View style={styles.layerThk}>
                       <Text style={styles.globalfontwithoutbold}>
-                        {/* {rowData.layerThk} */}
+                        {rowData.LayerThk}
                       </Text>
                     </View>
                   </View>

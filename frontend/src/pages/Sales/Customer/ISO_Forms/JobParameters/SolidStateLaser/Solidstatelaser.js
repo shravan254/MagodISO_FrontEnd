@@ -41,7 +41,9 @@ export default function Solidstatelaser() {
     speed: 0,
     gasFlow: 0,
     focusPosition: 0,
+    stepOver: 0,
     standOff: 0,
+    layerThk: 0,
     comments: "",
     parametersTableData: [],
   });
@@ -203,7 +205,9 @@ export default function Solidstatelaser() {
         speed: formData.speed,
         gasFlow: formData.gasFlow,
         focusPosition: formData.focusPosition,
+        stepOver: formData.stepOver,
         standOff: formData.standOff,
+        layerThk: formData.layerThk,
         comments: formData.comments,
       };
 
@@ -222,7 +226,9 @@ export default function Solidstatelaser() {
         speed: 0,
         gasFlow: 0,
         focusPosition: 0,
+        stepOver: 0,
         standOff: 0,
+        layerThk: 0,
         comments: "",
       }));
     } catch (error) {
@@ -719,7 +725,7 @@ export default function Solidstatelaser() {
         <div className="col-md-8 mt-3">
           <div
             style={{
-              height: "435px",
+              height: "490px",
               overflowY: "scroll",
               overflowX: "scroll",
             }}
@@ -745,7 +751,9 @@ export default function Solidstatelaser() {
                   <th>Speed(mm/min)</th>
                   <th>Gas Flow(LPM)</th>
                   <th>Focus Position</th>
+                  <th>Step Over(mm)</th>
                   <th>Stand Off(mm)</th>
+                  <th>Layer Thk(mm)</th>
                   <th>Comments</th>
                 </tr>
               </thead>
@@ -881,6 +889,19 @@ export default function Solidstatelaser() {
                         onBlur={() => handleParaBlur(index, item)}
                       />
                     </td>
+
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.Step_Over}
+                        name="Step_Over"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
                     {/* <td>{item.Stand_Off}</td> */}
                     <td>
                       <input
@@ -888,6 +909,19 @@ export default function Solidstatelaser() {
                         className="input-style"
                         value={item.Stand_Off}
                         name="Stand_Off"
+                        min={0}
+                        onChange={(e) => handleParaChange(e, index)}
+                        onKeyDown={blockInvalidChar}
+                        onBlur={() => handleParaBlur(index, item)}
+                      />
+                    </td>
+
+                    <td>
+                      <input
+                        type="number"
+                        className="input-style"
+                        value={item.LayerThk}
+                        name="LayerThk"
                         min={0}
                         onChange={(e) => handleParaChange(e, index)}
                         onKeyDown={blockInvalidChar}
@@ -1075,6 +1109,23 @@ export default function Solidstatelaser() {
 
           <div className="d-flex">
             <div className="col-3">
+              <label className="form-label">Step Over(Mm)</label>
+            </div>
+            <div className="col-8 mt-2">
+              <input
+                type="number"
+                name="stepOver"
+                className="in-field"
+                value={formData.stepOver}
+                onChange={handleInputChange}
+                min={0}
+                onKeyDown={blockInvalidChar}
+              />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-3">
               <label className="form-label">Stand Off(Mm)</label>
             </div>
             <div className="col-8 mt-2">
@@ -1083,6 +1134,23 @@ export default function Solidstatelaser() {
                 name="standOff"
                 className="in-field"
                 value={formData.standOff}
+                onChange={handleInputChange}
+                min={0}
+                onKeyDown={blockInvalidChar}
+              />
+            </div>
+          </div>
+
+          <div className="d-flex">
+            <div className="col-3">
+              <label className="form-label">Layer Thk(Mm)</label>
+            </div>
+            <div className="col-8 mt-2">
+              <input
+                type="number"
+                name="layerThk"
+                className="in-field"
+                value={formData.layerThk}
                 onChange={handleInputChange}
                 min={0}
                 onKeyDown={blockInvalidChar}

@@ -971,7 +971,7 @@ export default function QuoteDetails({
           <div className="col-md-2 col-sm-6">
             <div className="d-flex">
               <div className="col-6">
-                <label className="form-label">Weld Speed</label>
+                <label className="form-label">Weld Speed(MM/Sec)</label>
               </div>
               <div className="col-6 mt-2">
                 <input
@@ -1366,7 +1366,7 @@ export default function QuoteDetails({
                     <th>SL No</th>
                     <th>Joint No</th>
                     <th>Weld Length(MM)</th>
-                    <th>Weld Speed</th>
+                    <th>Weld Speed(MM/Sec)</th>
                     <th>Welding Time(Sec)</th>
                     <th>Set Up Time(Sec)</th>
                     <th>Incoming Inspection Time(Sec)</th>

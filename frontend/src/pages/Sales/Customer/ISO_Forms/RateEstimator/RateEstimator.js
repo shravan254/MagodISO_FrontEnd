@@ -846,15 +846,6 @@ function RateEstimator() {
               />
             </Tab>
 
-            <Tab eventKey="Testing" title="Testing">
-              <Testing
-                formData={formData}
-                setFormData={setFormData}
-                handleInputChange={handleInputChange}
-                handleRowSelect={handleRowSelect}
-              />
-            </Tab>
-
             <Tab eventKey="Risks" title="Risks">
               <Risks
                 formData={formData}
@@ -866,6 +857,15 @@ function RateEstimator() {
 
             <Tab eventKey="QuoteDetails" title="Quote Details">
               <QuoteDetails
+                formData={formData}
+                setFormData={setFormData}
+                handleInputChange={handleInputChange}
+                handleRowSelect={handleRowSelect}
+              />
+            </Tab>
+
+            <Tab eventKey="Testing" title="Testing">
+              <Testing
                 formData={formData}
                 setFormData={setFormData}
                 handleInputChange={handleInputChange}
