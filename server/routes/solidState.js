@@ -237,7 +237,9 @@ solidState.post("/insertParaDetails", async (req, res, next) => {
     speed,
     gasFlow,
     focusPosition,
+    stepOver,
     standOff,
+    layerThk,
     comments,
   } = req.body;
 
@@ -250,10 +252,13 @@ solidState.post("/insertParaDetails", async (req, res, next) => {
   const speedValue = speed !== "" ? speed : null;
   const gasFlowValue = gasFlow !== "" ? gasFlow : null;
   const focusPositionValue = focusPosition !== "" ? focusPosition : null;
+  const stepOverValue = stepOver !== "" ? stepOver : null;
   const standOffValue = standOff !== "" ? standOff : null;
+  const layerThkValue = layerThk !== "" ? layerThk : null;
+
   try {
     misQueryMod(
-      `INSERT INTO magodmis.solid_state_parameters (Ncid, Bead_Dia, Power, Energy, Pulse_Width, Frequency, Pulse_Shape, Speed, Gas_Flow, Focus_Position, Stand_Off, Comments) VALUES (${ncid}, ${beadDiaValue}, ${powerValue}, ${energyValue}, ${pulseWidthValue}, ${frequencyValue}, ${pulseShapeValue}, ${speedValue}, ${gasFlowValue}, ${focusPositionValue}, ${standOffValue}, '${comments}')`,
+      `INSERT INTO magodmis.solid_state_parameters (Ncid, Bead_Dia, Power, Energy, Pulse_Width, Frequency, Pulse_Shape, Speed, Gas_Flow, Focus_Position,Step_Over, Stand_Off, LayerThk, Comments) VALUES (${ncid}, ${beadDiaValue}, ${powerValue}, ${energyValue}, ${pulseWidthValue}, ${frequencyValue}, ${pulseShapeValue}, ${speedValue}, ${gasFlowValue}, ${focusPositionValue}, ${stepOverValue}, ${standOffValue}, ${layerThkValue},'${comments}')`,
       async (err, result) => {
         if (err) {
           logger.error(err);
