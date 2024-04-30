@@ -11,4 +11,6 @@ export const apipoints = {
   deleteSubAssyDetails: `${url}/taskSheet/deleteSubAssyDetails`,
   updateSubAssyDetails: `${url}/taskSheet/updateSubAssyDetails`,
   allTaskData: `${url}/taskSheet/allTaskData`,
+
+  getNcIdData: `${url}/taskSheet/getNcIdData`,
 };

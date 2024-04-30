@@ -1153,4 +1153,16 @@ rateEstimator.post("/updateQuoteDetailsAfterDelete", async (req, res, next) => {
   }
 });
 
+rateEstimator.get("/getQtnID", async (req, res, next) => {
+  try {
+    qtnQueryMod(`SELECT * FROM magodqtn.qtnlist Limit 5000`, (err, data) => {
+      if (err) logger.error(err);
+      // console.log(data);
+      res.send(data);
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = rateEstimator;
