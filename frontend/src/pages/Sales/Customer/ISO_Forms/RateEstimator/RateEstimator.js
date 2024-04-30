@@ -528,6 +528,8 @@ function RateEstimator() {
           quoteDetailsTableData: quote_details.length ? quote_details : [],
 
           labourTime: quote_register.length ? quote_register[0].Labour_Time : 0,
+
+          percentage: quote_register.length ? quote_register[0].Percentage : 0,
           machineTime: quote_register.length
             ? quote_register[0].Machine_Time
             : 0,
