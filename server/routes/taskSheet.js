@@ -559,4 +559,16 @@ taskSheet.get("/getWeldSide", async (req, res, next) => {
   }
 });
 
+taskSheet.get("/getNcIdData", async (req, res, next) => {
+  try {
+    qtnQueryMod(`SELECT * FROM magodmis.ncprograms Limit 5000`, (err, data) => {
+      if (err) logger.error(err);
+      // console.log(data);
+      res.send(data);
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = taskSheet;

@@ -37,4 +37,6 @@ export const apipoints = {
   updateQuoteRegister: `${url}/rateEstimator/updateQuoteRegister`,
   deleteQuoteDetails: `${url}/rateEstimator/deleteQuoteDetails`,
   updateQuoteDetailsAfterDelete: `${url}/rateEstimator/updateQuoteDetailsAfterDelete`,
+
+  getQtnID: `${url}/rateEstimator/getQtnID`,
 };
