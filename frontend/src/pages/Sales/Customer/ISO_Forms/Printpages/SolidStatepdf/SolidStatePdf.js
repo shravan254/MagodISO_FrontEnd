@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   comments: {
     marginLeft: "5px",
     marginTop: "5px",
-    height: "100px",
+    height: "50px",
   },
 
   drawingname: {
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     borderRight: 1,
     borderLeft: 1,
     marginLeft: "10px",
-    height: "230px",
+    height: "150px",
   },
 
   tableDataView2: {

@@ -176,13 +176,14 @@ const styles = StyleSheet.create({
     // borderBottom: 1,
   },
   comments: {
-    height: "280px",
-    width: "600px",
+    height: "150px",
+    width: "569px",
     borderBottom: 1,
     borderRight: 1,
-    marginLeft: "2px",
+    marginLeft: "0px",
     fontSize: "9px",
-    marginTop: "5px",
+    marginTop: "0px",
+    padding: 1,
   },
   quantity: {
     width: "184px",
