@@ -490,8 +490,8 @@ export default function RateEstimatorPdf({ formData }) {
       borderLeft: 1,
       textAlign: "center",
       marginLeft: "30px",
-      height: "18px",
-      padding: 2,
+      height: "12px",
+      padding: 1,
       // textDecoration: "underline",
     },
     NDT: {
@@ -1460,8 +1460,288 @@ export default function RateEstimatorPdf({ formData }) {
         <View style={styles.WeldingDetails}>
           <Text style={styles.globalfontwithboldTitle}>Quote Deatils</Text>
         </View>
-        <View style={styles.row}>
-          {/* <Text style={styles.tableData01}>SL No</Text> */}
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Weld Length(mm)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalWeldLength}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Weld Time(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalWeldTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Setup Time(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalSetupTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Inspection Time(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalInspectionTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Cleaning Time(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalCleaningTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Assembly Time(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalAssemblyTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Part Loading(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalPartLoading}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Part Unloading(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalPartUnloading}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Final Inspection Time(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalFinalInspectionTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Packing Dispatch Time(Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalPackingDispatchTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  SetUp Charges
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalSetupCharges}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Inspection Charges
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalInspectionCharges}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  OutSoucring Charges
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalOutSourcingCharges}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Consumables
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalConsumables}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Material Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalMaterialCost}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Filler Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.totalFillerCost}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        {/* -------------------------------------------------------------- */}
+        {/* <View style={styles.row}>
           <Text style={styles.tableData01}>Parameter</Text>
           <Text style={styles.tableData03}>Total</Text>
         </View>
@@ -1538,7 +1818,7 @@ export default function RateEstimatorPdf({ formData }) {
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Filler Cost</Text>
           <Text style={styles.tableInput03}>{formData.totalFillerCost}</Text>
-        </View>
+        </View> */}
       </Page>
     </Document>
   );
