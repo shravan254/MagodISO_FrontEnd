@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { apipoints } from "../../../../api/isoForms/rateEstimator";
 import Axios from "axios";
+import { toast } from "react-toastify";
 
 function QuotationMain() {
   const [QtnID, setQtnID] = useState("");
@@ -9,6 +10,10 @@ function QuotationMain() {
 
   const navigate = useNavigate();
   const handleOpenClick = () => {
+    if (!QtnID) {
+      toast.error("Select QtnID");
+      return;
+    }
     navigate("/Customer/RateEstimator", {
       state: { QtnID },
     });
