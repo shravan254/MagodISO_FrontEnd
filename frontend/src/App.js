@@ -30,7 +30,7 @@ import JobParameter from "./pages/Sales/Customer/ISO_Forms/JobParameters/JobPara
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" autoClose={2000} />
       <Routes>
         <Route element={<Login />} path="/" />
         <Route path="/home" element={<Home />} />

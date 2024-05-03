@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { apipoints } from "../../../../api/isoForms/taskSheet";
 import Axios from "axios";
+import { toast } from "react-toastify";
 
 function OrdersMain() {
   const [NcId, SetNcId] = useState("");
   const [NcIdData, setNcIdData] = useState([]);
   const navigate = useNavigate();
   const handleOpenClick = () => {
+    if (!NcId) {
+      toast.error("Select Ncid");
+      return;
+    }
     navigate("/Customer/TaskSheet", {
       state: { NcId },
     });

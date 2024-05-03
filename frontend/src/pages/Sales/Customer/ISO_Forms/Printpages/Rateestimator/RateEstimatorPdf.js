@@ -45,76 +45,18 @@ export default function RateEstimatorPdf({ formData }) {
       height: "45px",
       width: "540px",
     },
-    description: {
-      width: "60%",
-    },
-    xyz: {
-      width: "40%",
-    },
+
     tableTitle: {
       marginTop: "20px",
       fontSize: 12,
       fontFamily: "Helvetica-Bold",
       marginBottom: "5px",
     },
-    headerbox: {
-      fontSize: 12,
-      fontFamily: "Helvetica-Bold",
-      marginBottom: "10px",
-      marginLeft: "10px",
-    },
+
     underline: {
       textDecoration: "underline",
     },
-    code: {
-      fontSize: 8,
-      textDecoration: "none",
-    },
-    title2: {
-      marginLeft: "200px",
-    },
-    shiftperiod: {
-      marginLeft: "120px",
-      marginTop: "20px",
-    },
-    boxdata: {
-      border: "1px",
-      padding: "10px",
-      marginTop: "40px",
-      width: "550px",
-      marginLeft: "50px",
-      marginRight: "100px",
-    },
-    tableview: {
-      width: "600px",
-      marginLeft: "5px",
-      height: "730px", // Adjust the height as per your requirement
-      overflow: "hidden",
-    },
-    Headingrow: {
-      flexDirection: "row",
-      alignItems: "center",
-      width: "600px",
-      marginTop: 5,
-      fontWeight: "bold",
-      marginLeft: "5px",
-    },
-    HeadingrowData: {
-      flexDirection: "row",
-      width: "600px",
-      fontWeight: "bold",
-      marginLeft: "5px",
-    },
-    machineHeading: {
-      width: "80%",
-    },
-    operatorHeading: {
-      width: "20%",
-    },
 
-    row: {
-      flexDirection: "column",
-    },
     logo: {
       width: "70px",
       height: "70px",
@@ -126,263 +68,7 @@ export default function RateEstimatorPdf({ formData }) {
       marginLeft: "84px",
       marginTop: "20px",
     },
-    quotationNumview: {
-      marginLeft: "10px",
-      fontSize: 10,
-      width: "80px",
-      textAlign: "right",
-    },
-    quotationNumDataview: {
-      width: "160px",
-      marginLeft: "5px",
-    },
-    quotesize: {
-      fontSize: 10,
-    },
-    quotationNumData: {
-      fontSize: 12,
-    },
-    dateview: {
-      marginTop: "5px",
-      marginLeft: "10px",
-      fontSize: 10,
-      width: "80px",
-      textAlign: "right",
-    },
-    dateData: {
-      width: "160px",
-      marginTop: "4px",
-      marginLeft: "5px",
-    },
-    datesize: {
-      fontSize: 12,
-    },
-    validuptoView: {
-      marginTop: "5px",
-      marginLeft: "10px",
-      fontSize: 10,
-      width: "80px",
-      textAlign: "right",
-    },
-    validuptodataView: {
-      width: "160px",
-      marginTop: "4px",
-      marginLeft: "5px",
-    },
-    validsize: {
-      fontSize: 12,
-    },
-    column: {
-      flexDirection: "row",
-    },
-    subtitle: {
-      marginTop: "10px",
-      marginLeft: "40px",
-      fontSize: 14,
-      fontFamily: "Helvetica-Bold",
-    },
-    subtitle1: {
-      marginTop: "20px",
-      marginLeft: "30px",
-      width: "90%",
-      borderBottom: 1,
-    },
-    addressDisplay: {
-      marginLeft: "30px",
-      width: "40%",
-    },
-    text: {
-      fontSize: 9,
-    },
-    textforsub: {
-      fontSize: 10,
-      paddingTop: "1px",
-      marginLeft: "10px",
-      width: "30%",
-    },
-    reportSection: {
-      marginLeft: "30px",
-      marginTop: "10px",
-      width: "20%",
-    },
-    reportSectiondata: {
-      width: "50%",
-      marginTop: "10px",
-    },
-    reportSection2: {
-      marginLeft: "30px",
-      marginTop: "10px",
-      width: "20%",
-    },
-    reportSection2data: {
-      width: "70%",
-      marginTop: "10px",
-      borderBottom: 1,
-    },
-    attention: {
-      fontSize: 12,
-    },
-    attentiondata: {
-      fontSize: 11,
-      fontFamily: "Helvetica-Bold",
-    },
-    referencedata: {
-      fontSize: 11,
-    },
-    subReportSection: {
-      marginTop: "10px",
-      width: "100%",
-    },
-    text1: {
-      fontSize: 10,
-      textAlign: "center",
-    },
-    section1options1: {
-      marginLeft: "80px",
-      marginTop: "10px",
-      width: "20%",
-    },
-    section1options1data: {
-      marginTop: "10px",
-      width: "30%",
-    },
-    section1options1text: {
-      marginTop: "10px",
-      width: "30%",
-      backgroundColor: "yellow",
-    },
 
-    subsection2texts: {
-      marginTop: "10px",
-      marginLeft: "60px",
-    },
-
-    text2: {
-      fontFamily: "Helvetica-Bold",
-      fontSize: 10,
-    },
-    subsection2: {
-      marginTop: "20px",
-      marginLeft: "55px",
-    },
-    text3without: {
-      fontSize: 10,
-      padding: "3px",
-    },
-    text3with: {
-      fontSize: 10,
-      fontFamily: "Helvetica-Bold",
-      padding: "3px",
-    },
-    sincerely: {
-      marginLeft: "50px",
-      marginTop: "50px",
-    },
-    lasttext: {
-      marginTop: "40px",
-      marginLeft: "50px",
-      textAlign: "left",
-      width: "90%",
-    },
-    qtdetail: {
-      marginTop: "10px",
-      width: "100%",
-      marginLeft: "30px",
-    },
-    tableviewsection: {
-      marginLeft: "30px",
-      width: "530px",
-      textAlign: "center",
-      borderBottom: 1,
-      borderTop: 1,
-      paddingTop: "5px",
-      paddingBottom: "5px",
-    },
-    tableviewsectiondata: {
-      marginLeft: "30px",
-      width: "530px",
-      textAlign: "center",
-      paddingTop: "5px",
-      paddingBottom: "5px",
-    },
-    slno: {
-      width: "30px",
-    },
-    itemname: {
-      width: "200px",
-    },
-    operation: {
-      width: "80px",
-    },
-    quality: {
-      width: "80px",
-    },
-    unitprice: {
-      width: "80px",
-    },
-    total: {
-      width: "100px",
-    },
-    textdata: {
-      fontSize: 10,
-      textAlign: "center",
-    },
-    textdataforchoice: {
-      fontSize: 10,
-      textAlign: "left",
-      paddingLeft: "10px",
-    },
-    taxnameheader: {
-      width: "15%",
-      marginLeft: "120px",
-      marginTop: "15px",
-    },
-    taxheadertext: {
-      fontSize: 10,
-      fontFamily: "Helvetica-Bold",
-      textAlign: "center",
-    },
-    taxamountheader: {
-      width: "15%",
-      marginTop: "15px",
-    },
-    taxpercentheader: {
-      width: "15%",
-      marginTop: "15px",
-    },
-    taxamountheader2: {
-      width: "15%",
-      marginTop: "15px",
-    },
-    taxnamedata: {
-      width: "15%",
-      marginLeft: "120px",
-      paddingTop: 5,
-      paddingBottom: 5,
-    },
-    taxamountdata: {
-      width: "15%",
-      paddingTop: 5,
-      paddingBottom: 5,
-    },
-    taxpercentdata: {
-      width: "15%",
-      paddingTop: 5,
-      paddingBottom: 5,
-    },
-    taxamountdata2: {
-      width: "15%",
-      paddingTop: 5,
-      paddingBottom: 5,
-    },
-    smalltable: {
-      width: "290px",
-      flexDirection: "row",
-      textAlign: "left",
-    },
-    tableContainer1: {
-      width: "330px",
-    },
     column: {
       flexDirection: "column",
     },
@@ -394,10 +80,6 @@ export default function RateEstimatorPdf({ formData }) {
       borderRight: 1,
     },
 
-    sideheadingdataAddress: {
-      // width: "140px",
-      borderRight: 1,
-    },
     sideheadingdata1: {
       width: "140px",
       // borderRight: 1,
@@ -492,6 +174,8 @@ export default function RateEstimatorPdf({ formData }) {
       marginLeft: "30px",
       height: "12px",
       padding: 1,
+      // marginTop: "5px",
+
       // textDecoration: "underline",
     },
     NDT: {
@@ -543,7 +227,7 @@ export default function RateEstimatorPdf({ formData }) {
     testingTableData01: {
       fontSize: "8px",
       fontFamily: "Helvetica-Bold",
-      width: "180px",
+      width: "135px",
       borderRight: 1,
       borderBottom: 1,
       borderLeft: 1,
@@ -554,7 +238,7 @@ export default function RateEstimatorPdf({ formData }) {
     testingTableData02: {
       fontSize: "8px",
       fontFamily: "Helvetica-Bold",
-      width: "180px",
+      width: "135px",
       borderBottom: 1,
       borderRight: 1,
       padding: 1,
@@ -563,7 +247,17 @@ export default function RateEstimatorPdf({ formData }) {
     testingTableData03: {
       fontSize: "8px",
       fontFamily: "Helvetica-Bold",
-      width: "180px",
+      width: "135px",
+      borderBottom: 1,
+      borderRight: 1,
+      padding: 1,
+      textAlign: "center",
+    },
+
+    testingTableData04: {
+      fontSize: "8px",
+      fontFamily: "Helvetica-Bold",
+      width: "135px",
       borderBottom: 1,
       borderRight: 1,
       padding: 1,
@@ -571,7 +265,7 @@ export default function RateEstimatorPdf({ formData }) {
     },
     testingTableInput01: {
       fontSize: "8px",
-      width: "180px",
+      width: "135px",
       borderRight: 1,
       borderBottom: 1,
       borderLeft: 1,
@@ -582,7 +276,7 @@ export default function RateEstimatorPdf({ formData }) {
     },
     testingTableInput02: {
       fontSize: "8px",
-      width: "180px",
+      width: "135px",
       borderRight: 1,
       borderBottom: 1,
       padding: 3,
@@ -591,7 +285,17 @@ export default function RateEstimatorPdf({ formData }) {
     },
     testingTableInput03: {
       fontSize: "8px",
-      width: "180px",
+      width: "135px",
+      borderRight: 1,
+      borderBottom: 1,
+      padding: 3,
+      flexWrap: "wrap",
+      textAlign: "center",
+    },
+
+    testingTableInput04: {
+      fontSize: "8px",
+      width: "135px",
       borderRight: 1,
       borderBottom: 1,
       padding: 3,
@@ -600,11 +304,19 @@ export default function RateEstimatorPdf({ formData }) {
     },
   });
 
+  // const groupedTests = formData.testTableData.reduce((acc, curr) => {
+  //   if (!acc[curr.Test_Type]) {
+  //     acc[curr.Test_Type] = [];
+  //   }
+  //   acc[curr.Test_Type].push(curr);
+  //   return acc;
+  // }, {});
+
   const groupedTests = formData.testTableData.reduce((acc, curr) => {
-    if (!acc[curr.Test_Type]) {
-      acc[curr.Test_Type] = [];
+    if (!acc[curr.Joint_No]) {
+      acc[curr.Joint_No] = [];
     }
-    acc[curr.Test_Type].push(curr);
+    acc[curr.Joint_No].push(curr);
     return acc;
   }, {});
 
@@ -886,7 +598,7 @@ export default function RateEstimatorPdf({ formData }) {
             <View style={styles.row}>
               <View style={styles.sideheadingdata1}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.batchQty}/batch {formData.yearQty} /year
+                  {formData.batchQty}/batch {formData.yearQty}/year
                 </Text>
               </View>
             </View>
@@ -1203,25 +915,27 @@ export default function RateEstimatorPdf({ formData }) {
           <Text style={styles.tableInput01}>Leak</Text>
           <Text style={styles.tableInput03}>{formData}</Text>
         </View> */}
-        {Object.entries(groupedTests).map(([testType, tests]) => (
-          <React.Fragment key={testType}>
+        {Object.entries(groupedTests).map(([jointName, tests]) => (
+          <React.Fragment key={jointName}>
             <View style={styles.NDT}>
               <Text style={[styles.globalfontwithbold, { marginLeft: "5px" }]}>
-                {testType}
+                Joint No: {jointName}
               </Text>
             </View>
             <View style={styles.row}>
-              <Text style={styles.testingTableData01}>Test Name</Text>
-              <Text style={styles.testingTableData02}>Test Details</Text>
-              <Text style={styles.testingTableData03}>Cost</Text>
+              <Text style={styles.testingTableData01}>Test Type</Text>
+              <Text style={styles.testingTableData02}>Test Name</Text>
+              <Text style={styles.testingTableData04}>Test Details</Text>
+              <Text style={styles.testingTableData04}>Cost</Text>
             </View>
             {tests.map((test, index) => (
               <View key={index} style={styles.row}>
-                <Text style={styles.testingTableInput01}>{test.Test_Name}</Text>
-                <Text style={styles.testingTableInput02}>
+                <Text style={styles.testingTableInput01}>{test.Test_Type}</Text>
+                <Text style={styles.testingTableInput02}>{test.Test_Name}</Text>
+                <Text style={styles.testingTableInput03}>
                   {test.Test_Details}
                 </Text>
-                <Text style={styles.testingTableInput03}>{test.Test_Cost}</Text>
+                <Text style={styles.testingTableInput04}>{test.Test_Cost}</Text>
               </View>
             ))}
           </React.Fragment>
@@ -1244,219 +958,7 @@ export default function RateEstimatorPdf({ formData }) {
             <Text style={styles.tableInput03}>{item.Risks}</Text>
           </View>
         ))}
-        <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithboldTitle}>Total</Text>
-        </View>
-        <View style={styles.tableContainer2}>
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Labour Time (Sec)
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.labourTime}
-                </Text>
-              </View>
-            </View>
-          </View>
 
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Machine Time (Sec)
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.machineTime}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.tableContainer2}>
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Out Put Per Hour
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.outPutPerHour}
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Labour Cost
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.labourCost}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.tableContainer2}>
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Machine Cost
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.machineCost}
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Transportation Cost
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.transporationCost}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.tableContainer2}>
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Fixture Charges
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.fixtureCharges}
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Testing Charges
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.testingCharges}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.tableContainer2}>
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Percentage(%)
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.percentage}
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Overhead Charges(%)
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.overheadCharges}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.tableContainer2}>
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Total Price Per Part
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.unitPrice}
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Revised Unit Price
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.revisedUnitPrice}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
         <View style={styles.WeldingDetails}>
           <Text style={styles.globalfontwithboldTitle}>Quote Deatils</Text>
         </View>
@@ -1740,6 +1242,221 @@ export default function RateEstimatorPdf({ formData }) {
             </View>
           </View>
         </View>
+
+        <View style={styles.WeldingDetails}>
+          <Text style={styles.globalfontwithboldTitle}>Total</Text>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Labour Time (Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.labourTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Machine Time (Sec)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.machineTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Out Put Per Hour
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.outPutPerHour}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Labour Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.labourCost}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Machine Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.machineCost}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Transportation Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.transporationCost}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Fixture Charges
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.fixtureCharges}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Testing Charges
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.testingCharges}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Percentage(%)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.percentage}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Overhead Charges(%)
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.overheadCharges}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Total Price Per Part
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.unitPrice}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Revised Unit Price
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.revisedUnitPrice}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
         {/* -------------------------------------------------------------- */}
         {/* <View style={styles.row}>
           <Text style={styles.tableData01}>Parameter</Text>
