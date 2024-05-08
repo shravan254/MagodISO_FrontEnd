@@ -749,10 +749,27 @@ export default function TaskSheetPdf({ formData = { formData } }) {
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
+                {/* <Text
+                  style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
+                >
+                  {formData.anyDeffects === 1
+                    ? "Yes"
+                    : formData.anyDeffects === 0
+                    ? "No"
+                    : formData.anyDeffects === 2
+                    ? "NA"
+                    : ""}
+                </Text> */}
                 <Text
                   style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
                 >
-                  {formData.anyDeffects === 1 ? "Yes" : "No"}
+                  {formData.anyDeffects == 1
+                    ? "Yes"
+                    : formData.anyDeffects == 0
+                    ? "No"
+                    : formData.anyDeffects == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -811,7 +828,14 @@ export default function TaskSheetPdf({ formData = { formData } }) {
                 <Text
                   style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
                 >
-                  {formData.withFiller === 1 ? "Yes" : "No"}
+                  {/* {formData.withFiller === 1 ? "Yes" : "No"} */}
+                  {formData.withFiller == 1
+                    ? "Yes"
+                    : formData.withFiller == 0
+                    ? "No"
+                    : formData.withFiller == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -872,7 +896,14 @@ export default function TaskSheetPdf({ formData = { formData } }) {
                 <Text
                   style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
                 >
-                  {formData.fixtureRequirement === 1 ? "Yes" : "No"}
+                  {/* {formData.fixtureRequirement === 1 ? "Yes" : "No"} */}
+                  {formData.fixtureRequirement == 1
+                    ? "Yes"
+                    : formData.fixtureRequirement == 0
+                    ? "No"
+                    : formData.fixtureRequirement == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -1007,7 +1038,14 @@ export default function TaskSheetPdf({ formData = { formData } }) {
                 <Text
                   style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
                 >
-                  {formData.reweldPermitted === 1 ? "Yes" : "No"}
+                  {/* {formData.reweldPermitted === 1 ? "Yes" : "No"} */}
+                  {formData.reweldPermitted == 1
+                    ? "Yes"
+                    : formData.reweldPermitted == 0
+                    ? "No"
+                    : formData.reweldPermitted == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -1268,7 +1306,14 @@ export default function TaskSheetPdf({ formData = { formData } }) {
                 <Text
                   style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
                 >
-                  {formData.backing === 1 ? "Yes" : "No"}
+                  {/* {formData.backing === 1 ? "Yes" : "No"} */}
+                  {formData.backing == 1
+                    ? "Yes"
+                    : formData.backing == 0
+                    ? "No"
+                    : formData.backing == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -1287,7 +1332,14 @@ export default function TaskSheetPdf({ formData = { formData } }) {
                 <Text
                   style={[styles.globalfontwithoutbold, { paddingLeft: 5 }]}
                 >
-                  {formData.tackWeld === 1 ? "Yes" : "No"}
+                  {/* {formData.tackWeld === 1 ? "Yes" : "No"} */}
+                  {formData.tackWeld == 1
+                    ? "Yes"
+                    : formData.tackWeld == 0
+                    ? "No"
+                    : formData.tackWeld == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
