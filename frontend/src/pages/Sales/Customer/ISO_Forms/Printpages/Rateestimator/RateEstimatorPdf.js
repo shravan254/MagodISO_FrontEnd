@@ -680,15 +680,20 @@ export default function RateEstimatorPdf({ formData }) {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Fixture Requirment
+                  Fixture Requirement
                 </Text>
               </View>
             </View>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {/* {formData.fixtureReq} */}
-                  {formData.fixtureReq === 1 ? "Yes" : "No"}
+                  {formData.fixtureReq == 1
+                    ? "Yes"
+                    : formData.fixtureReq == 0
+                    ? "No"
+                    : formData.fixtureReq == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -752,6 +757,29 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         </View>
         <View style={styles.tableContainer2}>
+          {/* <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Hermatic Joint
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.hermaticJoint == 1
+                    ? "Yes"
+                    : formData.hermaticJoint == 0
+                    ? "No"
+                    : formData.hermaticJoint == 2
+                    ? "NA"
+                    : ""}
+                </Text>
+              </View>
+            </View>
+          </View> */}
           <View style={styles.row}>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
@@ -760,11 +788,17 @@ export default function RateEstimatorPdf({ formData }) {
                 </Text>
               </View>
             </View>
+
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {/* {formData.hermaticJoint} */}
-                  {formData.hermaticJoint === 1 ? "Yes" : "No"}
+                  {formData.hermaticJoint == 1
+                    ? "Yes"
+                    : formData.hermaticJoint == 0
+                    ? "No"
+                    : formData.hermaticJoint == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -799,11 +833,17 @@ export default function RateEstimatorPdf({ formData }) {
                 </Text>
               </View>
             </View>
+
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {/* {formData.drawingAvailable} */}
-                  {formData.drawingAvailable === 1 ? "Yes" : "No"}
+                  {formData.drawingAvailable == 1
+                    ? "Yes"
+                    : formData.drawingAvailable == 0
+                    ? "No"
+                    : formData.drawingAvailable == 2
+                    ? "NA"
+                    : ""}
                 </Text>
               </View>
             </View>
