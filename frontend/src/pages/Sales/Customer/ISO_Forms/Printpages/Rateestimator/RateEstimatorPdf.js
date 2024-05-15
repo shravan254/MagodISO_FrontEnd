@@ -111,6 +111,51 @@ export default function RateEstimatorPdf({ formData }) {
       padding: 1,
       textAlign: "center",
     },
+
+    riskTable1: {
+      fontSize: "8px",
+      fontFamily: "Helvetica-Bold",
+      width: "70px",
+      borderRight: 1,
+      borderBottom: 1,
+      borderLeft: 1,
+      marginLeft: "30px",
+      padding: 1,
+      textAlign: "center",
+    },
+
+    riskTable2: {
+      fontSize: "8px",
+      fontFamily: "Helvetica-Bold",
+      width: "470px",
+      borderBottom: 1,
+      borderRight: 1,
+      padding: 1,
+      textAlign: "center",
+    },
+
+    riskTableInput1: {
+      fontSize: "8px",
+      width: "70px",
+      borderRight: 1,
+      borderBottom: 1,
+      borderLeft: 1,
+      marginLeft: "30px",
+      padding: 3,
+      flexWrap: "wrap",
+      textAlign: "center",
+    },
+
+    riskTableInput2: {
+      fontSize: "8px",
+      width: "470px",
+      borderRight: 1,
+      borderBottom: 1,
+      padding: 3,
+      flexWrap: "wrap",
+      textAlign: "center",
+    },
+
     tableInput01: {
       fontSize: "8px",
       width: "270px",
@@ -122,24 +167,8 @@ export default function RateEstimatorPdf({ formData }) {
       flexWrap: "wrap",
       textAlign: "center",
     },
+
     tableData02: {
-      fontSize: "8px",
-      fontFamily: "Helvetica-Bold",
-      width: "180px",
-      borderRight: 1,
-      borderBottom: 1,
-      padding: 1,
-      textAlign: "center",
-    },
-    tableInput02: {
-      fontSize: "8px",
-      width: "180px",
-      borderRight: 1,
-      borderBottom: 1,
-      padding: 3,
-      flexWrap: "wrap",
-    },
-    tableData03: {
       fontSize: "8px",
       fontFamily: "Helvetica-Bold",
       width: "270px",
@@ -148,7 +177,7 @@ export default function RateEstimatorPdf({ formData }) {
       padding: 1,
       textAlign: "center",
     },
-    tableInput03: {
+    tableInput02: {
       fontSize: "8px",
       width: "270px",
       borderRight: 1,
@@ -521,11 +550,11 @@ export default function RateEstimatorPdf({ formData }) {
         <View style={styles.row}>
           {/* <Text style={styles.tableData01}>SL No</Text> */}
           <Text style={styles.tableData01}>Material</Text>
-          <Text style={styles.tableData03}>Thickness</Text>
+          <Text style={styles.tableData02}>Thickness</Text>
         </View>
         {/* <View style={styles.row}>
           <Text style={styles.tableInput01}>Leak</Text>
-          <Text style={styles.tableInput03}>{formData}</Text>
+          <Text style={styles.tableInput02}>{formData}</Text>
         </View> */}
         {/* <View style={styles.tableContainer2}>
           <View style={styles.row}>
@@ -564,9 +593,8 @@ export default function RateEstimatorPdf({ formData }) {
         </View> */}
         {formData.materialTableData.map((item, index) => (
           <View key={index} style={styles.row}>
-            {/* <Text style={styles.tableInput02}>{index + 1}</Text> */}
             <Text style={styles.tableInput01}>{item.Material}</Text>
-            <Text style={styles.tableInput03}>{item.Thickness}</Text>
+            <Text style={styles.tableInput02}>{item.Thickness}</Text>
           </View>
         ))}
         <View style={styles.tableContainer2}>
@@ -948,12 +976,12 @@ export default function RateEstimatorPdf({ formData }) {
 
         <View style={styles.row}>
           <Text style={styles.tableData01}>Test Name</Text>
-          <Text style={styles.tableData03}>Test Details</Text>
+          <Text style={styles.tableData02}>Test Details</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Leak</Text>
-          <Text style={styles.tableInput03}>{formData}</Text>
+          <Text style={styles.tableInput02}>{formData}</Text>
         </View> */}
         {Object.entries(groupedTests).map(([jointName, tests]) => (
           <React.Fragment key={jointName}>
@@ -985,8 +1013,8 @@ export default function RateEstimatorPdf({ formData }) {
         </View>
         <View style={styles.row}>
           {/* <Text style={styles.tableData01}>SL No</Text> */}
-          <Text style={styles.tableData01}>SL No</Text>
-          <Text style={styles.tableData03}>Risks</Text>
+          <Text style={styles.riskTable1}>SL No</Text>
+          <Text style={styles.riskTable2}>Risks</Text>
         </View>
         {/* <View style={styles.row}>
           <Text style={styles.SlData}>01</Text>
@@ -994,8 +1022,8 @@ export default function RateEstimatorPdf({ formData }) {
         </View> */}
         {formData.riskTableData.map((item, index) => (
           <View key={index} style={styles.row}>
-            <Text style={styles.tableInput01}>{index + 1}</Text>
-            <Text style={styles.tableInput03}>{item.Risks}</Text>
+            <Text style={styles.riskTableInput1}>{index + 1}</Text>
+            <Text style={styles.riskTableInput2}>{item.Risks}</Text>
           </View>
         ))}
 
@@ -1431,7 +1459,7 @@ export default function RateEstimatorPdf({ formData }) {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Percentage(%)
+                  Overhead Percentage(%)
                 </Text>
               </View>
             </View>
@@ -1448,7 +1476,7 @@ export default function RateEstimatorPdf({ formData }) {
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
                 <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Overhead Charges(%)
+                  Overhead Charges
                 </Text>
               </View>
             </View>
@@ -1500,81 +1528,81 @@ export default function RateEstimatorPdf({ formData }) {
         {/* -------------------------------------------------------------- */}
         {/* <View style={styles.row}>
           <Text style={styles.tableData01}>Parameter</Text>
-          <Text style={styles.tableData03}>Total</Text>
+          <Text style={styles.tableData02}>Total</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Weld Length(mm)</Text>
-          <Text style={styles.tableInput03}>{formData.totalWeldLength}</Text>
+          <Text style={styles.tableInput02}>{formData.totalWeldLength}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Weld Time(Sec)</Text>
-          <Text style={styles.tableInput03}>{formData.totalWeldTime}</Text>
+          <Text style={styles.tableInput02}>{formData.totalWeldTime}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Setup Time(Sec)</Text>
-          <Text style={styles.tableInput03}>{formData.totalSetupTime}</Text>
+          <Text style={styles.tableInput02}>{formData.totalSetupTime}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Inspection Time(Sec)</Text>
-          <Text style={styles.tableInput03}>
+          <Text style={styles.tableInput02}>
             {formData.totalInspectionTime}
           </Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Cleaning Time(Sec)</Text>
-          <Text style={styles.tableInput03}>{formData.totalCleaningTime}</Text>
+          <Text style={styles.tableInput02}>{formData.totalCleaningTime}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Assembly Time(Sec)</Text>
-          <Text style={styles.tableInput03}>{formData.totalAssemblyTime}</Text>
+          <Text style={styles.tableInput02}>{formData.totalAssemblyTime}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Part Loading(Sec)</Text>
-          <Text style={styles.tableInput03}>{formData.totalPartLoading}</Text>
+          <Text style={styles.tableInput02}>{formData.totalPartLoading}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Part Unloading(Sec)</Text>
-          <Text style={styles.tableInput03}>{formData.totalPartUnloading}</Text>
+          <Text style={styles.tableInput02}>{formData.totalPartUnloading}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Final Inspection Time(Sec)</Text>
-          <Text style={styles.tableInput03}>
+          <Text style={styles.tableInput02}>
             {formData.totalFinalInspectionTime}
           </Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Packing Dispatch Time(Sec)</Text>
-          <Text style={styles.tableInput03}>
+          <Text style={styles.tableInput02}>
             {formData.totalPackingDispatchTime}
           </Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>SetUp Charges</Text>
-          <Text style={styles.tableInput03}>{formData.totalSetupCharges}</Text>
+          <Text style={styles.tableInput02}>{formData.totalSetupCharges}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Inspection Charges</Text>
-          <Text style={styles.tableInput03}>
+          <Text style={styles.tableInput02}>
             {formData.totalInspectionCharges}
           </Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>OutSoucring Charges</Text>
-          <Text style={styles.tableInput03}>
+          <Text style={styles.tableInput02}>
             {formData.totalOutSourcingCharges}
           </Text>
         </View>{" "}
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Consumables</Text>
-          <Text style={styles.tableInput03}>{formData.totalConsumables}</Text>
+          <Text style={styles.tableInput02}>{formData.totalConsumables}</Text>
         </View>{" "}
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Material Cost</Text>
-          <Text style={styles.tableInput03}>{formData.totalMaterialCost}</Text>
+          <Text style={styles.tableInput02}>{formData.totalMaterialCost}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.tableInput01}>Filler Cost</Text>
-          <Text style={styles.tableInput03}>{formData.totalFillerCost}</Text>
+          <Text style={styles.tableInput02}>{formData.totalFillerCost}</Text>
         </View> */}
       </Page>
     </Document>
