@@ -611,7 +611,14 @@ export default function QuoteDetails({
 
   const calculateUnitPrice = () => {
     const totalUnitPrice =
-      parseFloat(formData.totalCost) + parseFloat(formData.overheadCharges);
+      parseFloat(formData.totalCost) +
+      parseFloat(formData.overheadCharges) +
+      parseFloat(formData.totalSetupCharges) +
+      parseFloat(formData.totalInspectionCharges) +
+      parseFloat(formData.totalOutSourcingCharges) +
+      parseFloat(formData.totalConsumables) +
+      parseFloat(formData.totalMaterialCost) +
+      parseFloat(formData.totalFillerCost);
 
     setFormData((prevData) => ({
       ...prevData,
@@ -1805,11 +1812,129 @@ export default function QuoteDetails({
         </div>
       </div>
 
-      <div className="row mt-1 mb-4">
+      <div className="row mt-1">
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Percentage(%)</label>
+              <label className="form-label">Set Up Charges</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="totalSetupCharges"
+                value={formData.totalSetupCharges}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Inspection Charges</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="totalInspectionCharges"
+                value={formData.totalInspectionCharges}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Out Sourcing Charges</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="totalOutSourcingCharges"
+                value={formData.totalOutSourcingCharges}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Consumables</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="totalConsumables"
+                value={formData.totalConsumables}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+                // disabled={!formData.tabsEnable}
+                disabled
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row mt-1">
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Material Cost</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="totalMaterialCost"
+                value={formData.totalMaterialCost}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+                disabled={!formData.tabsEnable}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Filler Cost</label>
+            </div>
+            <div className="col-8">
+              <input
+                className="input-field"
+                type="number"
+                name="totalFillerCost"
+                value={formData.totalFillerCost}
+                min={0}
+                // onChange={handleInputChange}
+                // onKeyDown={blockInvalidChar}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-md-3 col-sm-6">
+          <div className="d-flex">
+            <div className="col-4">
+              <label className="form-label">Overhead Percentage(%)</label>
             </div>
             <div className="col-8">
               <input
@@ -1830,7 +1955,7 @@ export default function QuoteDetails({
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">
-              <label className="form-label">Overhead Charges(%)</label>
+              <label className="form-label">Overhead Charges</label>
             </div>
             <div className="col-8">
               <input
@@ -1847,6 +1972,9 @@ export default function QuoteDetails({
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="row mt-1 mb-4">
         <div className="col-md-3 col-sm-6">
           <div className="d-flex">
             <div className="col-4">

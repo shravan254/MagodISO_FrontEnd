@@ -1006,6 +1006,7 @@ rateEstimator.post("/updateQuoteRegister", async (req, res, next) => {
             .status(500)
             .send("Error inserting data into testing_details");
         }
+        // console.log("result", result);
 
         res.send(result);
       }
