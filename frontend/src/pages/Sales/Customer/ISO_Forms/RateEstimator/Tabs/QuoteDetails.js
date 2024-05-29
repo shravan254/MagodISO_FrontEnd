@@ -20,6 +20,8 @@ export default function QuoteDetails({
     return total.toFixed(2);
   };
 
+  console.log("formData.revisedUnitPrice", formData.revisedUnitPrice);
+
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
 
@@ -260,7 +262,7 @@ export default function QuoteDetails({
         percentage: 0,
       }));
     } catch (error) {
-      console.error("Error Adding Quote Details", error);
+      // console.error("Error Adding Quote Details", error);
       toast.error("Error Adding Quote Details");
     }
   };
@@ -497,11 +499,11 @@ export default function QuoteDetails({
                 }));
               })
               .catch((error) => {
-                console.error("Error deleting test joint", error);
+                // console.error("Error deleting test joint", error);
               });
           })
           .catch((error) => {
-            console.error("Error updating quote details after delete", error);
+            // console.error("Error updating quote details after delete", error);
             toast.error("Error updating quote details after delete");
           });
 
@@ -514,7 +516,7 @@ export default function QuoteDetails({
       });
       toast.success("Quote Deleted successfully");
     } catch (error) {
-      console.error("Error Deleting Quote", error);
+      // console.error("Error Deleting Quote", error);
       toast.error("Error Deleting Quote");
     }
   };
@@ -558,8 +560,8 @@ export default function QuoteDetails({
     const totalMachineCost =
       formData.machineTime * (formData.perhrMacCost / 3600);
 
-    console.log("totalLabourCost", totalLabourCost);
-    console.log("totalMachineCost", totalMachineCost);
+    // console.log("totalLabourCost", totalLabourCost);
+    // console.log("totalMachineCost", totalMachineCost);
 
     setFormData((prevData) => ({
       ...prevData,
@@ -829,7 +831,7 @@ export default function QuoteDetails({
         throw new Error("Update failed");
       }
     } catch (error) {
-      console.error("Error updating Quote details", error);
+      // console.error("Error updating Quote details", error);
       // toast.error("Error updating Quote details");
     }
   };

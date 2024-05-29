@@ -1009,17 +1009,14 @@ export default function RateEstimatorPdf({ formData }) {
           </React.Fragment>
         ))}
         <View style={styles.WeldingDetails}>
-          <Text style={styles.globalfontwithboldTitle}>Risks Deatils</Text>
+          <Text style={styles.globalfontwithboldTitle}>Risks Details</Text>
         </View>
         <View style={styles.row}>
           {/* <Text style={styles.tableData01}>SL No</Text> */}
           <Text style={styles.riskTable1}>SL No</Text>
           <Text style={styles.riskTable2}>Risks</Text>
         </View>
-        {/* <View style={styles.row}>
-          <Text style={styles.SlData}>01</Text>
-          <Text style={styles.RiskData}>Weld depth 3.8mm</Text>
-        </View> */}
+
         {formData.riskTableData.map((item, index) => (
           <View key={index} style={styles.row}>
             <Text style={styles.riskTableInput1}>{index + 1}</Text>
@@ -1027,9 +1024,146 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         ))}
 
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Any Other Information
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              {/* <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  
+                  {formData.otherInfo}
+                </Text>
+              </View> */}
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.otherInfo}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Conclusion of Review
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {/* {formData.expectedDelivery} */}
+                  {formData.conclusion}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
         <View style={styles.WeldingDetails}>
           <Text style={styles.globalfontwithboldTitle}>Quote Deatils</Text>
         </View>
+
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Machine
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.machine}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Filler
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.filler}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Man Power Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.manPowerCost}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Welding Setting Cost Per Hour
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata1}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.weldingSettingCost}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer2}>
+          <View style={styles.row}>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
+                  Per Hour Machine Cost
+                </Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.sideheadingdata}>
+                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
+                  {formData.perhrMacCost}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
         <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>

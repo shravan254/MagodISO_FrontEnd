@@ -400,6 +400,8 @@ function RateEstimator() {
           quote_details,
         } = response.data;
 
+        console.log("quote_register", quote_register);
+
         setFormData((prevData) => ({
           ...prevData,
           drawingNo: cust_enq_details.length
@@ -617,6 +619,8 @@ function RateEstimator() {
   const handleClose = () => {
     navigate("/customer");
   };
+
+  console.log("revisedUnitPrice", formData.revisedUnitPrice);
 
   return (
     <div>
