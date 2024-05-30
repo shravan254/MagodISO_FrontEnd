@@ -331,6 +331,20 @@ export default function RateEstimatorPdf({ formData }) {
       flexWrap: "wrap",
       textAlign: "center",
     },
+
+    infoReview: {
+      flexDirection: "column",
+      flexWrap: "wrap",
+      marginLeft: "30px",
+      // border: 1,
+      borderLeft: 1,
+      borderRight: 1,
+      borderBottom: 1,
+      height: "70px",
+      width: "540px",
+      fontSize: "9px",
+      // marginTop: "5px",
+    },
   });
 
   // const groupedTests = formData.testTableData.reduce((acc, curr) => {
@@ -1024,7 +1038,7 @@ export default function RateEstimatorPdf({ formData }) {
           </View>
         ))}
 
-        <View style={styles.tableContainer2}>
+        {/* <View style={styles.tableContainer2}>
           <View style={styles.row}>
             <View style={styles.row}>
               <View style={styles.sideheadingdata}>
@@ -1034,38 +1048,47 @@ export default function RateEstimatorPdf({ formData }) {
               </View>
             </View>
             <View style={styles.row}>
-              {/* <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  
+              
+             
+                <Text
+                  style={[
+                    styles.globalfontwithbold1,
+                    { paddingLeft: 5 },
+                    styles.infoReview,
+                  ]}
+                >
                   {formData.otherInfo}
                 </Text>
-              </View> */}
-              <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {formData.otherInfo}
-                </Text>
-              </View>
+              
             </View>
+          </View>
+        </View> */}
+
+        <View style={styles.row}>
+          <View style={styles.infoReview}>
+            <Text
+              style={[
+                styles.globalfontwithbold,
+                { marginLeft: "5px", marginTop: "3px" },
+              ]}
+            >
+              Any Other Information:
+            </Text>
+            <Text style={{ marginLeft: "5px" }}>{formData.otherInfo}</Text>
           </View>
         </View>
 
-        <View style={styles.tableContainer2}>
-          <View style={styles.row}>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata}>
-                <Text style={[styles.globalfontwithbold, { paddingLeft: 5 }]}>
-                  Conclusion of Review
-                </Text>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.sideheadingdata1}>
-                <Text style={[styles.globalfontwithbold1, { paddingLeft: 5 }]}>
-                  {/* {formData.expectedDelivery} */}
-                  {formData.conclusion}
-                </Text>
-              </View>
-            </View>
+        <View style={styles.row}>
+          <View style={styles.infoReview}>
+            <Text
+              style={[
+                styles.globalfontwithbold,
+                { marginLeft: "5px", marginTop: "3px" },
+              ]}
+            >
+              Conclusion of Review:
+            </Text>
+            <Text style={{ marginLeft: "5px" }}>{formData.conclusion}</Text>
           </View>
         </View>
 
