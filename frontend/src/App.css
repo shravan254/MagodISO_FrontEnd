@@ -538,3 +538,9 @@ li.nav-item {
   border: none !important;
   text-align: center;
 }
+
+.hr-line {
+  height: 0px;
+  border: none;
+  border-top: 4px solid #3b84ea;
+}
